@@ -1,6 +1,6 @@
 {
  "updated": "10 August 2026, 13:05 WIB",
- "updated_iso": "2026-08-10T13:05:10.346298",
+ "updated_iso": "2026-08-10T13:05:24.535012",
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
@@ -28,9 +28,9 @@
   },
   {
    "name": "Minyak WTI",
-   "last": 77.94,
-   "chg_1d": -0.31,
-   "chg_3mo": -20.53
+   "last": 77.88,
+   "chg_1d": -0.38,
+   "chg_3mo": -20.59
   }
  ],
  "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
