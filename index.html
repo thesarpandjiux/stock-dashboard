@@ -2,221 +2,455 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
+<meta name="description" content="Dashboard monitoring watchlist saham — teknikal, fundamental, makro.">
 <title>Watchlist Dashboard</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0b0f14;color:#e6edf3;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:16px 14px 48px;max-width:760px;margin:0 auto}
-h1{font-size:20px;margin-bottom:4px}
-.upd{color:#7d8590;font-size:13px;margin-bottom:18px}
-.card{background:#11171f;border:1px solid #222c38;border-radius:12px;padding:14px;margin-bottom:12px}
-.card.err{opacity:.6}
-.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-h2{font-size:17px;letter-spacing:.3px}
+:root{
+  --bg:#0b0f14; --card:#11171f; --line:#232e3c; --txt:#e6edf3;
+  --dim:#9aa7b4; --dimmer:#7d8b99; --acc:#58a6ff;
+  --up:#3fb950; --down:#ff6b63; --amber:#e3b341;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  padding:0 0 64px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:16px 14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+
+header.top{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.94);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{padding:12px 14px}
+h1{font-size:18px;letter-spacing:.2px}
+.upd{color:var(--dim);font-size:12.5px;margin-top:2px}
+.upd b{color:var(--dimmer);font-weight:500}
+
+h2{font-size:15px;margin:26px 0 10px;letter-spacing:.2px}
+h2 .sub{font-weight:400;color:var(--dim);font-size:12.5px}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+
+.ins{display:grid;grid-template-columns:1fr auto;gap:2px 12px;
+  padding:11px 0;border-top:1px solid var(--line)}
+.ins:first-child{border-top:0;padding-top:2px}
+.ins-k{color:var(--dim);font-size:13px}
+.ins-v{font-weight:650;font-size:14.5px;text-align:right}
+.ins-w{grid-column:1/-1;color:var(--dimmer);font-size:12.5px;line-height:1.45}
+.green{color:var(--up)} .red{color:var(--down)}
+.amber{color:var(--amber)} .grey{color:var(--dim)}
+
+ul.todo{list-style:none}
+ul.todo li{position:relative;padding:9px 0 9px 24px;font-size:14px;
+  border-top:1px solid var(--line);line-height:1.5}
+ul.todo li:first-child{border-top:0}
+ul.todo li::before{content:"▫";position:absolute;left:4px;color:var(--acc)}
+
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.ctrl input,.ctrl select{background:var(--card);color:var(--txt);
+  border:1px solid var(--line);border-radius:10px;padding:11px 12px;
+  font:inherit;font-size:14px;min-height:44px}
+.ctrl input{flex:1 1 150px;min-width:0}
+.ctrl select{flex:0 1 auto}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--card);color:var(--dim);border:1px solid var(--line);
+  border-radius:999px;padding:9px 15px;font:inherit;font-size:13px;
+  cursor:pointer;min-height:40px}
+.chip[aria-pressed="true"]{background:#173049;color:#cfe4ff;border-color:#2f5f92}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;margin-bottom:11px}
+.card.err{opacity:.65}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.id{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+h3{font-size:17px;letter-spacing:.4px}
+.kind{font-size:11px;color:var(--dim);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px}
 .price{text-align:right;white-space:nowrap}
-.p{font-size:17px;font-weight:600}
-.chg{font-size:14px;margin-left:6px}
-.wk{font-size:13px;color:#7d8590;margin-top:2px}
-.up{color:#3fb950} .down{color:#f85149}
-.tags{margin:10px 0 6px;display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid}
-.tag.green{color:#3fb950;border-color:#1f4d2b;background:#0e2a16}
-.tag.red{color:#f85149;border-color:#5c2220;background:#2d1210}
-.tag.grey{color:#8b949e;border-color:#2b3542;background:#161c24}
-.whyline{font-size:12px;color:#7d8590;margin-bottom:8px}
-.why{display:block;margin-top:2px}
-.row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid #1b232d;font-size:13px}
-.k{color:#7d8590;flex-shrink:0}
-.v{text-align:right}
-small{color:#6e7681}
-details{margin-top:10px;font-size:13px}
-summary{cursor:pointer;color:#58a6ff;padding:4px 0}
-details ul{margin:6px 0 0 16px;color:#adbac7}
-details li{margin:5px 0}
-.sec{margin:22px 0 10px;font-size:15px;color:#e6edf3}
-.todo{background:#11171f;border:1px solid #222c38;border-radius:12px;padding:14px 14px 14px 30px}
-.todo li{margin:7px 0;font-size:14px}
-.note{color:#7d8590;font-size:12px;font-style:italic;margin-top:8px}
-.foot{margin-top:24px;padding:14px;background:#11171f;border:1px solid #222c38;border-radius:12px;font-size:12px;color:#8b949e}
-.foot b{color:#adbac7}
-.foot a{color:#58a6ff;text-decoration:none}
-.foot li{margin:4px 0 4px 14px}
-.warn{background:#1c1710;border-color:#3d2f14;color:#d29922}
+.p{font-size:17px;font-weight:650;font-variant-numeric:tabular-nums}
+.chg{display:block;font-size:13.5px;margin-top:1px;font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)}
+.spark{display:block;width:100%;height:30px;margin:10px 0 4px;opacity:.85}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.tag{font-size:11.5px;padding:4px 10px;border-radius:999px;border:1px solid;line-height:1.3}
+.tag.green{color:#56d364;border-color:#1f4d2b;background:#0e2a16}
+.tag.red{color:#ff8a82;border-color:#5c2220;background:#2d1210}
+.tag.amber{color:#e3b341;border-color:#4a3a12;background:#241d08}
+.tag.grey{color:#a3b0bd;border-color:#2b3542;background:#161c24}
+
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tile{background:var(--card);padding:9px 11px;display:flex;
+  flex-direction:column;gap:2px;min-width:0}
+.tile .k{color:var(--dim);font-size:11.5px}
+.tile .v{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.has-hint{border-bottom:1px dotted var(--dimmer);cursor:help;align-self:flex-start}
+
+.rsi{margin:12px 0 2px}
+.rsi-track{position:relative;height:5px;border-radius:3px;
+  background:linear-gradient(90deg,#1f4d2b 0%,#1f4d2b 30%,#2b3542 30%,#2b3542 70%,#5c2220 70%,#5c2220 100%)}
+.rsi-dot{position:absolute;top:-3.5px;width:12px;height:12px;border-radius:50%;
+  transform:translateX(-50%);border:2px solid var(--card)}
+.rsi-dot.green{background:var(--up)} .rsi-dot.red{background:var(--down)}
+.rsi-dot.grey{background:#a3b0bd}
+
+.bar{position:relative;height:5px;border-radius:3px;background:#1b232d;margin:14px 0 0}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#1f3b57,#2f6f9f)}
+.bar-dot{position:absolute;top:-3.5px;width:12px;height:12px;border-radius:50%;
+  background:var(--acc);transform:translateX(-50%);border:2px solid var(--card)}
+.bar-lbl{display:flex;justify-content:space-between;color:var(--dim);
+  font-size:11.5px;margin-top:5px;font-variant-numeric:tabular-nums}
+
+.acc{margin-top:12px;border-top:1px solid var(--line);padding-top:4px}
+summary{cursor:pointer;color:var(--acc);font-size:13.5px;padding:9px 0;
+  list-style:none;display:flex;align-items:center;gap:6px;min-height:40px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";transition:transform .15s}
+details[open] summary::before{transform:rotate(90deg)}
+.row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
+  border-top:1px solid var(--line);font-size:13px}
+.row .k{color:var(--dim);flex-shrink:0}
+.row .v{text-align:right;font-variant-numeric:tabular-nums}
+small{color:var(--dimmer)}
+ul.news{list-style:none;padding:4px 0}
+ul.news li{padding:7px 0;border-top:1px solid var(--line);font-size:13px;
+  color:#c3ced9;line-height:1.5}
+.tone{margin-right:4px}
+.muted{color:var(--dim)}
+.tiny{font-size:11.5px;margin-top:8px;line-height:1.5}
+
+.empty{padding:26px 14px;text-align:center;color:var(--dim);font-size:14px}
+.foot{margin-top:12px;font-size:12.5px;color:var(--dim);line-height:1.6}
+.foot b{color:var(--txt)}
+.foot ul{margin:6px 0 0 16px}
+.foot li{margin:5px 0}
+.src{color:var(--dimmer);font-size:11.5px;margin-top:9px;line-height:1.5}
+.totop{position:fixed;right:14px;bottom:16px;z-index:30;
+  background:var(--card);color:var(--txt);border:1px solid var(--line);
+  border-radius:50%;width:46px;height:46px;font-size:17px;cursor:pointer;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.on{opacity:.95;pointer-events:auto}
+@media(max-width:400px){
+  .tiles{grid-template-columns:1fr 1fr}
+  .p{font-size:16px}
+}
 </style>
 </head>
 <body>
-<h1>📊 Watchlist Dashboard</h1>
-<div class="upd">Diperbarui 10 August 2026, 11:59 WIB · otomatis tiap hari 22:00 WIB</div>
 
-<div class="card">
-  <h2>🌍 Kondisi pasar</h2>
-  <div class="row"><span class="k">VIX (indeks ketakutan)</span><span class="v">14.9 <b class="down">-1.65%</b> <small>3bln -12.76%</small></span></div><div class="row"><span class="k">US 10Y yield</span><span class="v">4.66 <b class="down">-0.21%</b> <small>3bln +6.1%</small></span></div><div class="row"><span class="k">Dollar Index</span><span class="v">99.7 <b class="up">+0.1%</b> <small>3bln +1.8%</small></span></div><div class="row"><span class="k">S&amp;P 500</span><span class="v">7757.64 <b class="up">+0.62%</b> <small>3bln +4.85%</small></span></div><div class="row"><span class="k">Minyak WTI</span><span class="v">78.58 <b class="up">+0.51%</b> <small>3bln -19.87%</small></span></div>
-  <div class="note">Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.</div>
-</div>
+<header class="top">
+  <div class="wrap">
+    <h1>📊 Watchlist Dashboard</h1>
+    <div class="upd">Diperbarui <b>10 August 2026, 12:58 WIB</b> · otomatis tiap hari 22:00 WIB</div>
+  </div>
+</header>
 
-<div class="card">
-  <div class="head">
-    <h2>NVDA</h2>
+<main class="wrap">
+
+  <h2>Ringkasan pasar</h2>
+  <section class="panel"><div class="ins"><span class="ins-k">Risiko pasar</span><span class="ins-v green">Rendah</span><span class="ins-w">VIX 14.9 — pasar tenang. Justru saat begini orang lupa risiko.</span></div><div class="ins"><span class="ins-k">Momentum terbaik</span><span class="ins-v green">NVDA</span><span class="ins-w">+11.56% dalam sepekan · RSI 65.6</span></div><div class="ins"><span class="ins-k">Paling tertekan</span><span class="ins-v amber">MELI</span><span class="ins-w">-27.49% dari puncak 52 minggu — cek penyebabnya</span></div><div class="ins"><span class="ins-k">Fokus DCA</span><span class="ins-v grey">1 emiten perlu dicek</span><span class="ins-w">Beli tetap sesuai jadwal. Riset ini untuk paham, bukan untuk timing.</span></div></section>
+
+  <h2>✅ Yang perlu kamu lakukan</h2>
+  <section class="panel"><ul class="todo"><li>Baca alasan MELI turun -27.49% dari high — masalah sementara atau thesis rusak?</li><li><b>Beli sesuai jadwal DCA.</b> Dashboard ini tidak mengubah tanggal atau jumlah pembelian.</li></ul></section>
+
+  <h2>🌍 Kondisi pasar <span class="sub">— konteks, bukan sinyal</span></h2>
+  <section class="panel">
+    <div class="row"><span class="k">VIX (indeks ketakutan)</span><span class="v">14.9 <b class="down">-1.65%</b><small> · 3 bln -12.76%</small></span></div><div class="row"><span class="k">US 10Y yield</span><span class="v">4.66 <b class="down">-0.21%</b><small> · 3 bln +6.1%</small></span></div><div class="row"><span class="k">Dollar Index</span><span class="v">99.7 <b class="up">+0.1%</b><small> · 3 bln +1.8%</small></span></div><div class="row"><span class="k">S&amp;P 500</span><span class="v">7,757.64 <b class="up">+0.62%</b><small> · 3 bln +4.85%</small></span></div><div class="row"><span class="k">Minyak WTI</span><span class="v">78.31 <b class="up">+0.17%</b><small> · 3 bln -20.15%</small></span></div>
+    <p class="muted tiny">Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.</p>
+    <p class="src">Sumber: Yahoo Finance · perubahan harian &amp; 3 bulan</p>
+  </section>
+
+  <h2>Watchlist <span class="sub">— 9 emiten</span></h2>
+
+  <div class="ctrl">
+    <label class="sr" for="q">Cari ticker</label>
+    <input id="q" type="search" placeholder="Cari ticker…" autocomplete="off">
+    <label class="sr" for="sort">Urutkan</label>
+    <select id="sort">
+      <option value="none">Urutan default</option>
+      <option value="mom">Momentum terbaik</option>
+      <option value="val">Valuasi termurah (PEG)</option>
+      <option value="risk">Risiko teknikal tertinggi</option>
+    </select>
+  </div>
+
+  <div class="chips" role="group" aria-label="Filter jenis">
+    <button class="chip" data-f="all" aria-pressed="true">Semua</button>
+    <button class="chip" data-f="Saham" aria-pressed="false">Saham</button>
+    <button class="chip" data-f="ETF" aria-pressed="false">ETF</button>
+    <button class="chip" data-f="green" aria-pressed="false">Tertekan</button>
+    <button class="chip" data-f="red" aria-pressed="false">Extended</button>
+  </div>
+
+  <div id="list"><article class="card" data-ticker="NVDA" data-kind="Saham"
+  data-cond="grey" data-mom="11.56" data-val="0.62" data-risk="0">
+  <header class="head">
+    <div class="id">
+      <h3>NVDA</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
       <span class="p">$223.96</span>
-      <span class="chg up">▲ +2.27%</span>
+      <span class="chg up">▲ +2.27%
+        <span class="sr">naik hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+11.56%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag green">💪 Kuat</span>
-  </div>
-  <div class="whyline"> <span class="why">ROE 114% kuat, margin operasi 66%, utang/ekuitas 7% rendah, laba tumbuh 214%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 65.6 · MA50 +8.69% · MA200 +15.56%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -4.89% · low +35.75%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 17.4 · rev +85% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$303 (+35.22%, n=58)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.62 (murah relatif pertumbuhan) · EV/EBITDA 32.5 · P/B 27.8 · beta 2.21 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — cenderung negatif (2/4 headline)</summary><ul><li>▫️ How AI agents can power the S&amp;P 500 higher</li><li>🔺 &#x27;Very little to like&#x27;: Wall Street assesses surprise July jobs report as stocks jump</li><li>🔻 Dow Jones Futures Fall After Market Ramps Up; Cisco, Lumentum Earnings Ahead</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>AVGO</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,13.7 1.8,11.3 3.6,10.6 5.4,7.7 7.2,2.0 9.0,8.0 10.8,9.7 12.6,10.6 14.5,9.0 16.3,11.3 18.1,13.7 19.9,13.9 21.7,15.2 23.5,14.3 25.3,16.1 27.1,8.5 28.9,9.4 30.7,14.0 32.5,11.6 34.3,19.4 36.1,17.3 37.9,17.6 39.7,22.0 41.5,19.5 43.4,19.3 45.2,15.2 47.0,18.0 48.8,19.6 50.6,16.2 52.4,17.3 54.2,22.3 56.0,22.9 57.8,24.7 59.6,26.6 61.4,25.2 63.2,22.2 65.0,23.7 66.8,25.2 68.6,24.8 70.5,24.0 72.3,19.9 74.1,20.7 75.9,16.0 77.7,20.3 79.5,15.5 81.3,15.1 83.1,18.1 84.9,20.7 86.7,20.4 88.5,18.1 90.3,15.4 92.1,17.3 93.9,18.4 95.7,24.3 97.5,24.0 99.4,28.0 101.2,25.1 103.0,21.9 104.8,18.5 106.6,15.5 108.4,11.3 110.2,11.4 112.0,8.6" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag green">Neraca: 💪 Kuat</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+11.56%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">65.6</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">17.4</span></div><div class="tile"><span class="k has-hint" title="Konsensus $303 dari 58 analis. Sering optimis.">Target analis</span><span class="v up">+35.22%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">0.62</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">114%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 65.6 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:66%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 84 persen dari rentang 52 minggu"><div class="bar-fill" style="width:83.7%"></div><div class="bar-dot" style="left:83.7%"></div></div><div class="bar-lbl"><span>$165</span><span>84% dari rentang</span><span>$235</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.62 (murah relatif pertumbuhan) · EV/EBITDA 32.5 · P/B 27.8 · beta 2.21 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+85% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">7%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$46.34 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +8.69% · MA200 +15.56%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 114% kuat, margin operasi 66%, utang/ekuitas 7% rendah, laba tumbuh 214%</span></div></details>
+  <details class="acc"><summary>Berita — cenderung positif (1/4 headline)</summary><ul class="news"><li><span class="tone">▫️</span> How AI agents can power the S&amp;P 500 higher</li><li><span class="tone">🔺</span> &#x27;Very little to like&#x27;: Wall Street assesses surprise July jobs report as stocks jump</li><li><span class="tone">▫️</span> Iran Tensions Highlight Defense Supply Gaps Poised to Lift 2 Stocks</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="AVGO" data-kind="Saham"
+  data-cond="red" data-mom="9.88" data-val="0.48" data-risk="-2">
+  <header class="head">
+    <div class="id">
+      <h3>AVGO</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
       <span class="p">$427.76</span>
-      <span class="chg up">▲ +1.71%</span>
+      <span class="chg up">▲ +1.71%
+        <span class="sr">naik hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+9.88%</b></div>
-  <div class="tags">
-    <span class="tag red">🔴 Extended (panas secara teknikal)</span><span class="tag green">💪 Kuat</span>
-  </div>
-  <div class="whyline"> <span class="why">RSI 73.6 overbought</span> <span class="why">ROE 37% kuat, margin operasi 49%, laba tumbuh 85%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 73.6 · MA50 +8.34% · MA200 +16.69%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -11.03% · low +48.79%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 21.9 · rev +48% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$528 (+23.41%, n=45)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.48 (murah relatif pertumbuhan) · EV/EBITDA 49.4 · P/B 23.2 · beta 1.47 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — cenderung positif (2/4 headline)</summary><ul><li>▫️ A $10,000 Investment in Taiwan Semiconductor Today Will Be Worth This Much by 2028</li><li>🔺 Marvell (MRVL) vs. AVGO and NVDA: Can AI Interconnect Growth Deliver the Earnings Its Prem</li><li>🔺 Top Semiconductor Stock Outpacing Nvidia With a 36% Gain Over 6 Months</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>AMD</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,13.1 1.8,13.5 3.6,15.4 5.4,16.0 7.2,11.0 9.0,14.2 10.8,15.1 12.6,17.2 14.5,15.8 16.3,16.5 18.1,16.5 19.9,14.8 21.7,14.9 23.5,13.9 25.3,9.5 27.1,6.7 28.9,2.0 30.7,2.5 32.5,15.5 34.3,22.7 36.1,20.3 37.9,21.3 39.7,25.6 41.5,22.7 43.4,23.5 45.2,20.9 47.0,24.6 48.8,21.1 50.6,17.1 52.4,21.2 54.2,23.7 56.0,23.3 57.8,24.0 59.6,27.0 61.4,25.4 63.2,24.3 65.0,26.1 66.8,28.0 68.6,25.1 70.5,25.8 72.3,21.9 74.1,19.2 75.9,19.5 77.7,22.9 79.5,21.8 81.3,20.7 83.1,25.0 84.9,25.8 86.7,24.2 88.5,22.4 90.3,20.1 92.1,21.1 93.9,23.4 95.7,23.1 97.5,23.6 99.4,25.9 101.2,22.1 103.0,21.8 104.8,21.1 106.6,15.5 108.4,15.5 110.2,15.0 112.0,13.5" fill="none" stroke="#f85149" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag red">🔴 Extended (panas secara teknikal)</span><span class="tag green">Neraca: 💪 Kuat</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+9.88%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">73.6</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">21.9</span></div><div class="tile"><span class="k has-hint" title="Konsensus $528 dari 45 analis. Sering optimis.">Target analis</span><span class="v up">+23.41%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">0.48</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">37%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 73.6 dari 100"><div class="rsi-track"><div class="rsi-dot red" style="left:74%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 73 persen dari rentang 52 minggu"><div class="bar-fill" style="width:72.6%"></div><div class="bar-dot" style="left:72.6%"></div></div><div class="bar-lbl"><span>$287</span><span>73% dari rentang</span><span>$481</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.48 (murah relatif pertumbuhan) · EV/EBITDA 49.4 · P/B 23.2 · beta 1.47 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+48% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">74%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$27.21 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +8.34% · MA200 +16.69%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 37% kuat, margin operasi 49%, laba tumbuh 85%</span></div><div class="row"><span class="k">Kenapa label ini</span><span class="v">RSI 73.6 overbought</span></div></details>
+  <details class="acc"><summary>Berita — cenderung positif (2/4 headline)</summary><ul class="news"><li><span class="tone">▫️</span> A $10,000 Investment in Taiwan Semiconductor Today Will Be Worth This Much by 2028</li><li><span class="tone">🔺</span> Marvell (MRVL) vs. AVGO and NVDA: Can AI Interconnect Growth Deliver the Earnings Its Premium Valuat</li><li><span class="tone">🔺</span> Top Semiconductor Stock Outpacing Nvidia With a 36% Gain Over 6 Months</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="AMD" data-kind="Saham"
+  data-cond="grey" data-mom="1.51" data-val="1.04" data-risk="1">
+  <header class="head">
+    <div class="id">
+      <h3>AMD</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
       <span class="p">$483.36</span>
-      <span class="chg down">▼ -1.21%</span>
+      <span class="chg down">▼ -1.21%
+        <span class="sr">turun hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+1.51%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag grey">😐 Campuran</span>
-  </div>
-  <div class="whyline"> <span class="why">-5.98% di bawah MA50</span> <span class="why">utang/ekuitas 6% rendah, laba tumbuh 160%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 46.9 · MA50 -5.98% · MA200 +51.86%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -16.79% · low +219.81%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 31.3 · rev +50% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$613 (+26.89%, n=46)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.04 (wajar) · EV/EBITDA 81.6 · P/B 11.7 · beta 2.49 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — netral/campuran</summary><ul><li>▫️ US Export Control Meant to Cripple China’s AI. But They Created Its Most Valuable Company</li><li>▫️ 5-star analyst resets AMD stock price target</li><li>▫️ Core Scientific (CORZ) Shareholders Rejected a $9B Sale. Does the AMD Deal Vindicate Them?</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>AMZN</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,21.6 1.8,21.0 3.6,22.7 5.4,23.1 7.2,22.4 9.0,26.4 10.8,26.9 12.6,28.0 14.5,22.8 16.3,22.5 18.1,19.7 19.9,14.0 21.7,15.3 23.5,11.8 25.3,12.1 27.1,13.0 28.9,11.3 30.7,8.0 32.5,11.0 34.3,19.8 36.1,16.1 37.9,18.4 39.7,22.0 41.5,16.4 43.4,12.8 45.2,7.2 47.0,13.5 48.8,12.7 50.6,8.8 52.4,6.6 54.2,11.5 56.0,11.5 57.8,9.5 59.6,11.2 61.4,8.5 63.2,2.0 65.0,8.2 66.8,11.8 68.6,6.5 70.5,12.1 72.3,11.9 74.1,7.3 75.9,5.6 77.7,9.2 79.5,7.1 81.3,10.1 83.1,14.5 84.9,15.3 86.7,14.1 88.5,7.7 90.3,6.5 92.1,8.4 93.9,11.2 95.7,15.4 97.5,21.7 99.4,25.6 101.2,16.9 103.0,18.3 104.8,17.0 106.6,11.7 108.4,17.4 110.2,16.3 112.0,17.2" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag grey">Neraca: 😐 Campuran</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+1.51%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">46.9</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">31.3</span></div><div class="tile"><span class="k has-hint" title="Konsensus $613 dari 46 analis. Sering optimis.">Target analis</span><span class="v up">+26.89%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">1.04</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">10%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 46.9 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:47%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 77 persen dari rentang 52 minggu"><div class="bar-fill" style="width:77.3%"></div><div class="bar-dot" style="left:77.3%"></div></div><div class="bar-lbl"><span>$151</span><span>77% dari rentang</span><span>$581</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.04 (wajar) · EV/EBITDA 81.6 · P/B 11.7 · beta 2.49 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+50% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">6%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$8.84 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 -5.98% · MA200 +51.86%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">utang/ekuitas 6% rendah, laba tumbuh 160%</span></div><div class="row"><span class="k">Kenapa label ini</span><span class="v">-5.98% di bawah MA50</span></div></details>
+  <details class="acc"><summary>Berita — netral/campuran</summary><ul class="news"><li><span class="tone">▫️</span> Nvidia, Eli Lilly, and Disney Show It’s Time to Back the Top Dogs</li><li><span class="tone">▫️</span> US Export Control Meant to Cripple China’s AI. But They Created Its Most Valuable Company</li><li><span class="tone">▫️</span> 5-star analyst resets AMD stock price target</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="AMZN" data-kind="Saham"
+  data-cond="grey" data-mom="1.07" data-val="1.46" data-risk="-1">
+  <header class="head">
+    <div class="id">
+      <h3>AMZN</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
       <span class="p">$274.48</span>
-      <span class="chg up">▲ +0.82%</span>
+      <span class="chg up">▲ +0.82%
+        <span class="sr">naik hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+1.07%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag green">💪 Kuat</span>
-  </div>
-  <div class="whyline"> <span class="why">+10.9% di atas MA50</span> <span class="why">ROE 31% kuat, FCF cuma 2% dari kas operasi (capex berat), utang/ekuitas 46% rendah, laba tumbuh 242%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 62.9 · MA50 +10.9% · MA200 +16.04%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -3.36% · low +38.08%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 26.6 · rev +20% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$325 (+18.38%, n=59)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.46 (wajar) · EV/EBITDA 18.3 · P/B 5.4 · beta 1.45 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — cenderung negatif (1/4 headline)</summary><ul><li>🔻 Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Pa</li><li>▫️ Airbnb vs. McDonald&#x27;s: Which Consumer Stock Is a Better Buy in 2026?</li><li>▫️ Meet the High-Yield Dividend Stock Bill Ackman Has Owned for Over a Decade. Here&#x27;s Why It&#x27;</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>GOOGL</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,7.1 1.8,8.8 3.6,10.2 5.4,8.3 7.2,9.6 9.0,11.0 10.8,10.7 12.6,13.2 14.5,10.6 16.3,9.1 18.1,10.0 19.9,10.5 21.7,7.5 23.5,6.5 25.3,8.1 27.1,12.3 28.9,14.5 30.7,17.4 32.5,15.7 34.3,19.2 36.1,19.6 37.9,20.1 39.7,22.9 41.5,21.3 43.4,22.6 45.2,19.2 47.0,19.2 48.8,23.1 50.6,20.0 52.4,25.2 54.2,24.6 56.0,24.5 57.8,27.8 59.6,25.3 61.4,21.9 63.2,22.7 65.0,21.2 66.8,20.7 68.6,20.1 70.5,19.2 72.3,20.3 74.1,18.8 75.9,19.5 77.7,18.6 79.5,18.6 81.3,15.2 83.1,17.5 84.9,18.7 86.7,17.4 88.5,18.5 90.3,19.8 92.1,24.8 93.9,25.5 95.7,25.9 97.5,26.1 99.4,28.0 101.2,24.0 103.0,7.6 104.8,2.0 106.6,5.0 108.4,7.2 110.2,7.3 112.0,6.3" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag green">Neraca: 💪 Kuat</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+1.07%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">62.9</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">26.6</span></div><div class="tile"><span class="k has-hint" title="Konsensus $325 dari 59 analis. Sering optimis.">Target analis</span><span class="v up">+18.38%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">1.46</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">31%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 62.9 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:63%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 89 persen dari rentang 52 minggu"><div class="bar-fill" style="width:88.8%"></div><div class="bar-dot" style="left:88.8%"></div></div><div class="bar-lbl"><span>$199</span><span>89% dari rentang</span><span>$284</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.46 (wajar) · EV/EBITDA 18.3 · P/B 5.4 · beta 1.45 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+20% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">46%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$3.22 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +10.9% · MA200 +16.04%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 31% kuat, FCF cuma 2% dari kas operasi (capex berat), utang/ekuitas 46% rendah, laba tumbuh 242%</span></div><div class="row"><span class="k">Kenapa label ini</span><span class="v">+10.9% di atas MA50</span></div></details>
+  <details class="acc"><summary>Berita — cenderung negatif (1/4 headline)</summary><ul class="news"><li><span class="tone">🔻</span> Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Patients</li><li><span class="tone">▫️</span> Airbnb vs. McDonald&#x27;s: Which Consumer Stock Is a Better Buy in 2026?</li><li><span class="tone">▫️</span> Meet the High-Yield Dividend Stock Bill Ackman Has Owned for Over a Decade. Here&#x27;s Why It&#x27;s a Great </li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="GOOGL" data-kind="Saham"
+  data-cond="grey" data-mom="-0.51" data-val="0.96" data-risk="0">
+  <header class="head">
+    <div class="id">
+      <h3>GOOGL</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
-      <span class="p">$354.3</span>
-      <span class="chg down">▼ -0.96%</span>
+      <span class="p">$354.30</span>
+      <span class="chg down">▼ -0.96%
+        <span class="sr">turun hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="down">-0.51%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag green">💪 Kuat</span>
-  </div>
-  <div class="whyline"> <span class="why">ROE 49% kuat, margin operasi 34%, FCF cuma 12% dari kas operasi (capex berat), utang/ekuitas 19% rendah, laba tumbuh 294%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 50.9 · MA50 -0.61% · MA200 +7.75%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -11.95% · low +78.26%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 24.0 · rev +24% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$428 (+20.81%, n=55)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.96 (murah relatif pertumbuhan) · EV/EBITDA 24.4 · P/B 7.0 · beta 1.24 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — netral/campuran</summary><ul><li>▫️ Starlink &#x27;Unbelievable Juggernaut Cash Machine,&#x27; Says VC David Friedberg; SpaceX CEO Elon </li><li>▫️ Why Is Berkshire Hathaway (BRK.B) Deploying Cash More Aggressively Under Greg Abel?</li><li>▫️ Tencent AI Spending Key After Magnificent 7 Rout</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>MELI</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,2.6 1.8,6.3 3.6,6.7 5.4,2.0 7.2,2.5 9.0,3.8 10.8,3.7 12.6,6.6 14.5,6.2 16.3,6.6 18.1,8.0 19.9,6.2 21.7,6.2 23.5,5.8 25.3,8.8 27.1,10.1 28.9,14.5 30.7,15.4 32.5,11.3 34.3,12.5 36.1,14.0 37.9,13.7 39.7,16.1 41.5,15.7 43.4,15.1 45.2,12.1 47.0,10.9 48.8,13.8 50.6,12.5 52.4,18.2 54.2,19.3 56.0,19.5 57.8,20.0 59.6,22.0 61.4,17.0 63.2,15.8 65.0,14.6 66.8,15.0 68.6,13.0 70.5,12.9 72.3,14.4 74.1,15.4 75.9,15.9 77.7,17.3 79.5,15.2 81.3,11.7 83.1,16.7 84.9,19.1 86.7,17.5 88.5,19.0 90.3,20.5 92.1,28.0 93.9,27.4 95.7,25.3 97.5,23.1 99.4,22.2 101.2,23.1 103.0,16.2 104.8,10.9 106.6,9.6 108.4,14.3 110.2,15.7 112.0,16.8" fill="none" stroke="#f85149" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag green">Neraca: 💪 Kuat</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v down">-0.51%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">50.9</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">24.0</span></div><div class="tile"><span class="k has-hint" title="Konsensus $428 dari 55 analis. Sering optimis.">Target analis</span><span class="v up">+20.81%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">0.96</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">49%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 50.9 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:51%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 76 persen dari rentang 52 minggu"><div class="bar-fill" style="width:76.4%"></div><div class="bar-dot" style="left:76.4%"></div></div><div class="bar-lbl"><span>$199</span><span>76% dari rentang</span><span>$402</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 0.96 (murah relatif pertumbuhan) · EV/EBITDA 24.4 · P/B 7.0 · beta 1.24 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+24% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">19%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$22.67 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 -0.61% · MA200 +7.75%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 49% kuat, margin operasi 34%, FCF cuma 12% dari kas operasi (capex berat), utang/ekuitas 19% rendah, laba tumbuh 294%</span></div></details>
+  <details class="acc"><summary>Berita — netral/campuran</summary><ul class="news"><li><span class="tone">▫️</span> Apple’s Foldable Phone, Whoop-Like Band, CXMT Memory Tests Buzz Keep Traders Hooked</li><li><span class="tone">▫️</span> Starlink &#x27;Unbelievable Juggernaut Cash Machine,&#x27; Says VC David Friedberg; SpaceX CEO Elon Musk Respo</li><li><span class="tone">▫️</span> Why Is Berkshire Hathaway (BRK.B) Deploying Cash More Aggressively Under Greg Abel?</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="MELI" data-kind="Saham"
+  data-cond="green" data-mom="-3.05" data-val="1.12" data-risk="2">
+  <header class="head">
+    <div class="id">
+      <h3>MELI</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
-      <span class="p">$1820.69</span>
-      <span class="chg down">▼ -0.51%</span>
+      <span class="p">$1,820.69</span>
+      <span class="chg down">▼ -0.51%
+        <span class="sr">turun hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="down">-3.05%</b></div>
-  <div class="tags">
-    <span class="tag green">🟢 Tertekan (murah secara teknikal)</span><span class="tag grey">😐 Campuran</span>
-  </div>
-  <div class="whyline"> <span class="why">-27.49% dari 52w high</span> <span class="why">ROE 28% kuat, FCF cuma 3% dari kas operasi (capex berat), utang/ekuitas 169% tinggi, laba turun -11%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 48.0 · MA50 +4.17% · MA200 -3.53%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -27.49% · low +17.71%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 31.6 · rev +50% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$2234 (+22.68%, n=24)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.12 (wajar) · EV/EBITDA 25.6 · P/B 11.8 · beta 1.31 (lebih liar dari pasar)</span></div>
-  <details><summary>Berita — cenderung positif (1/4 headline)</summary><ul><li>▫️ MercadoLibre (MELI) Stock Looks Reasonable On Cash Flow But Rich On Earnings</li><li>🔺 Why MercadoLibre Stock Jumped 11% in July</li><li>▫️ Down 29%, Is MercadoLibre Stock a Better Buy Than SpaceX and the &quot;Magnificent Seven&quot; Stock</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>LLY</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,22.1 1.8,27.3 3.6,25.8 5.4,26.9 7.2,23.8 9.0,28.0 10.8,25.3 12.6,24.7 14.5,20.8 16.3,18.9 18.1,19.9 19.9,21.0 21.7,17.7 23.5,17.7 25.3,17.7 27.1,15.3 28.9,19.3 30.7,21.7 32.5,21.9 34.3,23.8 36.1,23.5 37.9,21.5 39.7,25.1 41.5,23.6 43.4,25.0 45.2,21.1 47.0,19.2 48.8,22.1 50.6,21.9 52.4,25.0 54.2,25.5 56.0,20.2 57.8,23.0 59.6,19.1 61.4,18.6 63.2,17.6 65.0,14.5 66.8,13.0 68.6,10.1 70.5,9.5 72.3,9.8 74.1,9.9 75.9,6.9 77.7,5.8 79.5,5.4 81.3,7.5 83.1,6.5 84.9,9.5 86.7,8.2 88.5,8.9 90.3,10.5 92.1,10.6 93.9,10.4 95.7,9.1 97.5,6.2 99.4,6.1 101.2,4.5 103.0,5.1 104.8,3.6 106.6,4.4 108.4,2.0 110.2,8.4 112.0,9.0" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag green">🟢 Tertekan (murah secara teknikal)</span><span class="tag grey">Neraca: 😐 Campuran</span><span class="tag amber">Perlu dicek</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v down">-3.05%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">48.0</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">31.7</span></div><div class="tile"><span class="k has-hint" title="Konsensus $2234 dari 24 analis. Sering optimis.">Target analis</span><span class="v up">+22.68%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">1.12</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">28%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 48.0 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:48%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 28 persen dari rentang 52 minggu"><div class="bar-fill" style="width:28.4%"></div><div class="bar-dot" style="left:28.4%"></div></div><div class="bar-lbl"><span>$1,547</span><span>28% dari rentang</span><span>$2,511</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.12 (wajar) · EV/EBITDA 25.6 · P/B 11.8 · beta 1.31 (lebih liar dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+50% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">169%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$0.35 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +4.17% · MA200 -3.53%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 28% kuat, FCF cuma 3% dari kas operasi (capex berat), utang/ekuitas 169% tinggi, laba turun -11%</span></div><div class="row"><span class="k">Kenapa label ini</span><span class="v">-27.49% dari 52w high</span></div></details>
+  <details class="acc"><summary>Berita — cenderung positif (1/4 headline)</summary><ul class="news"><li><span class="tone">▫️</span> MercadoLibre (MELI) Stock Looks Reasonable On Cash Flow But Rich On Earnings</li><li><span class="tone">🔺</span> Why MercadoLibre Stock Jumped 11% in July</li><li><span class="tone">▫️</span> Down 29%, Is MercadoLibre Stock a Better Buy Than SpaceX and the &quot;Magnificent Seven&quot; Stocks in Augus</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="LLY" data-kind="Saham"
+  data-cond="grey" data-mom="3.21" data-val="1.49" data-risk="0">
+  <header class="head">
+    <div class="id">
+      <h3>LLY</h3>
+      <span class="kind">Saham</span>
+    </div>
     <div class="price">
-      <span class="p">$1185.71</span>
-      <span class="chg down">▼ -0.52%</span>
+      <span class="p">$1,185.71</span>
+      <span class="chg down">▼ -0.52%
+        <span class="sr">turun hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+3.21%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag grey">😐 Campuran</span>
-  </div>
-  <div class="whyline"> <span class="why">ROE 102% kuat, margin operasi 54%, utang/ekuitas 162% tinggi, laba tumbuh 26%</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 56.8 · MA50 +2.43% · MA200 +14.96%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -4.03% · low +90.86%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 25.5 · rev +48% YoY</span></div><div class="row"><span class="k">Target analis</span><span class="v">$1293 (+9.01%, n=27)</span></div><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.49 (wajar) · EV/EBITDA 26.4 · P/B 34.0 · beta 0.51 (lebih tenang dari pasar)</span></div>
-  <details><summary>Berita — netral/campuran</summary><ul><li>🔻 Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Pa</li><li>🔺 Eli Lilly (LLY) Posts Blowout Growth And Raises Its Outlook</li><li>▫️ When Leverage Goes Wrong on Wall Street</li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>VOO</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,28.0 1.8,26.3 3.6,24.3 5.4,22.0 7.2,22.8 9.0,22.8 10.8,24.3 12.6,21.3 14.5,21.5 16.3,19.5 18.1,17.4 19.9,17.4 21.7,15.7 23.5,11.8 25.3,13.8 27.1,15.8 28.9,17.4 30.7,16.1 32.5,11.9 34.3,11.4 36.1,9.8 37.9,10.2 39.7,10.9 41.5,8.7 43.4,11.2 45.2,11.6 47.0,12.2 48.8,13.1 50.6,14.3 52.4,14.0 54.2,13.6 56.0,12.7 57.8,11.7 59.6,4.5 61.4,2.5 63.2,5.3 65.0,5.9 66.8,3.9 68.6,5.2 70.5,2.0 72.3,3.8 74.1,3.7 75.9,6.2 77.7,6.8 79.5,9.5 81.3,9.1 83.1,8.0 84.9,7.1 86.7,10.0 88.5,7.4 90.3,8.5 92.1,6.5 93.9,5.6 95.7,5.4 97.5,3.3 99.4,4.3 101.2,9.3 103.0,9.8 104.8,12.3 106.6,12.8 108.4,7.9 110.2,5.9 112.0,6.5" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag grey">Neraca: 😐 Campuran</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+3.21%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">56.8</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">25.5</span></div><div class="tile"><span class="k has-hint" title="Konsensus $1293 dari 27 analis. Sering optimis.">Target analis</span><span class="v up">+9.01%</span></div><div class="tile"><span class="k has-hint" title="P/E dibagi pertumbuhan. &lt;1 murah relatif tumbuhnya, &gt;2 mahal.">PEG</span><span class="v ">1.49</span></div><div class="tile"><span class="k has-hint" title="Efisiensi modal jadi laba. &gt;20% umumnya kuat.">ROE</span><span class="v ">102%</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 56.8 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:57%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 92 persen dari rentang 52 minggu"><div class="bar-fill" style="width:91.9%"></div><div class="bar-dot" style="left:91.9%"></div></div><div class="bar-lbl"><span>$621</span><span>92% dari rentang</span><span>$1,236</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">PEG 1.49 (wajar) · EV/EBITDA 26.4 · P/B 34.0 · beta 0.51 (lebih tenang dari pasar)</span></div><div class="row"><span class="k">Pertumbuhan revenue</span><span class="v">+48% YoY</span></div><div class="row"><span class="k">Utang / ekuitas</span><span class="v">162%</span></div><div class="row"><span class="k">Free cash flow</span><span class="v">$11.07 miliar</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +2.43% · MA200 +14.96%</span></div><div class="row"><span class="k">Catatan neraca</span><span class="v">ROE 102% kuat, margin operasi 54%, utang/ekuitas 162% tinggi, laba tumbuh 26%</span></div></details>
+  <details class="acc"><summary>Berita — netral/campuran</summary><ul class="news"><li><span class="tone">▫️</span> Nvidia, Eli Lilly, and Disney Show It’s Time to Back the Top Dogs</li><li><span class="tone">🔻</span> Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Patients</li><li><span class="tone">🔺</span> Eli Lilly (LLY) Posts Blowout Growth And Raises Its Outlook</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="VOO" data-kind="ETF"
+  data-cond="grey" data-mom="3.5" data-val="999" data-risk="-1">
+  <header class="head">
+    <div class="id">
+      <h3>VOO</h3>
+      <span class="kind">ETF</span>
+    </div>
     <div class="price">
       <span class="p">$710.71</span>
-      <span class="chg up">▲ +0.61%</span>
+      <span class="chg up">▲ +0.61%
+        <span class="sr">naik hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+3.5%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag grey">ETF — tanpa data fundamental</span>
-  </div>
-  <div class="whyline"> <span class="why">dekat 52w high</span></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 69.6 · MA50 +3.57% · MA200 +10.46%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high +0% · low +23.08%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 27.8</span></div><div class="row"><span class="k">Valuasi</span><span class="v">P/B 1.8</span></div>
-  <details><summary>Berita — netral/campuran</summary><ul><li>▫️ Forget VFIAX: Vanguard Sells You the Same S&amp;P 500 Fund Without the $3,000 Toll, or the $75</li><li>▫️ This Is the 1 ETF Warren Buffett Recommends Most People Buy -- and History Says He&#x27;s Alway</li><li>▫️ If You&#x27;d Invested $1,000 in the Vanguard S&amp;P 500 ETF 10 Years Ago, Here&#x27;s What You&#x27;d Have </li></ul></details>
-</div><div class="card">
-  <div class="head">
-    <h2>QQQ</h2>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,21.8 1.8,20.9 3.6,21.4 5.4,19.3 7.2,16.2 9.0,21.0 10.8,21.3 12.6,23.7 14.5,19.7 16.3,19.0 18.1,17.5 19.9,14.9 21.7,15.0 23.5,12.7 25.3,11.8 27.1,10.8 28.9,10.3 30.7,13.0 32.5,11.5 34.3,21.8 36.1,20.8 37.9,21.9 39.7,28.0 41.5,21.6 43.4,19.5 45.2,12.8 47.0,15.1 48.8,19.8 50.6,16.0 52.4,17.2 54.2,22.7 56.0,23.1 57.8,23.1 59.6,25.1 61.4,18.9 63.2,15.6 65.0,16.4 66.8,16.8 68.6,13.5 70.5,15.5 72.3,16.5 74.1,13.4 75.9,11.6 77.7,14.7 79.5,13.2 81.3,11.6 83.1,13.7 84.9,17.7 86.7,18.2 88.5,15.0 90.3,15.5 92.1,20.3 93.9,20.0 95.7,19.9 97.5,19.0 99.4,24.9 101.2,18.5 103.0,15.7 104.8,10.2 106.6,3.0 108.4,3.8 110.2,4.5 112.0,2.0" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag grey">ETF — tanpa data fundamental</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+3.5%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">69.6</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">27.8</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 69.6 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:70%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 100 persen dari rentang 52 minggu"><div class="bar-fill" style="width:100.0%"></div><div class="bar-dot" style="left:100.0%"></div></div><div class="bar-lbl"><span>$577</span><span>100% dari rentang</span><span>$711</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">P/B 1.8</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +3.57% · MA200 +10.46%</span></div><div class="row"><span class="k">Kenapa label ini</span><span class="v">dekat 52w high</span></div></details>
+  <details class="acc"><summary>Berita — netral/campuran</summary><ul class="news"><li><span class="tone">▫️</span> Forget VFIAX: Vanguard Sells You the Same S&amp;P 500 Fund Without the $3,000 Toll, or the $75 Fee Fidel</li><li><span class="tone">▫️</span> This Is the 1 ETF Warren Buffett Recommends Most People Buy -- and History Says He&#x27;s Always Been Rig</li><li><span class="tone">▫️</span> If You&#x27;d Invested $1,000 in the Vanguard S&amp;P 500 ETF 10 Years Ago, Here&#x27;s What You&#x27;d Have Today</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article><article class="card" data-ticker="QQQ" data-kind="ETF"
+  data-cond="grey" data-mom="5.09" data-val="999" data-risk="0">
+  <header class="head">
+    <div class="id">
+      <h3>QQQ</h3>
+      <span class="kind">ETF</span>
+    </div>
     <div class="price">
       <span class="p">$723.03</span>
-      <span class="chg up">▲ +1.17%</span>
+      <span class="chg up">▲ +1.17%
+        <span class="sr">naik hari ini</span></span>
     </div>
-  </div>
-  <div class="wk">1 minggu: <b class="up">+5.09%</b></div>
-  <div class="tags">
-    <span class="tag grey">⚪ Netral</span><span class="tag grey">ETF — tanpa data fundamental</span>
-  </div>
-  <div class="whyline"></div>
-  <div class="row"><span class="k">Tren</span><span class="v">RSI 59.6 · MA50 +1.22% · MA200 +11.8%</span></div><div class="row"><span class="k">52 minggu</span><span class="v">high -2.99% · low +29.65%</span></div><div class="row"><span class="k">Fundamental</span><span class="v">fwd P/E 30.9</span></div><div class="row"><span class="k">Valuasi</span><span class="v">P/B 2.0</span></div>
-  <details><summary>Berita — netral/campuran</summary><ul><li>▫️ What JEPQ Actually Paid the Last Time the Nasdaq Fell 10%: a Stress Test for Its 10% Yield</li><li>🔺 S&amp;P 500 Ends At Record High, Clocks Strongest Week Since April As Poor Jobs Data Calms Rat</li><li>🔻 U.S. Jobs Report Delivers Stark Warning on Economy</li></ul></details>
-</div>
+  </header>
+  <svg class="spark" viewBox="0 0 112 30" width="112" height="30" preserveAspectRatio="none" aria-hidden="true"><polyline points="0.0,12.8 1.8,12.2 3.6,14.1 5.4,11.8 7.2,10.2 9.0,13.6 10.8,14.5 12.6,15.9 14.5,12.3 16.3,11.8 18.1,10.9 19.9,6.9 21.7,7.2 23.5,5.3 25.3,4.4 27.1,3.1 28.9,2.0 30.7,2.6 32.5,3.7 34.3,14.8 36.1,11.3 37.9,13.9 39.7,18.3 41.5,11.0 43.4,9.7 45.2,2.7 47.0,7.1 48.8,9.3 50.6,3.7 52.4,4.3 54.2,11.9 56.0,12.8 57.8,11.0 59.6,14.1 61.4,8.6 63.2,4.8 65.0,8.3 66.8,12.2 68.6,9.0 70.5,13.2 72.3,12.5 74.1,8.9 75.9,8.2 77.7,12.4 79.5,10.0 81.3,10.6 83.1,14.3 84.9,17.6 86.7,17.3 88.5,13.3 90.3,14.4 92.1,18.6 93.9,21.0 95.7,21.7 97.5,23.7 99.4,28.0 101.2,21.2 103.0,19.8 104.8,16.1 106.6,8.7 108.4,10.7 110.2,11.5 112.0,8.9" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div class="tags"><span class="tag grey">⚪ Netral</span><span class="tag grey">ETF — tanpa data fundamental</span></div>
+  <div class="tiles"><div class="tile"><span class="k">Minggu ini</span><span class="v up">+5.09%</span></div><div class="tile"><span class="k has-hint" title="Kecepatan gerak harga 0-100. &gt;70 naik cepat, &lt;30 turun cepat.">RSI</span><span class="v ">59.6</span></div><div class="tile"><span class="k has-hint" title="Harga dibagi laba proyeksi. Tinggi = ekspektasi besar.">Fwd P/E</span><span class="v ">30.9</span></div></div>
+  <div class="rsi" role="img" aria-label="RSI 59.6 dari 100"><div class="rsi-track"><div class="rsi-dot grey" style="left:60%"></div></div></div>
+  <div class="bar" role="img" aria-label="Posisi harga 88 persen dari rentang 52 minggu"><div class="bar-fill" style="width:88.1%"></div><div class="bar-dot" style="left:88.1%"></div></div><div class="bar-lbl"><span>$558</span><span>88% dari rentang</span><span>$745</span></div>
+  <details class="acc"><summary>Detail lengkap</summary><div class="row"><span class="k">Valuasi</span><span class="v">P/B 2.0</span></div><div class="row"><span class="k">Tren vs MA</span><span class="v">MA50 +1.22% · MA200 +11.8%</span></div></details>
+  <details class="acc"><summary>Berita — netral/campuran</summary><ul class="news"><li><span class="tone">▫️</span> What JEPQ Actually Paid the Last Time the Nasdaq Fell 10%: a Stress Test for Its 10% Yield</li><li><span class="tone">🔺</span> S&amp;P 500 Ends At Record High, Clocks Strongest Week Since April As Poor Jobs Data Calms Rate Hike Fea</li><li><span class="tone">🔻</span> U.S. Jobs Report Delivers Stark Warning on Economy</li></ul><p class="muted tiny">Nada dihitung dari kata kunci judul. Kasar — pemicu baca, bukan kesimpulan.</p></details>
+</article></div>
+  <div id="empty" class="empty" hidden>Tidak ada emiten yang cocok.</div>
 
-<div class="sec">✅ Yang perlu kamu lakukan</div>
-<ul class="todo"><li>Baca alasan MELI turun -27.49% dari high — masalah sementara atau thesis rusak?</li><li>Beli sesuai jadwal DCA. Dashboard ini tidak mengubah tanggal/jumlah.</li></ul>
+  <h2>Cara baca &amp; sumber</h2>
+  <section class="panel foot">
+    <b>Istilah</b>
+    <ul>
+      <li><b>1 minggu</b> lebih berarti dari harian — angka harian itu noise.</li>
+      <li><b>RSI</b> = kecepatan gerak harga, bukan mahal/murah.</li>
+      <li><b>PEG</b> &lt;1 murah relatif pertumbuhan, &gt;2 mahal.</li>
+      <li><b>ROE</b> &gt;20% umumnya kuat. <b>FCF</b> negatif = bakar kas.</li>
+      <li><b>Beta</b> &gt;1 = lebih liar dari pasar.</li>
+      <li><b>VIX</b> tinggi = pasar takut; buat DCA itu jendela harga.</li>
+    </ul>
+    <b style="display:block;margin-top:12px">Sumber belajar</b>
+    <ul>
+      <li><a href="https://www.investopedia.com">Investopedia</a> — kamus istilah</li>
+      <li><a href="https://investor.vanguard.com">Vanguard</a> — riset DCA &amp; indexing</li>
+      <li><a href="https://www.sec.gov/edgar/search/">SEC EDGAR</a> — 10-K/10-Q; baca MD&amp;A dulu</li>
+      <li><a href="https://www.bogleheads.org/wiki/Main_Page">Bogleheads</a> — filosofi jangka panjang</li>
+      <li><a href="https://fred.stlouisfed.org">FRED</a> — data makro resmi</li>
+      <li><a href="https://pages.stern.nyu.edu/~adamodar/">Damodaran</a> — valuasi</li>
+    </ul>
+    <p class="src">Harga, fundamental &amp; berita: Yahoo Finance via yfinance ·
+      dihitung 10 August 2026, 12:58 WIB · <time datetime="2026-08-10T12:58:23.577328">waktu lokal WIB</time></p>
+    <p class="muted tiny">Untuk monitoring &amp; belajar, bukan sinyal beli/jual.
+      Kamu investor DCA — tetap beli terjadwal, abaikan noise harian.</p>
+  </section>
 
-<div class="foot">
-<b>Cara baca</b>
-<ul>
-<li><b>1mgg</b> lebih berarti dari harian — angka harian itu noise.</li>
-<li><b>RSI</b> = kecepatan gerak, bukan mahal/murah.</li>
-<li><b>PEG</b> &lt;1 murah relatif pertumbuhan, &gt;2 mahal.</li>
-<li><b>ROE</b> &gt;20% umumnya kuat. <b>FCF</b> negatif = bakar kas.</li>
-<li><b>Beta</b> &gt;1 = lebih liar dari pasar.</li>
-<li><b>VIX</b> tinggi = pasar takut; buat DCA itu jendela harga.</li>
-<li><b>Sentimen berita</b> = hitung kata kunci judul, KASAR. Pemicu baca, bukan kesimpulan.</li>
-</ul>
-<b style="display:block;margin-top:10px">Sumber belajar</b>
-<ul>
-<li><a href="https://www.investopedia.com">Investopedia</a> — kamus istilah</li>
-<li><a href="https://investor.vanguard.com">Vanguard</a> — riset DCA &amp; indexing</li>
-<li><a href="https://www.sec.gov/edgar/search/">SEC EDGAR</a> — 10-K/10-Q; baca MD&amp;A dulu</li>
-<li><a href="https://www.bogleheads.org/wiki/Main_Page">Bogleheads</a> — filosofi jangka panjang</li>
-<li><a href="https://fred.stlouisfed.org">FRED</a> — data makro resmi</li>
-<li><a href="https://pages.stern.nyu.edu/~adamodar/">Damodaran</a> — valuasi</li>
-</ul>
-<div class="note" style="margin-top:12px">Untuk monitoring &amp; belajar, bukan sinyal beli/jual.
-Kamu investor DCA — tetap beli terjadwal, abaikan noise harian.</div>
-</div>
+</main>
+
+<button class="totop" id="totop" aria-label="Kembali ke atas">↑</button>
+
+<script>
+(function(){
+  var list=document.getElementById('list'),
+      q=document.getElementById('q'),
+      sort=document.getElementById('sort'),
+      empty=document.getElementById('empty'),
+      chips=[].slice.call(document.querySelectorAll('.chip')),
+      cards=[].slice.call(list.children),
+      filter='all';
+
+  function apply(){
+    var term=q.value.trim().toUpperCase(), shown=0;
+    cards.forEach(function(c){
+      var kind=c.dataset.kind, cond=c.dataset.cond, t=c.dataset.ticker||'';
+      var okF = filter==='all' || kind===filter || cond===filter;
+      var okQ = !term || t.indexOf(term)>-1;
+      var vis = okF && okQ;
+      c.hidden = !vis;
+      if(vis) shown++;
+    });
+    empty.hidden = shown>0;
+  }
+
+  q.addEventListener('input',apply);
+
+  chips.forEach(function(b){
+    b.addEventListener('click',function(){
+      chips.forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+      filter=b.dataset.f;
+      apply();
+    });
+  });
+
+  sort.addEventListener('change',function(){
+    var k=sort.value;
+    if(k==='none'){ cards.forEach(function(c){list.appendChild(c)}); return; }
+    var key={mom:'mom',val:'val',risk:'risk'}[k];
+    cards.slice().sort(function(a,b){
+      var av=parseFloat(a.dataset[key]), bv=parseFloat(b.dataset[key]);
+      if(isNaN(av)) av=key==='val'?9999:-9999;
+      if(isNaN(bv)) bv=key==='val'?9999:-9999;
+      return key==='val' ? av-bv : bv-av;
+    }).forEach(function(c){list.appendChild(c)});
+  });
+
+  var tt=document.getElementById('totop');
+  tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  addEventListener('scroll',function(){
+    tt.classList.toggle('on', scrollY>560);
+  },{passive:true});
+})();
+</script>
 </body>
 </html>
