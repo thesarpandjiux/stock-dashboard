@@ -1,0 +1,498 @@
+{
+ "updated": "10 August 2026, 11:57 WIB",
+ "macro": [
+  {
+   "name": "VIX (indeks ketakutan)",
+   "last": 14.9,
+   "chg_1d": -1.65,
+   "chg_3mo": -12.76
+  },
+  {
+   "name": "US 10Y yield",
+   "last": 4.66,
+   "chg_1d": -0.21,
+   "chg_3mo": 6.1
+  },
+  {
+   "name": "Dollar Index",
+   "last": 99.71,
+   "chg_1d": 0.11,
+   "chg_3mo": 1.81
+  },
+  {
+   "name": "S&P 500",
+   "last": 7757.64,
+   "chg_1d": 0.62,
+   "chg_3mo": 4.85
+  },
+  {
+   "name": "Minyak WTI",
+   "last": 78.54,
+   "chg_1d": 0.46,
+   "chg_3mo": -19.91
+  }
+ ],
+ "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
+ "items": [
+  {
+   "ticker": "NVDA",
+   "ok": true,
+   "error": null,
+   "price": 223.96,
+   "chg_1d": 2.27,
+   "chg_1w": 11.56,
+   "rsi": 65.6,
+   "vs_ma50": 8.69,
+   "vs_ma200": 15.56,
+   "from_52w_high": -4.89,
+   "from_52w_low": 35.75,
+   "cond_score": 0,
+   "cond_label": "⚪ Netral",
+   "cond_why": [],
+   "health_score": 5,
+   "health_label": "💪 Kuat",
+   "health_notes": [
+    "ROE 114% kuat",
+    "margin operasi 66%",
+    "utang/ekuitas 7% rendah",
+    "laba tumbuh 214%"
+   ],
+   "valuation": "PEG 0.62 (murah relatif pertumbuhan) · EV/EBITDA 32.5 · P/B 27.8 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 17.37413,
+   "rev_growth": 0.852,
+   "target": 302.82758,
+   "upside": 35.22,
+   "analysts": 58,
+   "news_mood": "cenderung negatif (2/4 headline)",
+   "news": [
+    {
+     "title": "How AI agents can power the S&P 500 higher",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Yahoo Finance"
+    },
+    {
+     "title": "'Very little to like': Wall Street assesses surprise July jobs report as stocks jump",
+     "tone": "🔺",
+     "date": "2026-08-09",
+     "publisher": "Yahoo Finance"
+    },
+    {
+     "title": "Dow Jones Futures Fall After Market Ramps Up; Cisco, Lumentum Earnings Ahead",
+     "tone": "🔻",
+     "date": "2026-08-10",
+     "publisher": "Investor's Business Daily"
+    }
+   ]
+  },
+  {
+   "ticker": "AVGO",
+   "ok": true,
+   "error": null,
+   "price": 427.76,
+   "chg_1d": 1.71,
+   "chg_1w": 9.88,
+   "rsi": 73.6,
+   "vs_ma50": 8.34,
+   "vs_ma200": 16.69,
+   "from_52w_high": -11.03,
+   "from_52w_low": 48.79,
+   "cond_score": 2,
+   "cond_label": "🔴 Extended (panas secara teknikal)",
+   "cond_why": [
+    "RSI 73.6 overbought"
+   ],
+   "health_score": 4,
+   "health_label": "💪 Kuat",
+   "health_notes": [
+    "ROE 37% kuat",
+    "margin operasi 49%",
+    "laba tumbuh 85%"
+   ],
+   "valuation": "PEG 0.48 (murah relatif pertumbuhan) · EV/EBITDA 49.4 · P/B 23.2 · beta 1.47 (lebih liar dari pasar)",
+   "fwd_pe": 21.901974,
+   "rev_growth": 0.479,
+   "target": 527.88446,
+   "upside": 23.41,
+   "analysts": 45,
+   "news_mood": "cenderung positif (2/4 headline)",
+   "news": [
+    {
+     "title": "A $10,000 Investment in Taiwan Semiconductor Today Will Be Worth This Much by 2028",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Marvell (MRVL) vs. AVGO and NVDA: Can AI Interconnect Growth Deliver the Earnings Its Premium Valuation Demands?",
+     "tone": "🔺",
+     "date": "2026-08-09",
+     "publisher": "Insider Monkey"
+    },
+    {
+     "title": "Top Semiconductor Stock Outpacing Nvidia With a 36% Gain Over 6 Months",
+     "tone": "🔺",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    }
+   ]
+  },
+  {
+   "ticker": "AMD",
+   "ok": true,
+   "error": null,
+   "price": 483.36,
+   "chg_1d": -1.21,
+   "chg_1w": 1.51,
+   "rsi": 46.9,
+   "vs_ma50": -5.98,
+   "vs_ma200": 51.86,
+   "from_52w_high": -16.79,
+   "from_52w_low": 219.81,
+   "cond_score": -1,
+   "cond_label": "⚪ Netral",
+   "cond_why": [
+    "-5.98% di bawah MA50"
+   ],
+   "health_score": 2,
+   "health_label": "😐 Campuran",
+   "health_notes": [
+    "utang/ekuitas 6% rendah",
+    "laba tumbuh 160%"
+   ],
+   "valuation": "PEG 1.04 (wajar) · EV/EBITDA 81.6 · P/B 11.7 · beta 2.49 (lebih liar dari pasar)",
+   "fwd_pe": 31.265461,
+   "rev_growth": 0.501,
+   "target": 613.3348,
+   "upside": 26.89,
+   "analysts": 46,
+   "news_mood": "netral/campuran",
+   "news": [
+    {
+     "title": "US Export Control Meant to Cripple China’s AI. But They Created Its Most Valuable Company",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "BeInCrypto"
+    },
+    {
+     "title": "5-star analyst resets AMD stock price target",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "TheStreet"
+    },
+    {
+     "title": "Core Scientific (CORZ) Shareholders Rejected a $9B Sale. Does the AMD Deal Vindicate Them?",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Insider Monkey"
+    }
+   ]
+  },
+  {
+   "ticker": "AMZN",
+   "ok": true,
+   "error": null,
+   "price": 274.48,
+   "chg_1d": 0.82,
+   "chg_1w": 1.07,
+   "rsi": 62.9,
+   "vs_ma50": 10.9,
+   "vs_ma200": 16.04,
+   "from_52w_high": -3.36,
+   "from_52w_low": 38.08,
+   "cond_score": 1,
+   "cond_label": "⚪ Netral",
+   "cond_why": [
+    "+10.9% di atas MA50"
+   ],
+   "health_score": 3,
+   "health_label": "💪 Kuat",
+   "health_notes": [
+    "ROE 31% kuat",
+    "FCF cuma 2% dari kas operasi (capex berat)",
+    "utang/ekuitas 46% rendah",
+    "laba tumbuh 242%"
+   ],
+   "valuation": "PEG 1.46 (wajar) · EV/EBITDA 18.3 · P/B 5.4 · beta 1.45 (lebih liar dari pasar)",
+   "fwd_pe": 26.569765,
+   "rev_growth": 0.196,
+   "target": 324.94067,
+   "upside": 18.38,
+   "analysts": 59,
+   "news_mood": "cenderung negatif (1/4 headline)",
+   "news": [
+    {
+     "title": "Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Patients",
+     "tone": "🔻",
+     "date": "2026-08-10",
+     "publisher": "Benzinga"
+    },
+    {
+     "title": "Airbnb vs. McDonald's: Which Consumer Stock Is a Better Buy in 2026?",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Meet the High-Yield Dividend Stock Bill Ackman Has Owned for Over a Decade. Here's Why It's a Great Buy in August.",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "Motley Fool"
+    }
+   ]
+  },
+  {
+   "ticker": "GOOGL",
+   "ok": true,
+   "error": null,
+   "price": 354.3,
+   "chg_1d": -0.96,
+   "chg_1w": -0.51,
+   "rsi": 50.9,
+   "vs_ma50": -0.61,
+   "vs_ma200": 7.75,
+   "from_52w_high": -11.95,
+   "from_52w_low": 78.26,
+   "cond_score": 0,
+   "cond_label": "⚪ Netral",
+   "cond_why": [],
+   "health_score": 4,
+   "health_label": "💪 Kuat",
+   "health_notes": [
+    "ROE 49% kuat",
+    "margin operasi 34%",
+    "FCF cuma 12% dari kas operasi (capex berat)",
+    "utang/ekuitas 19% rendah",
+    "laba tumbuh 294%"
+   ],
+   "valuation": "PEG 0.96 (murah relatif pertumbuhan) · EV/EBITDA 24.4 · P/B 7.0 · beta 1.24 (lebih liar dari pasar)",
+   "fwd_pe": 24.045721,
+   "rev_growth": 0.242,
+   "target": 428.04056,
+   "upside": 20.81,
+   "analysts": 55,
+   "news_mood": "netral/campuran",
+   "news": [
+    {
+     "title": "Starlink 'Unbelievable Juggernaut Cash Machine,' Says VC David Friedberg; SpaceX CEO Elon Musk Responds With $1 Trillion+ Annual Revenue Projection",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "Benzinga"
+    },
+    {
+     "title": "Why Is Berkshire Hathaway (BRK.B) Deploying Cash More Aggressively Under Greg Abel?",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "Simply Wall St."
+    },
+    {
+     "title": "Tencent AI Spending Key After Magnificent 7 Rout",
+     "tone": "▫️",
+     "date": "2026-08-10",
+     "publisher": "Bloomberg"
+    }
+   ]
+  },
+  {
+   "ticker": "MELI",
+   "ok": true,
+   "error": null,
+   "price": 1820.69,
+   "chg_1d": -0.51,
+   "chg_1w": -3.05,
+   "rsi": 48.0,
+   "vs_ma50": 4.17,
+   "vs_ma200": -3.53,
+   "from_52w_high": -27.49,
+   "from_52w_low": 17.71,
+   "cond_score": -2,
+   "cond_label": "🟢 Tertekan (murah secara teknikal)",
+   "cond_why": [
+    "-27.49% dari 52w high"
+   ],
+   "health_score": -2,
+   "health_label": "😐 Campuran",
+   "health_notes": [
+    "ROE 28% kuat",
+    "FCF cuma 3% dari kas operasi (capex berat)",
+    "utang/ekuitas 169% tinggi",
+    "laba turun -11%"
+   ],
+   "valuation": "PEG 1.12 (wajar) · EV/EBITDA 25.6 · P/B 11.8 · beta 1.31 (lebih liar dari pasar)",
+   "fwd_pe": 31.638702,
+   "rev_growth": 0.498,
+   "target": 2233.625,
+   "upside": 22.68,
+   "analysts": 24,
+   "news_mood": "cenderung positif (1/4 headline)",
+   "news": [
+    {
+     "title": "MercadoLibre (MELI) Stock Looks Reasonable On Cash Flow But Rich On Earnings",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Simply Wall St."
+    },
+    {
+     "title": "Why MercadoLibre Stock Jumped 11% in July",
+     "tone": "🔺",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Down 29%, Is MercadoLibre Stock a Better Buy Than SpaceX and the \"Magnificent Seven\" Stocks in August?",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    }
+   ]
+  },
+  {
+   "ticker": "LLY",
+   "ok": true,
+   "error": null,
+   "price": 1185.71,
+   "chg_1d": -0.52,
+   "chg_1w": 3.21,
+   "rsi": 56.8,
+   "vs_ma50": 2.43,
+   "vs_ma200": 14.96,
+   "from_52w_high": -4.03,
+   "from_52w_low": 90.86,
+   "cond_score": 0,
+   "cond_label": "⚪ Netral",
+   "cond_why": [],
+   "health_score": 2,
+   "health_label": "😐 Campuran",
+   "health_notes": [
+    "ROE 102% kuat",
+    "margin operasi 54%",
+    "utang/ekuitas 162% tinggi",
+    "laba tumbuh 26%"
+   ],
+   "valuation": "PEG 1.49 (wajar) · EV/EBITDA 26.4 · P/B 34.0 · beta 0.51 (lebih tenang dari pasar)",
+   "fwd_pe": 25.520395,
+   "rev_growth": 0.477,
+   "target": 1292.5251,
+   "upside": 9.01,
+   "analysts": 27,
+   "news_mood": "netral/campuran",
+   "news": [
+    {
+     "title": "Ozempic For $50 a Month? Amazon Pharmacy Rolls Out Cheap Weight-Loss Drugs for Medicare Patients",
+     "tone": "🔻",
+     "date": "2026-08-10",
+     "publisher": "Benzinga"
+    },
+    {
+     "title": "Eli Lilly (LLY) Posts Blowout Growth And Raises Its Outlook",
+     "tone": "🔺",
+     "date": "2026-08-09",
+     "publisher": "Insider Monkey"
+    },
+    {
+     "title": "When Leverage Goes Wrong on Wall Street",
+     "tone": "▫️",
+     "date": "2026-08-08",
+     "publisher": "Motley Fool"
+    }
+   ]
+  },
+  {
+   "ticker": "VOO",
+   "ok": true,
+   "error": null,
+   "price": 710.71,
+   "chg_1d": 0.61,
+   "chg_1w": 3.5,
+   "rsi": 69.6,
+   "vs_ma50": 3.57,
+   "vs_ma200": 10.46,
+   "from_52w_high": 0.0,
+   "from_52w_low": 23.08,
+   "cond_score": 1,
+   "cond_label": "⚪ Netral",
+   "cond_why": [
+    "dekat 52w high"
+   ],
+   "health_score": null,
+   "health_label": "—",
+   "health_notes": [],
+   "valuation": "P/B 1.8",
+   "fwd_pe": 27.847109,
+   "rev_growth": null,
+   "target": null,
+   "upside": null,
+   "analysts": null,
+   "news_mood": "netral/campuran",
+   "news": [
+    {
+     "title": "Forget VFIAX: Vanguard Sells You the Same S&P 500 Fund Without the $3,000 Toll, or the $75 Fee Fidelity Charges to Buy It",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "This Is the 1 ETF Warren Buffett Recommends Most People Buy -- and History Says He's Always Been Right",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "If You'd Invested $1,000 in the Vanguard S&P 500 ETF 10 Years Ago, Here's What You'd Have Today",
+     "tone": "▫️",
+     "date": "2026-08-09",
+     "publisher": "Motley Fool"
+    }
+   ]
+  },
+  {
+   "ticker": "QQQ",
+   "ok": true,
+   "error": null,
+   "price": 723.03,
+   "chg_1d": 1.17,
+   "chg_1w": 5.09,
+   "rsi": 59.6,
+   "vs_ma50": 1.22,
+   "vs_ma200": 11.8,
+   "from_52w_high": -2.99,
+   "from_52w_low": 29.65,
+   "cond_score": 0,
+   "cond_label": "⚪ Netral",
+   "cond_why": [],
+   "health_score": null,
+   "health_label": "—",
+   "health_notes": [],
+   "valuation": "P/B 2.0",
+   "fwd_pe": 30.916922,
+   "rev_growth": null,
+   "target": null,
+   "upside": null,
+   "analysts": null,
+   "news_mood": "netral/campuran",
+   "news": [
+    {
+     "title": "What JEPQ Actually Paid the Last Time the Nasdaq Fell 10%: a Stress Test for Its 10% Yield",
+     "tone": "▫️",
+     "date": "2026-08-08",
+     "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "S&P 500 Ends At Record High, Clocks Strongest Week Since April As Poor Jobs Data Calms Rate Hike Fear — SEZL, SPCX, RDW, PLTR, TTD In Focus",
+     "tone": "🔺",
+     "date": "2026-08-07",
+     "publisher": "Stocktwits"
+    },
+    {
+     "title": "U.S. Jobs Report Delivers Stark Warning on Economy",
+     "tone": "🔻",
+     "date": "2026-08-07",
+     "publisher": "GuruFocus.com"
+    }
+   ]
+  }
+ ],
+ "todos": [
+  "Baca alasan MELI turun -27.49% dari high — masalah sementara atau thesis rusak?"
+ ]
+}
