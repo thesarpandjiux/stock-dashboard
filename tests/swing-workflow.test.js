@@ -28,10 +28,10 @@ assert.ok(
 );
 assert.match(html, /Risk ≤ 0\.25% per trade/, 'beginner account-risk budget is reduced to 0.25%');
 assert.match(html, /id="dataUpdated"/, 'visible data snapshot timestamp is present');
-assert.match(html, /id="lastChecked"/, 'visible manual-check timestamp is present');
+assert.doesNotMatch(html, /id="lastChecked"|Last checked/, 'manual-check timestamp is removed');
 assert.match(html, /closest\(['"]\.watch-row,\s*\.focus-card['"]\)/, 'focus cards share the ticker-selection event flow');
-assert.match(html, /dataUpdated\.textContent/, 'snapshot refresh updates the data timestamp');
-assert.match(html, /lastChecked\.textContent/, 'manual refresh updates the checked timestamp');
+assert.match(html, /dataUpdated\.textContent/, 'page load displays the published data timestamp');
+assert.doesNotMatch(html, /lastChecked\.textContent/, 'page load does not manufacture a manual-check timestamp');
 
 function extractFunction(source, name) {
   const start = source.indexOf(`function ${name}(`);
