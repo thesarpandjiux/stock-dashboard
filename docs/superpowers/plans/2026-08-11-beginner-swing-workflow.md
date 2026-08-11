@@ -56,8 +56,8 @@
 **Interfaces:**
 - Elements `#guardrails`, `#benchmarks`, `#focusList`, and `#fixedWatchlist` are populated by Task 2 render functions.
 
-- [ ] **Step 1: Add the guardrail and benchmark strips** above the decision card.
-- [ ] **Step 2: Add the focus list beside or immediately below the decision card** with text statuses and earnings warning.
+- [ ] **Step 1: Add benchmark and guardrail reference rows** in a regular additional-information section at the bottom.
+- [ ] **Step 2: Add the focus list immediately above the decision card** as two horizontal-scroll rows with text statuses and earnings warning.
 - [ ] **Step 3: Rename the lower ranking surface to fixed watchlist** and keep all eight equities visible.
 - [ ] **Step 4: Add responsive styling and empty states** for narrow screens and no-qualified-setup outcomes.
 - [ ] **Step 5: Run both Node tests and JavaScript syntax validation.**

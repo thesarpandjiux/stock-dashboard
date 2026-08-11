@@ -16,6 +16,17 @@ assert.match(html, /NVDA.*AVGO.*AMD.*MU/, 'semiconductor membership is declared 
 assert.match(html, /semis\s*<\s*2/, 'focus list caps semiconductor candidates at two');
 assert.match(html, /focus\.length\s*>=\s*5/, 'focus list caps total candidates at five');
 assert.doesNotMatch(html, /setInterval\s*\(/, 'the page never rotates or refreshes automatically');
+assert.ok(
+  html.indexOf('id="focusList"') < html.indexOf('id="decision"'),
+  'focus list appears before the selected-ticker decision surface',
+);
+assert.match(html, /\.focus-grid\{[^}]*grid-template-rows:repeat\(2,[^}]*grid-auto-flow:column[^}]*overflow-x:auto/, 'focus list uses two horizontal-scroll rows');
+assert.match(html, /id="additionalInfo"/, 'benchmarks and beginner guidance use a regular additional-information section');
+assert.ok(
+  html.indexOf('id="additionalInfo"') > html.indexOf('id="fixedWatchlist"'),
+  'additional information appears below the fixed watchlist',
+);
+assert.match(html, /Risk ≤ 0\.25% per trade/, 'beginner account-risk budget is reduced to 0.25%');
 
 function extractFunction(source, name) {
   const start = source.indexOf(`function ${name}(`);

@@ -17,7 +17,7 @@ The fixed watchlist is reviewed monthly, with no more than one or two replacemen
 ## Beginner mode
 
 - The first learning phase assumes paper trading or one open position at a time.
-- The dashboard states a maximum risk budget of 0.5% of account equity per trade and no margin, options, or short positions.
+- The dashboard states a maximum risk budget of 0.25% of account equity per trade and no margin, options, or short positions.
 - An empty focus list is a valid outcome and must display `NO TRADE` rather than lowering the qualification rules.
 - The dashboard does not track a brokerage account or place orders.
 
@@ -47,21 +47,21 @@ Because the current snapshot has no next-earnings date, every candidate must dis
 - Show the underlying snapshot time as `Data snapshot`, not as a schedule.
 - State that there is no automatic daily rotation.
 
-### Beginner guardrail strip
+### Additional information
 
-Show three compact rules above the decision surface:
+Show the beginner rules as regular reference information at the bottom of the page:
 
 - `1 position while learning`
-- `Risk ≤ 0.5% per trade`
+- `Risk ≤ 0.25% per trade`
 - `No earnings hold`
 
-### Benchmark strip
+### Benchmark information
 
-Show `QQQ` and `VOO` with price, weekly move, trend versus MA200, and a simple regime label: `RISK ON`, `MIXED`, or `RISK OFF`.
+Show `QQQ` and `VOO` in the bottom additional-information section with price, weekly move, trend versus MA200, and a simple regime label: `RISK ON`, `MIXED`, or `RISK OFF`.
 
 ### Focus list
 
-Show three to five candidates with ticker, `READY` or `WAIT`, score, weekly move, risk/reward, and the first reason. Selecting a candidate updates the primary decision card.
+Show three to five candidates immediately above the primary decision card, arranged as two horizontal-scroll rows. Each candidate shows ticker, `READY` or `WAIT`, score, weekly move, risk/reward, and the first reason. Selecting a candidate updates the primary decision card.
 
 If no equity qualifies for `READY` or `WAIT`, show `NO TRADE — no setup meets the rules`.
 
@@ -86,7 +86,7 @@ Keep verdict, confidence, entry, target, risk line, upside/risk, signal breakdow
 
 - All candidate rows and refresh controls are keyboard accessible.
 - Status must be communicated with text, not color alone.
-- Mobile order: guardrails, benchmarks, decision card, focus list, signals, fixed watchlist.
+- Mobile order: focus list, decision card, signals, fixed watchlist, additional information.
 - Honor `prefers-reduced-motion`.
 
 ## Acceptance criteria
