@@ -64,6 +64,13 @@ The decision card must show the score, confidence, entry zone, target, risk line
 - Keep the data timestamp and source visible.
 - Use “decision aid” language and avoid claims of certainty or guaranteed returns.
 
+## Swing-first refresh behavior
+
+- The focused view uses only the swing lens: 40% trend & momentum, 10% earnings quality, 5% valuation, 25% relative strength, and 20% risk.
+- The page has no interval timer or 22:00 schedule. It loads the current `data.json` snapshot on open and provides a manual `Refresh data` button.
+- Manual refresh requests `data.json` with a cache-busting query and `cache: no-store`, then recomputes and reranks the watchlist.
+- The watchlist does not change continuously. It changes only when the underlying snapshot has changed and the user refreshes the page or presses `Refresh data`.
+
 ## Success criteria
 
 - A user can identify the selected ticker’s verdict and next action above the fold.
