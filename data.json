@@ -1,12 +1,12 @@
 {
- "updated": "12 August 2026, 00:41 WIB",
- "updated_iso": "2026-08-12T00:41:20.222250",
+ "updated": "12 August 2026, 00:42 WIB",
+ "updated_iso": "2026-08-12T00:42:42.897518",
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
-   "last": 15.4,
-   "chg_1d": -0.39,
-   "chg_3mo": -16.21
+   "last": 15.39,
+   "chg_1d": -0.45,
+   "chg_3mo": -16.27
   },
   {
    "name": "US 10Y yield",
@@ -22,15 +22,15 @@
   },
   {
    "name": "S&P 500",
-   "last": 7732.39,
-   "chg_1d": -0.27,
-   "chg_3mo": 4.31
+   "last": 7735.66,
+   "chg_1d": -0.23,
+   "chg_3mo": 4.35
   },
   {
    "name": "Minyak WTI",
-   "last": 83.23,
-   "chg_1d": 1.34,
-   "chg_3mo": -15.13
+   "last": 83.2,
+   "chg_1d": 1.3,
+   "chg_3mo": -15.16
   }
  ],
  "macro_read": "Volatilitas normal.",
@@ -39,19 +39,19 @@
    "k": "Risiko pasar",
    "v": "Sedang",
    "cls": "grey",
-   "why": "VIX 15.4 — volatilitas normal."
+   "why": "VIX 15.39 — volatilitas normal."
   },
   {
    "k": "Momentum terbaik",
    "v": "LLY",
    "cls": "green",
-   "why": "+9.39% dalam sepekan · RSI 59.5"
+   "why": "+9.51% dalam sepekan · RSI 59.7"
   },
   {
    "k": "Paling tertekan",
    "v": "MU",
    "cls": "amber",
-   "why": "-29.83% dari puncak 52 minggu — cek penyebabnya"
+   "why": "-29.76% dari puncak 52 minggu — cek penyebabnya"
   },
   {
    "k": "Fokus DCA",
@@ -65,7 +65,7 @@
    "ticker": "NVDA",
    "ok": true,
    "error": null,
-   "price": 217.25,
+   "price": 217.47,
    "spark": [
     220.52,
     225.57,
@@ -129,15 +129,15 @@
     218.99,
     223.96,
     217.55,
-    217.25
+    217.47
    ],
-   "chg_1d": -0.14,
-   "chg_1w": 2.5,
-   "rsi": 54.0,
-   "vs_ma50": 5.33,
-   "vs_ma200": 11.89,
-   "from_52w_high": -7.74,
-   "from_52w_low": 31.68,
+   "chg_1d": -0.04,
+   "chg_1w": 2.61,
+   "rsi": 54.2,
+   "vs_ma50": 5.44,
+   "vs_ma200": 12.0,
+   "from_52w_high": -7.64,
+   "from_52w_low": 31.82,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -151,7 +151,7 @@
     "laba tumbuh 214%"
    ],
    "valuation": "PEG 0.60 (murah relatif pertumbuhan) · EV/EBITDA 31.6 · P/B 26.9 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 16.852036,
+   "fwd_pe": 16.871819,
    "peg": 0.6,
    "roe": 1.14288,
    "beta": 2.215,
@@ -159,7 +159,7 @@
    "fcf": 46335873024,
    "rev_growth": 0.852,
    "target": 302.82758,
-   "upside": 39.39,
+   "upside": 39.25,
    "analysts": 58,
    "news_mood": "cenderung positif (3/4 headline)",
    "news": [
@@ -188,7 +188,7 @@
    "ticker": "AVGO",
    "ok": true,
    "error": null,
-   "price": 417.91,
+   "price": 417.87,
    "spark": [
     418.64,
     416.13,
@@ -252,15 +252,15 @@
     420.57,
     427.76,
     422.4,
-    417.91
+    417.87
    ],
-   "chg_1d": -1.06,
-   "chg_1w": -0.06,
+   "chg_1d": -1.07,
+   "chg_1w": -0.07,
    "rsi": 60.9,
-   "vs_ma50": 6.02,
-   "vs_ma200": 13.75,
-   "from_52w_high": -13.08,
-   "from_52w_low": 45.36,
+   "vs_ma50": 6.01,
+   "vs_ma200": 13.74,
+   "from_52w_high": -13.09,
+   "from_52w_low": 45.35,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -273,7 +273,7 @@
     "laba tumbuh 85%"
    ],
    "valuation": "PEG 0.47 (murah relatif pertumbuhan) · EV/EBITDA 48.8 · P/B 22.7 · beta 1.47 (lebih liar dari pasar)",
-   "fwd_pe": 21.39303,
+   "fwd_pe": 21.395594,
    "peg": 0.47,
    "roe": 0.37280998,
    "beta": 1.473,
@@ -281,7 +281,7 @@
    "fcf": 27212249088,
    "rev_growth": 0.479,
    "target": 527.88446,
-   "upside": 26.32,
+   "upside": 26.33,
    "analysts": 45,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
@@ -310,7 +310,7 @@
    "ticker": "AMD",
    "ok": true,
    "error": null,
-   "price": 466.68,
+   "price": 467.98,
    "spark": [
     448.29,
     445.5,
@@ -374,20 +374,20 @@
     489.28,
     483.36,
     469.56,
-    466.68
+    467.98
    ],
-   "chg_1d": -0.61,
-   "chg_1w": -10.01,
-   "rsi": 35.6,
-   "vs_ma50": -8.87,
-   "vs_ma200": 45.55,
-   "from_52w_high": -19.66,
-   "from_52w_low": 208.78,
+   "chg_1d": -0.34,
+   "chg_1w": -9.76,
+   "rsi": 35.7,
+   "vs_ma50": -8.62,
+   "vs_ma200": 45.95,
+   "from_52w_high": -19.44,
+   "from_52w_low": 209.63,
    "is_etf": false,
    "cond_score": -1,
    "cond_label": "⚪ Netral",
    "cond_why": [
-    "-8.87% di bawah MA50"
+    "-8.62% di bawah MA50"
    ],
    "health_score": 2,
    "health_label": "😐 Campuran",
@@ -395,8 +395,8 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 160%"
    ],
-   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 79.2 · P/B 11.3 · beta 2.49 (lebih liar dari pasar)",
-   "fwd_pe": 30.174898,
+   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 79.2 · P/B 11.4 · beta 2.49 (lebih liar dari pasar)",
+   "fwd_pe": 30.270306,
    "peg": 1.01,
    "roe": 0.10196,
    "beta": 2.489,
@@ -404,10 +404,16 @@
    "fcf": 8841499648,
    "rev_growth": 0.501,
    "target": 613.3348,
-   "upside": 31.43,
+   "upside": 31.06,
    "analysts": 46,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
+    {
+     "title": "Wedbush Flags Surprise AMD Catalyst From Anthropic",
+     "tone": "▫️",
+     "date": "2026-08-11",
+     "publisher": "GuruFocus.com"
+    },
     {
      "title": "Anthropic Signs Huge Data Center Deal With Bitcoin Miner Riot Platforms",
      "tone": "▫️",
@@ -419,12 +425,6 @@
      "tone": "🔺",
      "date": "2026-08-11",
      "publisher": "MarketBeat"
-    },
-    {
-     "title": "Analyst predicts 55% rally for surging stock on $9B Anthropic deal",
-     "tone": "🔺",
-     "date": "2026-08-11",
-     "publisher": "TheStreet"
     }
    ],
    "has_todo": false
@@ -433,7 +433,7 @@
    "ticker": "MU",
    "ok": true,
    "error": null,
-   "price": 851.48,
+   "price": 852.3,
    "spark": [
     766.46,
     803.51,
@@ -497,21 +497,21 @@
     881.47,
     877.57,
     861.0,
-    851.48
+    852.3
    ],
-   "chg_1d": -1.11,
-   "chg_1w": -4.61,
-   "rsi": 40.7,
-   "vs_ma50": -11.97,
-   "vs_ma200": 57.27,
-   "from_52w_high": -29.83,
-   "from_52w_low": 636.55,
+   "chg_1d": -1.01,
+   "chg_1w": -4.52,
+   "rsi": 40.8,
+   "vs_ma50": -11.88,
+   "vs_ma200": 57.42,
+   "from_52w_high": -29.76,
+   "from_52w_low": 637.26,
    "is_etf": false,
    "cond_score": -3,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-11.97% di bawah MA50",
-    "-29.83% dari 52w high"
+    "-11.88% di bawah MA50",
+    "-29.76% dari 52w high"
    ],
    "health_score": 4,
    "health_label": "💪 Kuat",
@@ -522,8 +522,8 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 1368%"
    ],
-   "valuation": "PEG 0.13 (murah relatif pertumbuhan) · EV/EBITDA 14.0 · P/B 9.5 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 5.494237,
+   "valuation": "PEG 0.13 (murah relatif pertumbuhan) · EV/EBITDA 14.0 · P/B 9.6 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 5.502468,
    "peg": 0.13,
    "roe": 0.66638,
    "beta": 2.213,
@@ -531,7 +531,7 @@
    "fcf": 7639499776,
    "rev_growth": 3.457,
    "target": 1501.9767,
-   "upside": 76.4,
+   "upside": 76.23,
    "analysts": 43,
    "news_mood": "cenderung positif (1/4 headline)",
    "news": [
@@ -560,7 +560,7 @@
    "ticker": "AMZN",
    "ok": true,
    "error": null,
-   "price": 272.19,
+   "price": 272.41,
    "spark": [
     265.82,
     270.13,
@@ -624,19 +624,21 @@
     272.26,
     274.48,
     278.09,
-    272.19
+    272.41
    ],
-   "chg_1d": -2.12,
-   "chg_1w": -1.89,
-   "rsi": 63.8,
-   "vs_ma50": 9.92,
-   "vs_ma200": 14.81,
-   "from_52w_high": -4.17,
-   "from_52w_low": 36.92,
+   "chg_1d": -2.04,
+   "chg_1w": -1.81,
+   "rsi": 63.9,
+   "vs_ma50": 10.01,
+   "vs_ma200": 14.9,
+   "from_52w_high": -4.09,
+   "from_52w_low": 37.03,
    "is_etf": false,
-   "cond_score": 0,
+   "cond_score": 1,
    "cond_label": "⚪ Netral",
-   "cond_why": [],
+   "cond_why": [
+    "+10.01% di atas MA50"
+   ],
    "health_score": 3,
    "health_label": "💪 Kuat",
    "health_notes": [
@@ -646,7 +648,7 @@
     "laba tumbuh 242%"
    ],
    "valuation": "PEG 1.48 (wajar) · EV/EBITDA 18.5 · P/B 5.3 · beta 1.45 (lebih liar dari pasar)",
-   "fwd_pe": 26.350996,
+   "fwd_pe": 26.372097,
    "peg": 1.48,
    "roe": 0.30558002,
    "beta": 1.454,
@@ -654,7 +656,7 @@
    "fcf": 3219124992,
    "rev_growth": 0.196,
    "target": 325.19492,
-   "upside": 19.47,
+   "upside": 19.38,
    "analysts": 59,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
@@ -683,7 +685,7 @@
    "ticker": "GOOGL",
    "ok": true,
    "error": null,
-   "price": 347.34,
+   "price": 347.45,
    "spark": [
     387.12,
     402.38,
@@ -747,15 +749,15 @@
     357.75,
     354.3,
     357.52,
-    347.34
+    347.45
    ],
-   "chg_1d": -2.85,
-   "chg_1w": -8.03,
+   "chg_1d": -2.82,
+   "chg_1w": -8.0,
    "rsi": 52.1,
-   "vs_ma50": -2.21,
-   "vs_ma200": 5.3,
-   "from_52w_high": -13.68,
-   "from_52w_low": 74.76,
+   "vs_ma50": -2.18,
+   "vs_ma200": 5.34,
+   "from_52w_high": -13.65,
+   "from_52w_low": 74.81,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -770,7 +772,7 @@
     "laba tumbuh 294%"
    ],
    "valuation": "PEG 0.97 (murah relatif pertumbuhan) · EV/EBITDA 24.7 · P/B 6.8 · beta 1.24 (lebih liar dari pasar)",
-   "fwd_pe": 23.564789,
+   "fwd_pe": 23.57259,
    "peg": 0.97,
    "roe": 0.48676,
    "beta": 1.237,
@@ -778,7 +780,7 @@
    "fcf": 22665000960,
    "rev_growth": 0.242,
    "target": 428.04056,
-   "upside": 23.23,
+   "upside": 23.19,
    "analysts": 55,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
@@ -807,7 +809,7 @@
    "ticker": "MELI",
    "ok": true,
    "error": null,
-   "price": 1920.7,
+   "price": 1923.0,
    "spark": [
     1578.78,
     1562.0,
@@ -871,20 +873,20 @@
     1830.0,
     1820.69,
     1824.34,
-    1920.7
+    1923.0
    ],
-   "chg_1d": 5.28,
-   "chg_1w": 1.71,
-   "rsi": 66.8,
-   "vs_ma50": 9.45,
-   "vs_ma200": 1.9,
-   "from_52w_high": -23.51,
-   "from_52w_low": 24.17,
+   "chg_1d": 5.41,
+   "chg_1w": 1.83,
+   "rsi": 67.0,
+   "vs_ma50": 9.58,
+   "vs_ma200": 2.02,
+   "from_52w_high": -23.42,
+   "from_52w_low": 24.32,
    "is_etf": false,
    "cond_score": -2,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-23.51% dari 52w high"
+    "-23.42% dari 52w high"
    ],
    "health_score": -2,
    "health_label": "😐 Campuran",
@@ -895,7 +897,7 @@
     "laba turun -11%"
    ],
    "valuation": "PEG 1.12 (wajar) · EV/EBITDA 25.7 · P/B 12.4 · beta 1.31 (lebih liar dari pasar)",
-   "fwd_pe": 33.40181,
+   "fwd_pe": 33.451286,
    "peg": 1.12,
    "roe": 0.27504,
    "beta": 1.312,
@@ -903,7 +905,7 @@
    "fcf": 353375008,
    "rev_growth": 0.498,
    "target": 2252.375,
-   "upside": 17.27,
+   "upside": 17.13,
    "analysts": 24,
    "news_mood": "cenderung negatif (1/4 headline)",
    "news": [
@@ -932,7 +934,7 @@
    "ticker": "LLY",
    "ok": true,
    "error": null,
-   "price": 1220.45,
+   "price": 1221.77,
    "spark": [
     988.17,
     1014.0,
@@ -996,15 +998,15 @@
     1191.94,
     1185.71,
     1231.94,
-    1220.45
+    1221.77
    ],
-   "chg_1d": -0.93,
-   "chg_1w": 9.39,
-   "rsi": 59.5,
-   "vs_ma50": 5.03,
-   "vs_ma200": 17.85,
-   "from_52w_high": -1.22,
-   "from_52w_low": 93.49,
+   "chg_1d": -0.83,
+   "chg_1w": 9.51,
+   "rsi": 59.7,
+   "vs_ma50": 5.14,
+   "vs_ma200": 17.97,
+   "from_52w_high": -1.12,
+   "from_52w_low": 93.7,
    "is_etf": false,
    "cond_score": 1,
    "cond_label": "⚪ Netral",
@@ -1020,7 +1022,7 @@
     "laba tumbuh 26%"
    ],
    "valuation": "PEG 1.49 (wajar) · EV/EBITDA 27.4 · P/B 35.0 · beta 0.51 (lebih tenang dari pasar)",
-   "fwd_pe": 26.24697,
+   "fwd_pe": 26.278154,
    "peg": 1.49,
    "roe": 1.02286,
    "beta": 0.506,
@@ -1028,7 +1030,7 @@
    "fcf": 11065900032,
    "rev_growth": 0.477,
    "target": 1299.0067,
-   "upside": 6.44,
+   "upside": 6.32,
    "analysts": 27,
    "news_mood": "netral/campuran",
    "news": [
@@ -1057,7 +1059,7 @@
    "ticker": "VOO",
    "ok": true,
    "error": null,
-   "price": 708.66,
+   "price": 708.96,
    "spark": [
     676.7,
     680.43,
@@ -1121,15 +1123,15 @@
     706.4,
     710.71,
     710.65,
-    708.66
+    708.96
    ],
-   "chg_1d": -0.28,
-   "chg_1w": -0.04,
-   "rsi": 65.8,
-   "vs_ma50": 3.17,
-   "vs_ma200": 9.97,
-   "from_52w_high": -0.29,
-   "from_52w_low": 22.72,
+   "chg_1d": -0.24,
+   "chg_1w": -0.0,
+   "rsi": 66.1,
+   "vs_ma50": 3.21,
+   "vs_ma200": 10.02,
+   "from_52w_high": -0.25,
+   "from_52w_low": 22.77,
    "is_etf": true,
    "cond_score": 1,
    "cond_label": "⚪ Netral",
@@ -1140,7 +1142,7 @@
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 1.8",
-   "fwd_pe": 27.76659,
+   "fwd_pe": 27.777014,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1177,7 +1179,7 @@
    "ticker": "QQQ",
    "ok": true,
    "error": null,
-   "price": 717.85,
+   "price": 718.33,
    "spark": [
     706.46,
     713.93,
@@ -1241,15 +1243,15 @@
     714.65,
     723.03,
     720.87,
-    717.85
+    718.33
    ],
-   "chg_1d": -0.42,
-   "chg_1w": -0.83,
-   "rsi": 54.9,
-   "vs_ma50": 0.59,
-   "vs_ma200": 10.81,
-   "from_52w_high": -3.69,
-   "from_52w_low": 28.72,
+   "chg_1d": -0.35,
+   "chg_1w": -0.76,
+   "rsi": 55.1,
+   "vs_ma50": 0.66,
+   "vs_ma200": 10.88,
+   "from_52w_high": -3.62,
+   "from_52w_low": 28.81,
    "is_etf": true,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -1258,7 +1260,7 @@
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 2.0",
-   "fwd_pe": 30.69692,
+   "fwd_pe": 30.716803,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1293,7 +1295,7 @@
   }
  ],
  "todos": [
-  "Baca alasan MU turun -29.83% dari high — masalah sementara atau thesis rusak?",
-  "Baca alasan MELI turun -23.51% dari high — masalah sementara atau thesis rusak?"
+  "Baca alasan MU turun -29.76% dari high — masalah sementara atau thesis rusak?",
+  "Baca alasan MELI turun -23.42% dari high — masalah sementara atau thesis rusak?"
  ]
 }
