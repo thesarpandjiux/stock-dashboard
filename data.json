@@ -1,36 +1,36 @@
 {
- "updated": "12 August 2026, 23:29 WIB",
- "updated_iso": "2026-08-12T23:29:09.145435",
+ "updated": "13 August 2026, 21:52 WIB",
+ "updated_iso": "2026-08-13T21:52:28.323939",
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
-   "last": 14.8,
-   "chg_1d": -3.14,
-   "chg_3mo": -17.73
+   "last": 14.74,
+   "chg_1d": 1.31,
+   "chg_3mo": -17.52
   },
   {
    "name": "US 10Y yield",
-   "last": 4.67,
-   "chg_1d": -0.26,
-   "chg_3mo": 4.68
+   "last": 4.62,
+   "chg_1d": -1.35,
+   "chg_3mo": 3.08
   },
   {
    "name": "Dollar Index",
-   "last": 99.89,
-   "chg_1d": 0.07,
-   "chg_3mo": 1.63
+   "last": 99.85,
+   "chg_1d": -0.16,
+   "chg_3mo": 1.39
   },
   {
    "name": "S&P 500",
-   "last": 7747.25,
-   "chg_1d": 0.25,
-   "chg_3mo": 4.68
+   "last": 7801.4,
+   "chg_1d": 0.68,
+   "chg_3mo": 4.8
   },
   {
    "name": "Minyak WTI",
-   "last": 83.14,
-   "chg_1d": -0.07,
-   "chg_3mo": -18.63
+   "last": 80.98,
+   "chg_1d": -2.75,
+   "chg_3mo": -19.84
   }
  ],
  "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
@@ -39,23 +39,23 @@
    "k": "Risiko pasar",
    "v": "Rendah",
    "cls": "green",
-   "why": "VIX 14.8 — pasar tenang. Justru saat begini orang lupa risiko."
+   "why": "VIX 14.74 — pasar tenang. Justru saat begini orang lupa risiko."
   },
   {
    "k": "Momentum terbaik",
-   "v": "LLY",
+   "v": "MU",
    "cls": "green",
-   "why": "+4.57% dalam sepekan · RSI 56.4"
+   "why": "+8.76% dalam sepekan · RSI 53.3"
   },
   {
    "k": "Paling tertekan",
    "v": "MELI",
    "cls": "amber",
-   "why": "-25.03% dari puncak 52 minggu — cek penyebabnya"
+   "why": "-26.65% dari puncak 52 minggu — cek penyebabnya"
   },
   {
    "k": "Fokus DCA",
-   "v": "2 emiten perlu dicek",
+   "v": "3 emiten perlu dicek",
    "cls": "grey",
    "why": "Beli tetap sesuai jadwal. Riset ini untuk paham, bukan untuk timing."
   }
@@ -65,9 +65,8 @@
    "ticker": "NVDA",
    "ok": true,
    "error": null,
-   "price": 223.26,
+   "price": 225.04,
    "spark": [
-    225.57,
     235.47,
     225.06,
     222.06,
@@ -129,15 +128,16 @@
     223.96,
     217.55,
     217.5,
-    223.26
+    224.09,
+    225.04
    ],
-   "chg_1d": 2.65,
-   "chg_1w": 1.85,
-   "rsi": 60.9,
-   "vs_ma50": 8.26,
-   "vs_ma200": 14.86,
-   "from_52w_high": -5.18,
-   "from_52w_low": 35.33,
+   "chg_1d": 0.42,
+   "chg_1w": 2.76,
+   "rsi": 63.7,
+   "vs_ma50": 9.08,
+   "vs_ma200": 15.66,
+   "from_52w_high": -4.43,
+   "from_52w_low": 36.41,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -150,47 +150,46 @@
     "utang/ekuitas 7% rendah",
     "laba tumbuh 214%"
    ],
-   "valuation": "PEG 0.60 (murah relatif pertumbuhan) · EV/EBITDA 31.6 · P/B 27.7 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 17.320213,
-   "peg": 0.6,
+   "valuation": "PEG 0.62 (murah relatif pertumbuhan) · EV/EBITDA 32.5 · P/B 27.9 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 17.557842,
+   "peg": 0.62,
    "roe": 1.14288,
    "beta": 2.215,
    "d2e": 6.555,
    "fcf": 46335873024,
    "rev_growth": 0.852,
    "target": 302.82758,
-   "upside": 35.64,
+   "upside": 34.57,
    "analysts": 58,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Nvidia partners with Goldman Sachs, BlackRock to fund AI build-out — but there's one big risk",
+     "title": "Nvidia bulls may have a small problem on their hands",
      "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Yahoo Finance Video"
+     "date": "2026-08-13",
+     "publisher": "Yahoo Finance"
     },
     {
-     "title": "CoreWeave, Nebius soar as AI spending powers growth",
+     "title": "Nvidia's $70 billion bet on OpenAI, Anthropic, and others could pay off big for shareholders",
+     "tone": "▫️",
+     "date": "2026-08-12",
+     "publisher": "Yahoo Finance"
+    },
+    {
+     "title": "Michael Burry Sounds the Alarm Again: AI Is a Circular Financing Web With Nvidia In the Middle",
      "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "Yahoo Finance Video"
-    },
-    {
-     "title": "If I Could Invest $1,000 in Just 1 ETF in August, I'd Pick This Clear Standout Over the Vanguard S&P 500 ETF (VOO)",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Motley Fool"
+     "date": "2026-08-13",
+     "publisher": "24/7 Wall St."
     }
    ],
-   "has_todo": false
+   "has_todo": true
   },
   {
    "ticker": "AVGO",
    "ok": true,
    "error": null,
-   "price": 419.61,
+   "price": 423.8,
    "spark": [
-    416.13,
     439.1,
     424.52,
     420.05,
@@ -252,19 +251,22 @@
     427.76,
     422.4,
     416.08,
-    419.61
+    416.05,
+    423.8
    ],
-   "chg_1d": 0.85,
-   "chg_1w": 0.32,
-   "rsi": 63.9,
-   "vs_ma50": 6.67,
-   "vs_ma200": 14.1,
-   "from_52w_high": -12.73,
-   "from_52w_low": 45.96,
+   "chg_1d": 1.86,
+   "chg_1w": 0.77,
+   "rsi": 73.0,
+   "vs_ma50": 8.07,
+   "vs_ma200": 15.13,
+   "from_52w_high": -11.86,
+   "from_52w_low": 47.41,
    "is_etf": false,
-   "cond_score": 0,
-   "cond_label": "⚪ Netral",
-   "cond_why": [],
+   "cond_score": 2,
+   "cond_label": "🔴 Extended (panas secara teknikal)",
+   "cond_why": [
+    "RSI 73.0 overbought"
+   ],
    "health_score": 4,
    "health_label": "💪 Kuat",
    "health_notes": [
@@ -272,8 +274,8 @@
     "margin operasi 49%",
     "laba tumbuh 85%"
    ],
-   "valuation": "PEG 0.47 (murah relatif pertumbuhan) · EV/EBITDA 48.1 · P/B 22.8 · beta 1.47 (lebih liar dari pasar)",
-   "fwd_pe": 21.48471,
+   "valuation": "PEG 0.47 (murah relatif pertumbuhan) · EV/EBITDA 48.1 · P/B 23.0 · beta 1.47 (lebih liar dari pasar)",
+   "fwd_pe": 21.699215,
    "peg": 0.47,
    "roe": 0.37280998,
    "beta": 1.473,
@@ -281,27 +283,27 @@
    "fcf": 27212249088,
    "rev_growth": 0.479,
    "target": 527.88446,
-   "upside": 25.8,
+   "upside": 24.56,
    "analysts": 45,
-   "news_mood": "cenderung positif (3/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Prediction: This Chipmaker Could Be a Bigger Winner Than Investors Think",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "24/7 Wall St."
+     "title": "Broadcom (AVGO) Stock Trades Near Fair Value But At A Premium On Earnings",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Simply Wall St."
     },
     {
-     "title": "Broadcom Wins If AI Wins So I Keep Buying",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "24/7 Wall St."
+     "title": "The Biggest Chip Stocks All Yield Under 1%. Here's Where the Cash Actually Goes.",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "NVIDIA's $500B Funding Push: Can It Unlock More Revenue Growth?",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "Zacks"
+     "title": "Nvidia and Broadcom Deepen AI Financing Push — But Wolfe Sees Long-Term Risks",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Insider Monkey"
     }
    ],
    "has_todo": false
@@ -310,9 +312,8 @@
    "ticker": "AMD",
    "ok": true,
    "error": null,
-   "price": 487.01,
+   "price": 495.3,
    "spark": [
-    445.5,
     449.7,
     424.1,
     420.99,
@@ -374,15 +375,16 @@
     483.36,
     469.56,
     474.32,
-    487.01
+    482.93,
+    495.3
    ],
-   "chg_1d": 2.68,
-   "chg_1w": 1.03,
-   "rsi": 41.2,
-   "vs_ma50": -4.85,
-   "vs_ma200": 51.28,
-   "from_52w_high": -16.16,
-   "from_52w_low": 222.22,
+   "chg_1d": 2.56,
+   "chg_1w": 1.23,
+   "rsi": 45.4,
+   "vs_ma50": -3.11,
+   "vs_ma200": 53.29,
+   "from_52w_high": -14.74,
+   "from_52w_low": 227.71,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -393,36 +395,36 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 160%"
    ],
-   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 80.1 · P/B 11.8 · beta 2.49 (lebih liar dari pasar)",
-   "fwd_pe": 31.51385,
-   "peg": 1.01,
+   "valuation": "PEG 1.03 (wajar) · EV/EBITDA 81.5 · P/B 12.0 · beta 2.49 (lebih liar dari pasar)",
+   "fwd_pe": 32.03197,
+   "peg": 1.03,
    "roe": 0.10196,
    "beta": 2.489,
    "d2e": 6.361,
    "fcf": 8841499648,
    "rev_growth": 0.501,
-   "target": 613.3348,
-   "upside": 25.94,
-   "analysts": 46,
-   "news_mood": "netral/campuran",
+   "target": 612.8383,
+   "upside": 23.73,
+   "analysts": 47,
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Advanced Micro Devices vs. Alphabet: Which Artificial Intelligence Stock Is a Better Buy in 2026?",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Motley Fool"
-    },
-    {
-     "title": "Cerebras Earnings Prediction Market Preview: What Will Andrew Feldman Say?",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Benzinga Prediction Markets"
-    },
-    {
-     "title": "How Far Behind AMD is Intel?",
-     "tone": "▫️",
-     "date": "2026-08-12",
+     "title": "Intel’s Best Growth in 15 Years: 25% Revenue Surge and Our New Price Target",
+     "tone": "🔺",
+     "date": "2026-08-13",
      "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "Insulet Corporation’s (PODD) Wearable Pod Tech Finds New Frontier",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Insider Monkey"
+    },
+    {
+     "title": "The Fund Mounts Against Alphabet’s (GOOG) Aggressive AI Spending",
+     "tone": "🔺",
+     "date": "2026-08-13",
+     "publisher": "Insider Monkey"
     }
    ],
    "has_todo": false
@@ -431,9 +433,8 @@
    "ticker": "MU",
    "ok": true,
    "error": null,
-   "price": 923.71,
+   "price": 958.72,
    "spark": [
-    803.51,
     775.89,
     724.55,
     681.44,
@@ -495,20 +496,21 @@
     877.57,
     861.0,
     868.52,
-    923.71
+    911.29,
+    958.72
    ],
-   "chg_1d": 6.35,
-   "chg_1w": 3.42,
-   "rsi": 44.5,
-   "vs_ma50": -4.31,
-   "vs_ma200": 69.46,
-   "from_52w_high": -23.87,
-   "from_52w_low": 699.03,
+   "chg_1d": 5.2,
+   "chg_1w": 8.76,
+   "rsi": 53.3,
+   "vs_ma50": -0.44,
+   "vs_ma200": 74.72,
+   "from_52w_high": -20.99,
+   "from_52w_low": 729.31,
    "is_etf": false,
    "cond_score": -2,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-23.87% dari 52w high"
+    "-20.99% dari 52w high"
    ],
    "health_score": 4,
    "health_label": "💪 Kuat",
@@ -519,8 +521,8 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 1368%"
    ],
-   "valuation": "PEG 0.13 (murah relatif pertumbuhan) · EV/EBITDA 14.1 · P/B 10.4 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 5.964055,
+   "valuation": "PEG 0.13 (murah relatif pertumbuhan) · EV/EBITDA 14.8 · P/B 10.7 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 6.1888924,
    "peg": 0.13,
    "roe": 0.66638,
    "beta": 2.213,
@@ -528,9 +530,9 @@
    "fcf": 7639499776,
    "rev_growth": 3.457,
    "target": 1501.9767,
-   "upside": 62.6,
+   "upside": 56.66,
    "analysts": 43,
-   "news_mood": "cenderung positif (2/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
      "title": "AI infrastructure stocks surge after strong earnings from CoreWeave, Supermicro",
@@ -539,15 +541,15 @@
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "SK Hynix and SanDisk Climb 8%, Western Digital Gains 4% as Memory Shortage Deepens",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "24/7 Wall St."
+     "title": "Wall Street Analysts Predict 70% Upside for This AI Memory Stock in 2027",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "BeInCrypto"
     },
     {
-     "title": "Micron Technology’s (MU) Competitive Edge in a Rapidly Evolving Industry",
+     "title": "Micron Technology (MU): A Clear Beneficiary of the AI Infrastructure Buildout?",
      "tone": "▫️",
-     "date": "2026-08-12",
+     "date": "2026-08-13",
      "publisher": "Insider Monkey"
     }
    ],
@@ -557,9 +559,8 @@
    "ticker": "AMZN",
    "ok": true,
    "error": null,
-   "price": 268.47,
+   "price": 268.05,
    "spark": [
-    270.13,
     267.22,
     264.14,
     264.86,
@@ -621,15 +622,16 @@
     274.48,
     278.09,
     272.27,
-    268.47
+    267.28,
+    268.05
    ],
-   "chg_1d": -1.4,
-   "chg_1w": -1.53,
-   "rsi": 69.0,
-   "vs_ma50": 8.36,
-   "vs_ma200": 13.12,
-   "from_52w_high": -5.47,
-   "from_52w_low": 35.05,
+   "chg_1d": 0.29,
+   "chg_1w": -1.55,
+   "rsi": 69.5,
+   "vs_ma50": 8.1,
+   "vs_ma200": 12.84,
+   "from_52w_high": -5.62,
+   "from_52w_low": 34.84,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -642,8 +644,8 @@
     "utang/ekuitas 46% rendah",
     "laba tumbuh 242%"
    ],
-   "valuation": "PEG 1.48 (wajar) · EV/EBITDA 18.1 · P/B 5.2 · beta 1.45 (lebih liar dari pasar)",
-   "fwd_pe": 25.98993,
+   "valuation": "PEG 1.48 (wajar) · EV/EBITDA 17.8 · P/B 5.2 · beta 1.45 (lebih liar dari pasar)",
+   "fwd_pe": 25.81804,
    "peg": 1.48,
    "roe": 0.30558002,
    "beta": 1.454,
@@ -651,27 +653,27 @@
    "fcf": 3219124992,
    "rev_growth": 0.196,
    "target": 325.19492,
-   "upside": 21.13,
+   "upside": 21.32,
    "analysts": 59,
-   "news_mood": "cenderung positif (3/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Nebius Second-Quarter Revenue Exceeds Estimates Amid Robust AI Cloud Gains",
+     "title": "Michael Burry Sounds the Alarm Again: AI Is a Circular Financing Web With Nvidia In the Middle",
      "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "MT Newswires"
-    },
-    {
-     "title": "Amazon Stock's Next Leg Is Already On The Order Book",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Trefis"
-    },
-    {
-     "title": "Apple Is Showing Signs Of Cratering This Month: Is One Wall Street Pro’s Expectation of 33% Gains Persuasive?",
-     "tone": "🔺",
-     "date": "2026-08-12",
+     "date": "2026-08-13",
      "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "Steve Eisman warns AI boom depends on OpenAI and Anthropic",
+     "tone": "🔻",
+     "date": "2026-08-13",
+     "publisher": "Quartz"
+    },
+    {
+     "title": "AutoStore Holdings Ltd (FRA:1IG) (Q2 2026) Earnings Call Highlights: Record Revenue and Amazon ...",
+     "tone": "🔺",
+     "date": "2026-08-13",
+     "publisher": "GuruFocus.com"
     }
    ],
    "has_todo": false
@@ -680,9 +682,8 @@
    "ticker": "GOOGL",
    "ok": true,
    "error": null,
-   "price": 342.35,
+   "price": 345.83,
    "spark": [
-    402.38,
     400.83,
     396.54,
     396.7,
@@ -744,15 +745,16 @@
     354.3,
     357.52,
     343.8,
-    342.35
+    343.54,
+    345.83
    ],
-   "chg_1d": -0.42,
-   "chg_1w": -5.54,
-   "rsi": 61.4,
-   "vs_ma50": -3.41,
-   "vs_ma200": 3.66,
-   "from_52w_high": -14.92,
-   "from_52w_low": 72.25,
+   "chg_1d": 0.67,
+   "chg_1w": -3.33,
+   "rsi": 62.2,
+   "vs_ma50": -2.34,
+   "vs_ma200": 4.57,
+   "from_52w_high": -14.05,
+   "from_52w_low": 74.0,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -766,8 +768,8 @@
     "utang/ekuitas 19% rendah",
     "laba tumbuh 294%"
    ],
-   "valuation": "PEG 0.97 (murah relatif pertumbuhan) · EV/EBITDA 23.7 · P/B 6.7 · beta 1.24 (lebih liar dari pasar)",
-   "fwd_pe": 23.228264,
+   "valuation": "PEG 0.97 (murah relatif pertumbuhan) · EV/EBITDA 23.7 · P/B 6.8 · beta 1.24 (lebih liar dari pasar)",
+   "fwd_pe": 23.461199,
    "peg": 0.97,
    "roe": 0.48676,
    "beta": 1.237,
@@ -775,27 +777,27 @@
    "fcf": 22665000960,
    "rev_growth": 0.242,
    "target": 428.04056,
-   "upside": 25.03,
+   "upside": 23.77,
    "analysts": 55,
    "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Google launches Pixel 11 smartphone line, including Pixel 11 Pro Fold, as Apple preps foldable iPhone",
+     "title": "Google’s Pixel 11 isn’t the story; Gemini AI is",
      "tone": "▫️",
      "date": "2026-08-12",
-     "publisher": "Yahoo Finance"
+     "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Advanced Micro Devices vs. Alphabet: Which Artificial Intelligence Stock Is a Better Buy in 2026?",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Motley Fool"
-    },
-    {
-     "title": "SpaceX Rises 5% on Fresh Starlink Launch, Intuitive Machines Gains 3% Ahead of Earnings",
+     "title": "Michael Burry Sounds the Alarm Again: AI Is a Circular Financing Web With Nvidia In the Middle",
      "tone": "🔺",
-     "date": "2026-08-12",
+     "date": "2026-08-13",
      "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "Steve Eisman warns AI boom depends on OpenAI and Anthropic",
+     "tone": "🔻",
+     "date": "2026-08-13",
+     "publisher": "Quartz"
     }
    ],
    "has_todo": false
@@ -804,9 +806,8 @@
    "ticker": "MELI",
    "ok": true,
    "error": null,
-   "price": 1882.41,
+   "price": 1841.92,
    "spark": [
-    1562.0,
     1607.37,
     1546.81,
     1585.91,
@@ -868,20 +869,21 @@
     1820.69,
     1824.34,
     1940.0,
-    1882.41
+    1828.29,
+    1841.92
    ],
-   "chg_1d": -2.97,
-   "chg_1w": -2.09,
-   "rsi": 59.5,
-   "vs_ma50": 7.06,
-   "vs_ma200": -0.07,
-   "from_52w_high": -25.03,
-   "from_52w_low": 21.7,
+   "chg_1d": 0.75,
+   "chg_1w": 0.65,
+   "rsi": 54.0,
+   "vs_ma50": 4.62,
+   "vs_ma200": -2.12,
+   "from_52w_high": -26.65,
+   "from_52w_low": 19.08,
    "is_etf": false,
    "cond_score": -2,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-25.03% dari 52w high"
+    "-26.65% dari 52w high"
    ],
    "health_score": -2,
    "health_label": "😐 Campuran",
@@ -891,8 +893,8 @@
     "utang/ekuitas 169% tinggi",
     "laba turun -11%"
    ],
-   "valuation": "PEG 1.12 (wajar) · EV/EBITDA 27.2 · P/B 12.2 · beta 1.31 (lebih liar dari pasar)",
-   "fwd_pe": 33.186367,
+   "valuation": "PEG 1.12 (wajar) · EV/EBITDA 25.7 · P/B 11.9 · beta 1.31 (lebih liar dari pasar)",
+   "fwd_pe": 32.472538,
    "peg": 1.12,
    "roe": 0.27504,
    "beta": 1.312,
@@ -900,27 +902,27 @@
    "fcf": 353375008,
    "rev_growth": 0.498,
    "target": 2252.375,
-   "upside": 19.65,
+   "upside": 22.28,
    "analysts": 24,
-   "news_mood": "cenderung positif (2/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "MELI Q2 Deep Dive: Engagement and Investment Drive Growth Amid Margin Compression",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "StockStory"
-    },
-    {
-     "title": "Sea Limited and Shopify Both Soar After Earings. Is E-Commerce Set a Massive Rebound?",
-     "tone": "🔺",
-     "date": "2026-08-11",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Coupang Keeps Falling: Why One Analyst Expects the Amazon of South Korea to Jump Nearly 100%",
+     "title": "Morgan Stanley Sees Sea's Spending Building Earnings Power",
      "tone": "▫️",
-     "date": "2026-08-11",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-13",
+     "publisher": "GuruFocus.com"
+    },
+    {
+     "title": "MercadoLibre (MELI) Q2 2026 Earnings Call Transcript",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "The Market Is Paying You To Own MELI. Why?",
+     "tone": "▫️",
+     "date": "2026-08-12",
+     "publisher": "Trefis"
     }
    ],
    "has_todo": true
@@ -929,9 +931,8 @@
    "ticker": "LLY",
    "ok": true,
    "error": null,
-   "price": 1223.36,
+   "price": 1223.61,
    "spark": [
-    1014.0,
     1004.97,
     1004.92,
     988.09,
@@ -993,15 +994,16 @@
     1185.71,
     1231.94,
     1215.02,
-    1223.36
+    1220.28,
+    1223.61
    ],
-   "chg_1d": 0.69,
-   "chg_1w": 4.57,
-   "rsi": 56.4,
-   "vs_ma50": 5.04,
-   "vs_ma200": 17.9,
-   "from_52w_high": -0.99,
-   "from_52w_low": 92.67,
+   "chg_1d": 0.27,
+   "chg_1w": 2.66,
+   "rsi": 54.9,
+   "vs_ma50": 4.78,
+   "vs_ma200": 17.7,
+   "from_52w_high": -0.97,
+   "from_52w_low": 86.57,
    "is_etf": false,
    "cond_score": 1,
    "cond_label": "⚪ Netral",
@@ -1016,36 +1018,36 @@
     "utang/ekuitas 162% tinggi",
     "laba tumbuh 26%"
    ],
-   "valuation": "PEG 1.49 (wajar) · EV/EBITDA 27.1 · P/B 35.0 · beta 0.51 (lebih tenang dari pasar)",
-   "fwd_pe": 26.235476,
-   "peg": 1.49,
+   "valuation": "PEG 1.54 (wajar) · EV/EBITDA 27.2 · P/B 35.1 · beta 0.51 (lebih tenang dari pasar)",
+   "fwd_pe": 25.865265,
+   "peg": 1.54,
    "roe": 1.02286,
    "beta": 0.506,
    "d2e": 162.071,
    "fcf": 11065900032,
    "rev_growth": 0.477,
-   "target": 1299.0067,
-   "upside": 6.18,
+   "target": 1309.3771,
+   "upside": 7.01,
    "analysts": 27,
    "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Novo Nordisk Dips 4% in a Month: How Should Investors Play the Stock?",
+     "title": "2 S&P 500 Stocks with Exciting Potential and 1 We Ignore",
      "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Zacks"
+     "date": "2026-08-13",
+     "publisher": "StockStory"
     },
     {
-     "title": "Will Pfizer's Non-COVID Portfolio Drive Its Next Phase of Growth?",
+     "title": "Wave Life Sciences: A $1 Billion RNA-Medicine Bargain Ripe for Pharma Takeover",
      "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "Zacks"
+     "date": "2026-08-13",
+     "publisher": "24/7 Wall St."
     },
     {
-     "title": "IBD 50 Stocks To Watch: Obesity Drug Giant Eli Lilly Offers New Buy Point",
+     "title": "The Morning Risk Report: Paramount Has Discussed Creating a Board to Ensure CNN’s Independence",
      "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Investor's Business Daily"
+     "date": "2026-08-13",
+     "publisher": "The Wall Street Journal"
     }
    ],
    "has_todo": false
@@ -1054,9 +1056,8 @@
    "ticker": "VOO",
    "ok": true,
    "error": null,
-   "price": 710.04,
+   "price": 715.0,
    "spark": [
-    680.43,
     685.73,
     677.47,
     676.94,
@@ -1118,27 +1119,28 @@
     710.71,
     710.65,
     708.42,
-    710.04
+    710.17,
+    715.0
    ],
-   "chg_1d": 0.23,
-   "chg_1w": 0.35,
-   "rsi": 75.4,
-   "vs_ma50": 3.33,
-   "vs_ma200": 10.1,
-   "from_52w_high": -0.09,
-   "from_52w_low": 22.96,
+   "chg_1d": 0.68,
+   "chg_1w": 1.22,
+   "rsi": 77.1,
+   "vs_ma50": 3.99,
+   "vs_ma200": 10.79,
+   "from_52w_high": 0.0,
+   "from_52w_low": 23.82,
    "is_etf": true,
    "cond_score": 3,
    "cond_label": "🔴 Extended (panas secara teknikal)",
    "cond_why": [
-    "RSI 75.4 overbought",
+    "RSI 77.1 overbought",
     "dekat 52w high"
    ],
    "health_score": null,
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 1.8",
-   "fwd_pe": 27.820465,
+   "fwd_pe": 28.0152,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1148,24 +1150,24 @@
    "target": null,
    "upside": null,
    "analysts": null,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "If I Could Invest $1,000 in Just 1 ETF in August, I'd Pick This Clear Standout Over the Vanguard S&P 500 ETF (VOO)",
+     "title": "I Make $150,000 a Year, But It Feels Like I’m Just Middle Class in a World Full of Rich People",
      "tone": "▫️",
-     "date": "2026-08-12",
+     "date": "2026-08-13",
+     "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "History Says This Surefire ETF Can Turn $200 per Month Into $1 Million -- With Next to No Effort on Your Part",
+     "tone": "▫️",
+     "date": "2026-08-13",
      "publisher": "Motley Fool"
     },
     {
-     "title": "5 S&P 500 Stocks Crank Out $4,000 Per Second Starting Now",
-     "tone": "▫️",
-     "date": "2026-08-12",
-     "publisher": "Investor's Business Daily"
-    },
-    {
-     "title": "Forget VOO’s 0.03%: Fidelity Will Sell You Large-Cap America for Exactly $0",
-     "tone": "▫️",
-     "date": "2026-08-11",
+     "title": "This Stellar High Yield Vanguard ETF Is Beating VTI and VOO This Year",
+     "tone": "🔺",
+     "date": "2026-08-13",
      "publisher": "24/7 Wall St."
     }
    ],
@@ -1175,9 +1177,8 @@
    "ticker": "QQQ",
    "ok": true,
    "error": null,
-   "price": 724.25,
+   "price": 732.67,
    "spark": [
-    713.93,
     719.0,
     708.15,
     705.11,
@@ -1239,24 +1240,28 @@
     723.03,
     720.87,
     718.45,
-    724.25
+    723.7,
+    732.67
    ],
-   "chg_1d": 0.81,
-   "chg_1w": 0.97,
-   "rsi": 63.4,
-   "vs_ma50": 1.54,
-   "vs_ma200": 11.7,
-   "from_52w_high": -2.83,
-   "from_52w_low": 29.87,
+   "chg_1d": 1.24,
+   "chg_1w": 2.52,
+   "rsi": 70.0,
+   "vs_ma50": 2.75,
+   "vs_ma200": 12.89,
+   "from_52w_high": -1.7,
+   "from_52w_low": 31.38,
    "is_etf": true,
-   "cond_score": 0,
-   "cond_label": "⚪ Netral",
-   "cond_why": [],
+   "cond_score": 3,
+   "cond_label": "🔴 Extended (panas secara teknikal)",
+   "cond_why": [
+    "RSI 70.0 overbought",
+    "dekat 52w high"
+   ],
    "health_score": null,
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 2.0",
-   "fwd_pe": 30.968447,
+   "fwd_pe": 31.329342,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1266,32 +1271,33 @@
    "target": null,
    "upside": null,
    "analysts": null,
-   "news_mood": "cenderung positif (2/4 headline)",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "Fidelity Drops Sharp Take On Stock Market",
-     "tone": "🔻",
-     "date": "2026-08-12",
-     "publisher": "GuruFocus.com"
+     "title": "Stock Market Today: Dow Lags Nasdaq's Gain; Cisco Falls 7% On Earnings (Live Coverage)",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "Investor's Business Daily"
     },
     {
-     "title": "Exchange-Traded Funds, Equity Futures Gain Pre-Bell Wednesday Amid In-Line Consumer Inflation Data, Tech Gains",
-     "tone": "🔺",
-     "date": "2026-08-12",
+     "title": "U.S. Budget Deficits Just Surged to $432.3 billion in July While Trump Weighs Brand-New Tax Cuts",
+     "tone": "▫️",
+     "date": "2026-08-13",
+     "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday Amid Producer Inflation Data Release",
+     "tone": "▫️",
+     "date": "2026-08-13",
      "publisher": "MT Newswires"
-    },
-    {
-     "title": "CoreWeave Surges on Upbeat Q2: ETFs in Focus",
-     "tone": "🔺",
-     "date": "2026-08-12",
-     "publisher": "Zacks"
     }
    ],
    "has_todo": false
   }
  ],
  "todos": [
-  "Baca alasan MU turun -23.87% dari high — masalah sementara atau thesis rusak?",
-  "Baca alasan MELI turun -25.03% dari high — masalah sementara atau thesis rusak?"
+  "Earnings NVDA dalam 14 hari (2026-08-27) — harga bisa bergerak tajam, ini normal.",
+  "Baca alasan MU turun -20.99% dari high — masalah sementara atau thesis rusak?",
+  "Baca alasan MELI turun -26.65% dari high — masalah sementara atau thesis rusak?"
  ]
 }
