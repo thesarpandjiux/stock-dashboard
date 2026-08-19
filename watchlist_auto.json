@@ -1,4 +1,65 @@
 {
- "updated": null,
- "tickers": []
+ "updated": "2026-08-19T15:01:02+00:00",
+ "tickers": [
+  {
+   "ticker": "AAPL",
+   "name": "Apple Inc.",
+   "score": 84,
+   "verdict": "BUY",
+   "tech_score": 85,
+   "fund_score": 82,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  },
+  {
+   "ticker": "BKNG",
+   "name": "Booking Holdings Inc. Common St",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 77,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  },
+  {
+   "ticker": "VRTX",
+   "name": "Vertex Pharmaceuticals Incorpor",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 83,
+   "fund_score": 83,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  },
+  {
+   "ticker": "BAC",
+   "name": "Bank of America Corporation",
+   "score": 82,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 77,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  },
+  {
+   "ticker": "TMO",
+   "name": "Thermo Fisher Scientific Inc",
+   "score": 81,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 71,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  },
+  {
+   "ticker": "RTX",
+   "name": "RTX Corporation",
+   "score": 81,
+   "verdict": "BUY",
+   "tech_score": 85,
+   "fund_score": 73,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-19"
+  }
+ ]
 }
