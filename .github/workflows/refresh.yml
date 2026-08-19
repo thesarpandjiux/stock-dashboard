@@ -1,0 +1,57 @@
+name: Refresh watchlist (5 hari)
+
+# Cron GitHub berjalan dalam UTC. `*/5` pada kolom tanggal = tanggal
+# 1, 6, 11, 16, 21, 26, 31 — jadi jaraknya 5 hari, kecuali pergantian bulan.
+# 22:00 UTC = 05:00 WIB, setelah bursa AS tutup.
+on:
+  schedule:
+    - cron: "0 22 */5 * *"
+  workflow_dispatch:
+    inputs:
+      skip_screener:
+        description: "Lewati pencarian kandidat baru (refresh data saja)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Cari kandidat swing baru
+        if: ${{ inputs.skip_screener != true }}
+        run: python screener.py
+        continue-on-error: true
+
+      - name: Bangun ulang data.json
+        run: python build_dashboard.py
+
+      - name: Commit hasil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json watchlist_auto.json watchlist_core.txt watchlist_exclude.txt
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan."
+            exit 0
+          fi
+          git commit -m "data: refresh 5-harian $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push

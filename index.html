@@ -28,22 +28,113 @@
     @media (max-width:900px){.hero-grid,.below{grid-template-columns:1fr}.chart{min-height:360px}.signal-grid{grid-template-columns:repeat(5,1fr)}.focus-grid{grid-auto-columns:minmax(250px,48%)}}
     @media (max-width:680px){.wrap{width:min(100% - 24px,600px)}main{padding-top:25px}.top-inner{min-height:68px}.status{display:none}.top-actions{margin-left:auto}.additional-grid{grid-template-columns:1fr;gap:22px}.decision,.chart,.signals,.why{padding:18px}.decision{min-height:0}.ticker h3{font-size:32px}.verdict-line{margin:23px 0 20px}.verdict{font-size:58px}.metrics{grid-template-columns:repeat(2,1fr)}.chart{min-height:330px}.focus-grid{grid-auto-columns:minmax(245px,82%)}.signal-grid{grid-template-columns:repeat(2,1fr)}.signal:last-child{grid-column:1/-1}.watch-head{display:none}.watch-row{grid-template-columns:1fr auto auto auto;gap:8px 12px;padding:15px 16px}.row-ticker{grid-row:span 2}.row-reason{grid-column:2/-1}.row-arrow{display:none}.row-price,.row-move{font-size:11px}.footer{flex-direction:column}.swing-mode{width:100%;justify-content:center}.toolbar{align-items:stretch}}
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+    /* ---- Watchlist management (tambah/hapus emiten) ---- */
+    .watch-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .watch-actions #watchMeta{color:var(--muted);font-size:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:0 14px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font-size:13px;font-weight:600;transition:background .18s,border-color .18s,opacity .18s}
+    .btn:hover{background:#22303f;border-color:#33455a}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .btn-primary{background:var(--amber);border-color:var(--amber);color:#1b1406}
+    .btn-primary:hover{background:#f0c473;border-color:#f0c473}
+    .btn-danger{background:transparent;border-color:rgba(240,119,109,.45);color:var(--red)}
+    .btn-danger:hover{background:rgba(240,119,109,.12);border-color:var(--red)}
+    .btn-icon{padding:0;width:34px}
+    .row-del{width:26px;height:26px;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--faint);font-size:17px;line-height:1;transition:color .18s,background .18s,border-color .18s}
+    .row-del:hover{color:var(--red);background:rgba(240,119,109,.12);border-color:rgba(240,119,109,.4)}
+    .watch-row{cursor:pointer}
+    .row-tag{display:inline-block;margin-left:7px;padding:1px 6px;border-radius:5px;background:rgba(128,184,255,.14);color:var(--blue);font:9px/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}
+    .row-tag.stale{background:rgba(240,119,109,.14);color:var(--red)}
+
+    /* ---- Banner status analisa ---- */
+    .pending[hidden]{display:none}
+    .pending{display:flex;align-items:center;gap:11px;margin:0 0 14px;padding:12px 15px;border-radius:11px;border:1px solid rgba(229,180,92,.35);background:rgba(229,180,92,.08);color:var(--text);font-size:13px}
+    .pending.error{border-color:rgba(240,119,109,.4);background:rgba(240,119,109,.09)}
+    .pending.done{border-color:rgba(85,214,133,.4);background:rgba(85,214,133,.09)}
+    .pending b{font-weight:700}
+    .pending .spin{width:14px;height:14px;flex:0 0 14px;border-radius:50%;border:2px solid rgba(229,180,92,.3);border-top-color:var(--amber);animation:spin .9s linear infinite}
+    .pending.done .spin,.pending.error .spin{display:none}
+    .pending-close{margin-left:auto;background:transparent;border:0;color:var(--faint);font-size:16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){.pending .spin{animation:none}}
+
+    /* ---- Modal ---- */
+    .modal-backdrop{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(6,9,13,.72);backdrop-filter:blur(6px)}
+    .modal-backdrop[hidden]{display:none}
+    .modal{width:min(430px,100%);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+    .modal h3{margin:0 0 6px;font-size:17px;letter-spacing:-.02em}
+    .modal p{margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.55}
+    .modal input[type=text],.modal input[type=password]{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:15px var(--mono);letter-spacing:.06em}
+    .modal input::placeholder{color:var(--faint);letter-spacing:normal}
+    .modal-msg{margin-top:11px;font-size:12.5px;line-height:1.5;color:var(--muted);min-height:18px}
+    .modal-msg.error{color:var(--red)}
+    .modal-msg.ok{color:var(--green)}
+    .modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:19px}
+    .modal-note{margin-top:15px;padding-top:14px;border-top:1px solid var(--line);color:var(--faint);font-size:11.5px;line-height:1.6}
+    .modal-note code{font:11px var(--mono);color:var(--muted)}
+    @media (max-width:680px){.watch-actions{width:100%}.watch-actions .btn{flex:1}}
   </style>
 </head>
 <body>
   <header class="top"><div class="wrap top-inner"><div class="brand"><span class="mark">↗</span><div><div class="eyebrow">US market / swing cockpit</div><h1>Make the call visible.</h1></div></div><div class="top-actions"><div class="status"><span class="status-dot"></span><span id="marketStatus">Snapshot ready</span><span>·</span><span id="updatedAt">Loading data…</span></div></div></div></header>
   <main class="wrap">
-    <div class="toolbar"><label class="search" for="search"><span>⌕</span><span class="sr">Search ticker</span><input id="search" type="search" placeholder="Search ticker or company…" autocomplete="off"></label><div class="swing-mode"><span class="mode-dot"></span><b>Swing lens</b><span>technical 65% · fundamental 10% · risk 25%</span></div></div><p class="snapshot-note" id="snapshotNote"><b>Daily snapshot.</b> Sinyal menggunakan data pasar terakhir yang sudah dipublikasikan.</p><div class="freshness" aria-live="polite"><span>Data last updated: <b id="dataUpdated">—</b></span></div>
+    <div class="toolbar"><label class="search" for="search"><span>⌕</span><span class="sr">Search ticker</span><input id="search" type="search" placeholder="Search ticker or company…" autocomplete="off"></label><div class="swing-mode"><span class="mode-dot"></span><b>Swing lens</b><span>teknikal 65% · fundamental 35% · horizon 1–4 minggu</span></div></div><p class="snapshot-note" id="snapshotNote"><b>Daily snapshot.</b> Sinyal menggunakan data pasar terakhir yang sudah dipublikasikan.</p><div class="pending" id="pending" hidden></div>
+    <div class="freshness" aria-live="polite"><span>Data last updated: <b id="dataUpdated">—</b></span></div>
     <section class="panel signals focus-wrap"><div class="section-head"><h3>Focus list</h3><span id="focusMeta">up to 5 setups · max 2 semiconductors</span></div><div class="focus-grid" id="focusList"></div></section>
     <section class="hero-grid" aria-live="polite"><article class="panel decision" id="decision"></article><article class="panel chart" id="chart"></article></section>
     <section class="below"><article class="panel signals"><div class="section-head"><h3>Signal breakdown</h3><span>what drives the score</span></div><div class="signal-grid" id="signals"></div></article><article class="panel why"><div class="section-head"><h3>Why this call</h3><span>plain language</span></div><div class="why-list" id="why"></div><div class="method">The score is a decision aid, not a prediction. It is derived from the dated snapshot below; no order is placed from this page.</div></article></section>
-    <section class="watch-wrap"><article class="panel watch"><div class="watch-top section-head"><h3>Fixed watchlist</h3><span id="watchMeta">stable universe · reviewed monthly</span></div><div class="watch-head"><span>Ticker</span><span>Status</span><span>Score</span><span>Move</span><span>Why</span><span></span></div><div class="watch-list" id="fixedWatchlist"></div><div class="empty" id="empty" hidden>No ticker matches. Try clearing the search.</div></article></section>
+    <section class="watch-wrap"><article class="panel watch"><div class="watch-top section-head"><h3>Watchlist</h3><div class="watch-actions"><span id="watchMeta">memuat…</span><button class="btn btn-primary" id="addBtn" type="button">＋ Tambah emiten</button><button class="btn btn-icon" id="cfgBtn" type="button" title="Pengaturan sinkronisasi" aria-label="Pengaturan sinkronisasi">⚙</button></div></div><div class="watch-head"><span>Ticker</span><span>Status</span><span>Score</span><span>Move</span><span>Why</span><span></span></div><div class="watch-list" id="fixedWatchlist"></div><div class="empty" id="empty" hidden>No ticker matches. Try clearing the search.</div></article></section>
     <section class="additional-info" id="additionalInfo"><div class="section-head"><h3>Additional information</h3><span>reference only</span></div><div class="additional-grid"><div class="additional-block"><h4>Market benchmarks</h4><div class="benchmark-grid" id="benchmarks"></div></div><div class="additional-block"><h4>Beginner guardrails</h4><div class="guidance-list" id="guardrails" aria-label="Beginner swing guardrails"><div class="guardrail"><i>1</i><div><b>1 position while learning</b><span>Paper trade first; scale only after consistency.</span></div></div><div class="guardrail"><i>%</i><div><b>Risk ≤ 0.25% per trade</b><span>Account risk, not position size.</span></div></div><div class="guardrail"><i>!</i><div><b>No earnings hold</b><span>Verify the date before every entry.</span></div></div></div></div></div></section>
     <footer class="footer"><span>Source: Yahoo Finance snapshot · <span id="sourceTime">—</span></span><span><a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noreferrer">SEC EDGAR</a> for primary filings · decision aid only</span></footer>
+
+    <div class="modal-backdrop" id="addModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addTitle">
+        <h3 id="addTitle">Tambah emiten</h3>
+        <p>Ketik kode emiten persis seperti di Yahoo Finance — misalnya <b>NVDA</b>, <b>BRK-B</b>, atau <b>ASML</b>. Analisa BUY / WAIT / AVOID dijalankan otomatis setelah ditambahkan.</p>
+        <input type="text" id="tickerInput" placeholder="NVDA" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Kode emiten">
+        <div class="modal-msg" id="addMsg"></div>
+        <div class="modal-actions">
+          <button class="btn" type="button" data-close="addModal">Batal</button>
+          <button class="btn btn-primary" type="button" id="addConfirm">Analisa &amp; tambahkan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="delModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+        <h3 id="delTitle">Hapus dari watchlist?</h3>
+        <p id="delBody">—</p>
+        <div class="modal-msg" id="delMsg"></div>
+        <div class="modal-actions">
+          <button class="btn" type="button" data-close="delModal">Batal</button>
+          <button class="btn btn-danger" type="button" id="delConfirm">Hapus</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="cfgModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cfgTitle">
+        <h3 id="cfgTitle">Cara menyimpan perubahan</h3>
+        <p>Halaman ini statis, jadi perubahan watchlist dikirim ke GitHub dan diproses GitHub&nbsp;Actions. Dua cara, dua-duanya gratis:</p>
+        <p><b>1. Lewat issue (default).</b> Tombol tambah/hapus membuka issue GitHub yang sudah terisi — kamu tinggal klik <i>Create</i>. Tanpa token, tanpa rahasia tersimpan di browser.<br><br>
+        <b>2. Lewat token (1 klik).</b> Tempel fine-grained token di bawah dan perubahan langsung tersimpan tanpa membuka tab baru.</p>
+        <input type="password" id="tokenInput" placeholder="github_pat_… (opsional)" autocomplete="off" spellcheck="false" aria-label="GitHub token">
+        <div class="modal-msg" id="cfgMsg"></div>
+        <div class="modal-actions">
+          <button class="btn btn-danger" type="button" id="tokenClear">Hapus token</button>
+          <button class="btn" type="button" data-close="cfgModal">Tutup</button>
+          <button class="btn btn-primary" type="button" id="tokenSave">Simpan</button>
+        </div>
+        <div class="modal-note">
+          Buat token di <code>Settings → Developer settings → Fine-grained tokens</code>, batasi ke repo <code>stock-dashboard</code> saja, beri izin <code>Contents: Read and write</code>.
+          Token disimpan di <code>localStorage</code> browser ini saja dan hanya dikirim ke <code>api.github.com</code> — tidak pernah masuk ke repo. Siapa pun yang memakai browser ini bisa membacanya, jadi jangan pakai di perangkat bersama.
+        </div>
+      </div>
+    </div>
   </main>
   <script>
     (function(){
-      var state={raw:[],all:[],items:[],benchmarks:[],focus:[],selected:null};
+      var state={raw:[],all:[],items:[],benchmarks:[],focus:[],selected:null,names:{},meta:{},snapshot:null};
       var decision=document.getElementById('decision'),chart=document.getElementById('chart'),signals=document.getElementById('signals'),why=document.getElementById('why'),fixedWatchlist=document.getElementById('fixedWatchlist'),focusList=document.getElementById('focusList'),benchmarks=document.getElementById('benchmarks'),empty=document.getElementById('empty'),search=document.getElementById('search'),dataUpdated=document.getElementById('dataUpdated');
       var swingWeights={trend:.4,quality:.1,valuation:.05,relative:.25,risk:.2};
       var semiconductorTickers=['NVDA','AVGO','AMD','MU'];
@@ -51,8 +142,24 @@
       var pct=function(v){return (v>=0?'+':'')+Number(v).toFixed(1)+'%'};
       var clamp=function(v,min,max){return Math.max(min,Math.min(max,v))};
       function label(t){return t==='BUY'?'BUY':t==='AVOID'?'AVOID':'WAIT'}
-      function companyName(t){return ({NVDA:'NVIDIA',AVGO:'Broadcom',AMD:'AMD',MU:'Micron',AMZN:'Amazon',GOOGL:'Alphabet',MELI:'MercadoLibre',LLY:'Eli Lilly',VOO:'Vanguard S&P 500 ETF',QQQ:'Invesco QQQ'})[t]||t}
+      function companyName(t){if(state.names&&state.names[t])return state.names[t];return ({NVDA:'NVIDIA',AVGO:'Broadcom',AMD:'AMD',MU:'Micron',AMZN:'Amazon',GOOGL:'Alphabet',MELI:'MercadoLibre',LLY:'Eli Lilly',VOO:'Vanguard S&P 500 ETF',QQQ:'Invesco QQQ'})[t]||t}
+      function earningsLabel(x){return (x.earnings_in_days!=null)?('EARNINGS '+x.earnings_in_days+'D'):'CHECK EARNINGS'}
+      function fromServer(x){
+        var s=x.swing,p=s.parts||{},pick=function(k,f){return typeof p[k]==='number'?p[k]:f};
+        var entry=Number(s.entry||x.price||0),target=Number(s.target||0),riskLine=Number(s.stop||0),rr=Number(s.rr||0);
+        var reasons=(s.reasons&&s.reasons.length?s.reasons:['Tidak ada faktor pendukung yang menonjol.']).slice(0,3);
+        var invalidation=(s.risks&&s.risks.length)?s.risks[0]:('Penutupan di bawah '+money.format(riskLine)+' membatalkan setup ini.');
+        return {item:x,server:true,score:s.score,verdict:s.verdict,hardRisk:!!(s.blockers&&s.blockers.length),
+          confidence:Math.round(clamp(50+Math.abs(s.score-50)*.8+(s.verdict==='BUY'?8:0),52,91)),
+          trend:pick('trend',50),quality:Math.round((pick('quality',50)+pick('growth',50))/2),
+          valuation:pick('valuation',50),relative:pick('momentum',50),
+          risk:Math.round((pick('volatility',50)+pick('liquidity',50))/2),
+          entry:entry,target:target,riskLine:riskLine,rr:rr,reasons:reasons,invalidation:invalidation,
+          headline:s.headline||'',checks:s.checks||[],risks:s.risks||[],
+          techScore:s.tech_score,fundScore:s.fund_score};
+      }
       function scoreItem(x){
+        if(x&&x.swing&&typeof x.swing.score==='number')return fromServer(x);
         var trend=clamp(50+(x.chg_1w||0)*2+(x.vs_ma50||0)*1.5+(x.vs_ma200||0)*.6-(x.rsi>70?(x.rsi-70)*1.3:0),0,100);
         var quality=x.is_etf?60:clamp(50+(x.rev_growth||0)*28+(x.roe||0)*18-(x.d2e>120?18:x.d2e>70?8:0)+((x.fcf||0)>0?8:-18),0,100);
         var valuation=x.is_etf?56:clamp(92-(x.peg||2)*24-(x.fwd_pe>35?12:0)+(x.upside>20?8:0),0,100);
@@ -73,23 +180,356 @@
         var invalidation=(x.vs_ma50||0)<-4?'Close back below MA50 would weaken the setup.':(x.beta||1)>2?'A volatility spike or failed breakout would cancel the setup.':'A break below the risk line or a deteriorating earnings trend changes the call.';
         return {item:x,score:score,verdict:verdict,hardRisk:hardRisk,confidence:Math.round(clamp(50+Math.abs(score-50)*.8+(verdict==='BUY'?8:0),52,91)),trend:trend,quality:quality,valuation:valuation,relative:relative,risk:risk,entry:entry,target:target,riskLine:riskLine,rr:rr,reasons:reasons.slice(0,3),invalidation:invalidation};
       }
-      function executionStatus(d){if(d.hardRisk||d.score<50||(d.item.vs_ma200||0)<0)return 'REJECT';if(d.score>=70&&d.rr>=2&&(d.item.rsi||0)<70)return 'READY';return 'WAIT'}
+      function executionStatus(d){if(d.server)return d.verdict==='BUY'?'READY':(d.verdict==='AVOID'?'REJECT':'WAIT');if(d.hardRisk||d.score<50||(d.item.vs_ma200||0)<0)return 'REJECT';if(d.score>=70&&d.rr>=2&&(d.item.rsi||0)<70)return 'READY';return 'WAIT'}
       function buildFocusList(items){var priority={READY:0,WAIT:1,REJECT:2},focus=[],semis=0;items.slice().sort(function(a,b){var pa=priority[executionStatus(a)],pb=priority[executionStatus(b)];return pa-pb||b.score-a.score||b.rr-a.rr}).forEach(function(d){var status=executionStatus(d),isSemi=semiconductorTickers.indexOf(d.item.ticker)>-1;if(status==='REJECT'||focus.length >= 5||isSemi&&!(semis < 2))return;focus.push(d);if(isSemi)semis++});return focus}
       function spark(points,color){if(!points||!points.length)return '';var min=Math.min.apply(null,points),max=Math.max.apply(null,points),range=max-min||1,pts=points.map(function(v,i){return (i/(points.length-1)*100).toFixed(1)+','+(100-(v-min)/range*88-6).toFixed(1)}).join(' ');return '<polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>'}
-      function renderDecision(d){var x=d.item,status=executionStatus(d),v=status==='READY'?'buy':status==='REJECT'?'avoid':'wait',verdict=status==='READY'?'BUY':status==='REJECT'?'AVOID':'WAIT',action=status==='READY'?'Setup meets the swing rules':status==='REJECT'?'Setup fails the risk gates':'Wait for a cleaner setup';decision.innerHTML='<div class="eyebrow">Selected ticker · Swing · next 1–4 weeks</div><div class="decision-head"><div><div class="ticker"><h3>'+x.ticker+'</h3><span class="company">'+companyName(x.ticker)+'</span></div><div class="label">US equity / common stock</div></div><div class="price">'+money.format(x.price)+'<div class="change '+(x.chg_1d>=0?'positive':'negative')+'">'+pct(x.chg_1d)+' today</div></div></div><div class="execution-row"><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span><span class="earnings-badge">CHECK EARNINGS</span></div><div class="verdict-line"><div class="verdict verdict-'+v+'">'+verdict+'</div><div class="verdict-copy"><strong>'+action+'</strong><span>Confidence '+d.confidence+'/100 · score '+d.score+'/100</span></div></div><div class="metrics"><div class="metric"><small>Entry zone</small><b>≤ '+money.format(d.entry)+'</b></div><div class="metric"><small>Target</small><b class="positive">'+money.format(d.target)+'</b></div><div class="metric"><small>Risk line</small><b class="negative">'+money.format(d.riskLine)+'</b></div><div class="metric"><small>Upside / risk</small><b>'+d.rr.toFixed(1)+'×</b></div></div><div class="callout"><b>Bottom line</b> — '+(status==='READY'?'Rules pass, but verify earnings are more than five trading days away before entry.':status==='REJECT'?'Do not buy. Trend or risk rules are not satisfied.':'Do not force the trade. Wait until entry, trend, and risk/reward align.')+'</div>'}
+      function renderDecision(d){var x=d.item,status=executionStatus(d),v=status==='READY'?'buy':status==='REJECT'?'avoid':'wait',verdict=status==='READY'?'BUY':status==='REJECT'?'AVOID':'WAIT',action=status==='READY'?'Setup meets the swing rules':status==='REJECT'?'Setup fails the risk gates':'Wait for a cleaner setup';decision.innerHTML='<div class="eyebrow">Selected ticker · Swing · next 1–4 weeks</div><div class="decision-head"><div><div class="ticker"><h3>'+x.ticker+'</h3><span class="company">'+companyName(x.ticker)+'</span></div><div class="label">US equity / common stock</div></div><div class="price">'+money.format(x.price)+'<div class="change '+(x.chg_1d>=0?'positive':'negative')+'">'+pct(x.chg_1d)+' today</div></div></div><div class="execution-row"><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span><span class="earnings-badge">'+earningsLabel(x)+'</span></div><div class="verdict-line"><div class="verdict verdict-'+v+'">'+verdict+'</div><div class="verdict-copy"><strong>'+action+'</strong><span>Confidence '+d.confidence+'/100 · score '+d.score+'/100</span></div></div><div class="metrics"><div class="metric"><small>Entry zone</small><b>≤ '+money.format(d.entry)+'</b></div><div class="metric"><small>Target</small><b class="positive">'+money.format(d.target)+'</b></div><div class="metric"><small>Risk line</small><b class="negative">'+money.format(d.riskLine)+'</b></div><div class="metric"><small>Upside / risk</small><b>'+d.rr.toFixed(1)+'×</b></div></div><div class="callout"><b>Bottom line</b> — '+(status==='READY'?'Rules pass, but verify earnings are more than five trading days away before entry.':status==='REJECT'?'Do not buy. Trend or risk rules are not satisfied.':'Do not force the trade. Wait until entry, trend, and risk/reward align.')+'</div>'}
       function renderChart(d){var x=d.item;var color=d.verdict==='BUY'?'#55d685':d.verdict==='AVOID'?'#f0776d':'#e5b45c';chart.innerHTML='<div class="chart-head"><div><div class="eyebrow">Price structure</div><h3>'+x.ticker+' · 3-month snapshot</h3></div><span class="range">'+pct(x.chg_1w)+' / week</span></div><div class="chart-plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Price trend for '+x.ticker+'" role="img">'+spark(x.spark,color)+'</svg><div class="guide guide-target"><span>target</span><span>'+money.format(d.target)+'</span></div><div class="guide guide-entry"><span>entry</span><span>'+money.format(d.entry)+'</span></div><div class="guide guide-risk"><span>risk line</span><span>'+money.format(d.riskLine)+'</span></div></div><div class="chart-foot"><span>52-week position <b>'+clamp(Math.round(100+(x.from_52w_high||0)),0,100)+'%</b></span><span>RSI <b>'+Number(x.rsi||0).toFixed(1)+'</b></span></div>'}
       function signal(name,value,copy,kind){return '<div class="signal"><div class="signal-top"><strong>'+name+'</strong><span class="signal-icon '+kind+'"></span></div><b>'+value+'</b><p>'+copy+'</p></div>'}
       function renderSignals(d){var x=d.item;signals.innerHTML=signal('Trend',d.trend>=65?'Bullish':d.trend<=42?'Weak':'Mixed',((x.vs_ma50||0)>=0?'MA50 +':'MA50 ')+(x.vs_ma50||0).toFixed(1)+'%',d.trend>=65?'buy':d.trend<=42?'avoid':'wait')+signal('Earnings',x.is_etf?'n/a':d.quality>=65?'Strong':d.quality<45?'Weak':'Mixed',x.is_etf?'ETF — technical only':'Revenue '+pct((x.rev_growth||0)*100),d.quality>=65?'buy':d.quality<45?'avoid':'wait')+signal('Valuation',x.is_etf?'n/a':d.valuation>=65?'Favorable':d.valuation<45?'Stretched':'Fair',x.is_etf?'No fundamental score':'PEG '+(x.peg||0).toFixed(2),d.valuation>=65?'buy':d.valuation<45?'avoid':'wait')+signal('Relative strength',d.relative>=65?'Leading':d.relative<42?'Lagging':'Mixed','vs 52-week high '+pct(x.from_52w_high||0),d.relative>=65?'buy':d.relative<42?'avoid':'wait')+signal('Risk',d.risk>=65?'Contained':d.risk<45?'High':'Elevated','Beta '+Number(x.beta||0).toFixed(2),d.risk>=65?'buy':d.risk<45?'avoid':'wait')}
-      function renderWhy(d){why.innerHTML=d.reasons.map(function(r){return '<div class="why-item"><i>+</i><div><b>Supports the thesis</b><span>'+r+'</span></div></div>'}).join('')+'<div class="why-item risk"><i>!</i><div><b>What changes my mind</b><span>'+d.invalidation+'</span></div></div><div class="why-item risk"><i>!</i><div><b>Earnings check required</b><span>Snapshot ini tidak memuat tanggal earnings. Verifikasi manual dan jangan entry jika earnings ≤ 5 hari bursa.</span></div></div>'}
+      function renderWhy(d){
+        var x=d.item;
+        var earn=(x.earnings_in_days!=null)
+          ? ('Earnings sekitar '+x.earnings_in_days+' hari lagi. '+(x.earnings_in_days<=5?'Hindari entry baru sampai laporan lewat — gap bisa melompati stop.':'Masih cukup jauh untuk swing pendek.'))
+          : 'Snapshot ini tidak memuat tanggal earnings. Verifikasi manual dan jangan entry jika earnings ≤ 5 hari bursa.';
+        var extra=(d.risks&&d.risks.length>1)?d.risks.slice(1,3):[];
+        why.innerHTML=d.reasons.map(function(r){return '<div class="why-item"><i>+</i><div><b>Supports the thesis</b><span>'+r+'</span></div></div>'}).join('')
+          +'<div class="why-item risk"><i>!</i><div><b>What changes my mind</b><span>'+d.invalidation+'</span></div></div>'
+          +extra.map(function(r){return '<div class="why-item risk"><i>!</i><div><b>Risiko lain</b><span>'+r+'</span></div></div>'}).join('')
+          +'<div class="why-item risk"><i>!</i><div><b>Earnings check</b><span>'+earn+'</span></div></div>';
+      }
       function benchmarkRegime(d){var x=d.item;if((x.vs_ma200||0)>2&&(x.chg_1w||0)>=0)return ['RISK ON','on'];if((x.vs_ma200||0)<0)return ['RISK OFF','off'];return ['MIXED','mixed']}
       function renderBenchmarks(){benchmarks.innerHTML=state.benchmarks.map(function(d){var x=d.item,regime=benchmarkRegime(d);return '<article class="benchmark-card"><strong>'+x.ticker+'</strong><span class="benchmark-price">'+money.format(x.price)+'</span><span class="benchmark-meta">'+pct(x.chg_1w)+' week · MA200 '+pct(x.vs_ma200||0)+'</span><span class="regime regime-'+regime[1]+'">'+regime[0]+'</span></article>'}).join('')}
-      function renderFocus(){if(!state.focus.length){focusList.innerHTML='<div class="no-trade"><b>NO TRADE</b><span>No setup meets the swing rules.</span></div>';return}focusList.innerHTML=state.focus.map(function(d){var x=d.item,status=executionStatus(d);return '<button class="focus-card" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'"><span class="focus-top"><strong>'+x.ticker+'</strong><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span></span><span class="focus-stats"><span>'+d.score+'/100</span><span>'+d.rr.toFixed(1)+'× R/R</span><span class="'+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span></span><p class="focus-reason">'+d.reasons[0]+'</p><span class="focus-warning">CHECK EARNINGS</span></button>'}).join('');document.getElementById('focusMeta').textContent=state.focus.length+' candidates · max 2 semiconductors'}
-      function renderFixedWatchlist(){var term=search.value.trim().toUpperCase();var rows=state.items.filter(function(d){return !term||d.item.ticker.indexOf(term)>-1||companyName(d.item.ticker).toUpperCase().indexOf(term)>-1});fixedWatchlist.innerHTML=rows.map(function(d){var x=d.item,status=executionStatus(d);return '<button class="watch-row" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'"><span class="row-ticker">'+x.ticker+'<span class="row-company">'+companyName(x.ticker)+'</span></span><span class="row-verdict execution-'+status.toLowerCase()+'">'+status+'</span><span class="row-score">'+d.score+'/100</span><span class="row-move '+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span><span class="row-reason">'+d.reasons[0]+'</span><span class="row-arrow">›</span></button>'}).join('');empty.hidden=rows.length>0;document.getElementById('watchMeta').textContent=state.items.length+' fixed equities · reviewed monthly'}
-      function buildScores(){state.all=state.raw.map(scoreItem);state.benchmarks=state.all.filter(function(d){return d.item.is_etf});state.items=state.all.filter(function(d){return !d.item.is_etf}).sort(function(a,b){return b.score-a.score});state.focus=buildFocusList(state.items)}
-      function loadSnapshot(){return fetch('data.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('snapshot unavailable');return r.json()}).then(function(data){state.raw=data.items.filter(function(x){return x.ok!==false});buildScores();var selectedStillExists=state.items.some(function(d){return d.item.ticker===state.selected});state.selected=selectedStillExists?state.selected:(state.focus[0]||state.items[0]).item.ticker;dataUpdated.textContent=data.updated||'snapshot loaded';document.getElementById('updatedAt').textContent='Data snapshot · '+(data.updated||'loaded');document.getElementById('sourceTime').textContent=data.updated||'snapshot loaded';document.getElementById('marketStatus').textContent='Snapshot ready';renderBenchmarks();selectTicker(state.selected)}).catch(function(){document.getElementById('marketStatus').textContent='Snapshot unavailable';document.getElementById('snapshotNote').innerHTML='<b>Snapshot unavailable.</b> Muat ulang halaman untuk mencoba lagi.';throw new Error('snapshot unavailable')})}
+      function renderFocus(){if(!state.focus.length){focusList.innerHTML='<div class="no-trade"><b>NO TRADE</b><span>No setup meets the swing rules.</span></div>';return}focusList.innerHTML=state.focus.map(function(d){var x=d.item,status=executionStatus(d);return '<button class="focus-card" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'"><span class="focus-top"><strong>'+x.ticker+'</strong><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span></span><span class="focus-stats"><span>'+d.score+'/100</span><span>'+d.rr.toFixed(1)+'× R/R</span><span class="'+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span></span><p class="focus-reason">'+d.reasons[0]+'</p><span class="focus-warning">'+earningsLabel(x)+'</span></button>'}).join('');document.getElementById('focusMeta').textContent=state.focus.length+' candidates · max 2 semiconductors'}
+      function renderFixedWatchlist(){
+        var term=search.value.trim().toUpperCase();
+        var rows=state.items.filter(function(d){return !term||d.item.ticker.indexOf(term)>-1||companyName(d.item.ticker).toUpperCase().indexOf(term)>-1});
+        fixedWatchlist.innerHTML=rows.map(function(d){
+          var x=d.item,status=executionStatus(d);
+          var tag=(x.source==='auto')?'<span class="row-tag">auto</span>':'';
+          if(x.refresh_failed)tag+='<span class="row-tag stale">data lama</span>';
+          return '<div class="watch-row" role="button" tabindex="0" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'">'
+            +'<span class="row-ticker">'+x.ticker+tag+'<span class="row-company">'+companyName(x.ticker)+'</span></span>'
+            +'<span class="row-verdict execution-'+status.toLowerCase()+'">'+status+'</span>'
+            +'<span class="row-score">'+d.score+'/100</span>'
+            +'<span class="row-move '+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span>'
+            +'<span class="row-reason">'+d.reasons[0]+'</span>'
+            +'<button class="row-del" type="button" data-del="'+x.ticker+'" title="Hapus '+x.ticker+'" aria-label="Hapus '+x.ticker+' dari watchlist">×</button>'
+            +'</div>';
+        }).join('');
+        empty.hidden=rows.length>0;
+        var pinned=(state.meta.pinned||[]).length,auto=(state.meta.auto||[]).length;
+        document.getElementById('watchMeta').textContent=pinned+' pilihanmu · '+auto+' kandidat auto · refresh tiap 5 hari';
+      }
+      function buildScores(){state.all=state.raw.map(scoreItem);state.benchmarks=state.all.filter(function(d){return d.item.is_etf});state.items=state.all.slice().sort(function(a,b){return b.score-a.score});state.focus=buildFocusList(state.all.filter(function(d){return !d.item.is_etf}))}
+      function loadSnapshot(){return fetch('data.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('snapshot unavailable');return r.json()}).then(function(data){state.raw=data.items.filter(function(x){return x.ok!==false});state.names={};data.items.forEach(function(x){if(x.name)state.names[x.ticker]=x.name});state.meta=data.watchlist||{};state.snapshot=data;buildScores();if(!state.items.length){renderEmptyWatchlist(data);return data}var selectedStillExists=state.items.some(function(d){return d.item.ticker===state.selected});state.selected=selectedStillExists?state.selected:(state.focus[0]||state.items[0]).item.ticker;dataUpdated.textContent=data.updated||'snapshot loaded';document.getElementById('updatedAt').textContent='Data snapshot · '+(data.updated||'loaded');document.getElementById('sourceTime').textContent=data.updated||'snapshot loaded';document.getElementById('marketStatus').textContent='Snapshot ready';renderBenchmarks();selectTicker(state.selected)}).catch(function(){document.getElementById('marketStatus').textContent='Snapshot unavailable';document.getElementById('snapshotNote').innerHTML='<b>Snapshot unavailable.</b> Muat ulang halaman untuk mencoba lagi.';throw new Error('snapshot unavailable')})}
       function selectTicker(t){var d=state.items.find(function(x){return x.item.ticker===t});if(!d)return;state.selected=t;renderDecision(d);renderChart(d);renderSignals(d);renderWhy(d);renderFocus();renderFixedWatchlist()}
-      document.addEventListener('click',function(e){var row=e.target.closest('.watch-row, .focus-card');if(row)selectTicker(row.dataset.ticker)});
+      document.addEventListener('click',function(e){
+        var del=e.target.closest('[data-del]');
+        if(del){e.preventDefault();e.stopPropagation();askRemove(del.getAttribute('data-del'));return}
+        var row=e.target.closest('.watch-row, .focus-card');
+        if(row)selectTicker(row.dataset.ticker);
+      });
+      document.addEventListener('keydown',function(e){
+        if(e.key!=='Enter'&&e.key!==' ')return;
+        var row=e.target.closest&&e.target.closest('.watch-row');
+        if(row&&!e.target.closest('[data-del]')){e.preventDefault();selectTicker(row.dataset.ticker)}
+      });
       search.addEventListener('input',function(){renderFixedWatchlist();var exact=state.items.find(function(d){return d.item.ticker===search.value.trim().toUpperCase()});if(exact)selectTicker(exact.item.ticker)});
+      /* =====================================================================
+         MANAJEMEN WATCHLIST
+         ---------------------------------------------------------------------
+         Halaman ini statis, jadi perubahan watchlist dikirim ke GitHub dan
+         dikerjakan GitHub Actions:
+           - mode issue (default) : buka issue berisi "add: NVDA", Actions memproses
+           - mode token (opsional): tulis langsung ke watchlist_core.txt via API
+         Setelah dikirim, halaman menunggu (polling) sampai data.json terbarui.
+         ===================================================================== */
+      var GH = (function(){
+        var host = location.hostname || '';
+        var owner = /\.github\.io$/i.test(host) ? host.split('.')[0] : 'thesarpandjiux';
+        var seg = location.pathname.split('/').filter(Boolean);
+        var repo = (/\.github\.io$/i.test(host) && seg.length) ? seg[0] : 'stock-dashboard';
+        return {owner: owner, repo: repo, slug: owner + '/' + repo,
+                api: 'https://api.github.com/repos/' + owner + '/' + repo};
+      })();
+
+      var TICKER_RE = /^[A-Z][A-Z0-9]{0,5}([.-][A-Z]{1,2})?$/;
+      var POLL_MS = 20000, POLL_LIMIT = 45;   /* ±15 menit */
+      var STORE_TOKEN = 'sd.ghToken', STORE_PENDING = 'sd.pending';
+      var pollTimer = null;
+
+      function store(key, val){
+        try{
+          if(val === null){localStorage.removeItem(key); return null}
+          if(val === undefined) return localStorage.getItem(key);
+          localStorage.setItem(key, val); return val;
+        }catch(e){ return null }
+      }
+      function getToken(){ return store(STORE_TOKEN) || '' }
+      function getPending(){
+        try{ return JSON.parse(store(STORE_PENDING) || 'null') }catch(e){ return null }
+      }
+      function setPending(p){ p ? store(STORE_PENDING, JSON.stringify(p)) : store(STORE_PENDING, null) }
+
+      /* ---------------------------------------------------------- modal */
+      function openModal(id){
+        var el = document.getElementById(id);
+        el.hidden = false;
+        var input = el.querySelector('input');
+        if(input) setTimeout(function(){ input.focus() }, 30);
+      }
+      function closeModal(id){
+        var el = document.getElementById(id);
+        el.hidden = true;
+        var msg = el.querySelector('.modal-msg');
+        if(msg){ msg.textContent = ''; msg.className = 'modal-msg' }
+      }
+      function say(id, text, kind){
+        var el = document.getElementById(id);
+        el.textContent = text;
+        el.className = 'modal-msg' + (kind ? ' ' + kind : '');
+      }
+      document.addEventListener('click', function(e){
+        var c = e.target.closest('[data-close]');
+        if(c){ closeModal(c.getAttribute('data-close')); return }
+        var back = e.target.classList && e.target.classList.contains('modal-backdrop');
+        if(back) closeModal(e.target.id);
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          ['addModal','delModal','cfgModal'].forEach(function(id){
+            var el = document.getElementById(id);
+            if(el && !el.hidden) closeModal(id);
+          });
+        }
+      });
+
+      /* --------------------------------------------------------- banner */
+      function banner(html, kind){
+        var el = document.getElementById('pending');
+        el.hidden = false;
+        el.className = 'pending' + (kind ? ' ' + kind : '');
+        el.innerHTML = '<span class="spin"></span><span>' + html + '</span>'
+          + '<button class="pending-close" type="button" id="pendingClose" aria-label="Tutup">×</button>';
+        document.getElementById('pendingClose').onclick = function(){
+          el.hidden = true;
+          if(kind === 'done' || kind === 'error') setPending(null);
+        };
+      }
+      function hideBanner(){ document.getElementById('pending').hidden = true }
+
+      /* ----------------------------------------------------- GitHub API */
+      function ghHeaders(token){
+        return {'Authorization': 'Bearer ' + token,
+                'Accept': 'application/vnd.github+json',
+                'Content-Type': 'application/json'};
+      }
+      function ghRead(token, path){
+        return fetch(GH.api + '/contents/' + path + '?ref=main',
+                     {headers: ghHeaders(token), cache: 'no-store'})
+          .then(function(r){
+            if(r.status === 404) return null;
+            if(r.status === 401 || r.status === 403) throw new Error('Token ditolak GitHub (401/403). Cek izin Contents: Read and write.');
+            if(!r.ok) throw new Error('GitHub membalas ' + r.status);
+            return r.json();
+          });
+      }
+      function ghWrite(token, path, text, sha, message){
+        var body = {message: message, content: btoa(text), branch: 'main'};
+        if(sha) body.sha = sha;
+        return fetch(GH.api + '/contents/' + path,
+                     {method: 'PUT', headers: ghHeaders(token), body: JSON.stringify(body)})
+          .then(function(r){
+            if(r.ok) return r.json();
+            return r.json().catch(function(){ return {} }).then(function(j){
+              throw new Error(j.message || ('GitHub membalas ' + r.status));
+            });
+          });
+      }
+      function decode(file){
+        if(!file || !file.content) return '';
+        return atob(String(file.content).replace(/\s/g, ''));
+      }
+      function issueUrl(action, ticker){
+        var title = action + ': ' + ticker;
+        var body = 'Dikirim dari dashboard. GitHub Actions akan '
+          + (action === 'add' ? 'menganalisa dan menambahkan' : 'menghapus')
+          + ' ' + ticker + ', lalu menutup issue ini otomatis.';
+        return 'https://github.com/' + GH.slug + '/issues/new?title='
+          + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+      }
+
+      /* --------------------------------------------------------- polling */
+      function startPolling(action, ticker){
+        setPending({action: action, ticker: ticker, tries: 0, started: Date.now()});
+        pollTick();
+      }
+      function pollTick(){
+        var p = getPending();
+        if(!p){ return }
+        if(p.tries >= POLL_LIMIT){
+          banner('Menunggu ' + p.ticker + ' terlalu lama. Buka <a href="https://github.com/'
+            + GH.slug + '/actions" target="_blank" rel="noreferrer">tab Actions</a> untuk melihat statusnya.', 'error');
+          setPending(null);
+          return;
+        }
+        var mins = Math.max(1, Math.round((POLL_LIMIT - p.tries) * POLL_MS / 60000));
+        banner('<b>' + (p.action === 'add' ? 'Menganalisa ' : 'Menghapus ') + p.ticker + '…</b> '
+          + 'GitHub Actions sedang bekerja — biasanya 1–3 menit. Halaman ini memeriksa otomatis (batas ~'
+          + mins + ' menit lagi).');
+
+        fetch('data.json?t=' + Date.now(), {cache: 'no-store'})
+          .then(function(r){ return r.ok ? r.json() : null })
+          .then(function(data){
+            if(!data) return false;
+            var found = (data.items || []).some(function(i){ return i.ticker === p.ticker && i.ok !== false });
+            return (p.action === 'add') ? found : !found;
+          })
+          .catch(function(){ return false })
+          .then(function(done){
+            if(done){
+              setPending(null);
+              return loadSnapshot().then(function(){
+                if(p.action === 'add'){
+                  var d = state.items.find(function(x){ return x.item.ticker === p.ticker });
+                  if(d){
+                    selectTicker(p.ticker);
+                    banner('<b>' + p.ticker + ' selesai dianalisa — status ' + d.verdict + '</b> ('
+                      + d.score + '/100). ' + (d.headline || ''), 'done');
+                    return;
+                  }
+                }
+                banner('<b>' + p.ticker + '</b> ' + (p.action === 'add' ? 'ditambahkan.' : 'dihapus dari watchlist.'), 'done');
+              });
+            }
+            p.tries += 1;
+            setPending(p);
+            pollTimer = setTimeout(pollTick, POLL_MS);
+          });
+      }
+
+      /* ------------------------------------------------------ aksi utama */
+      function submitChange(action, ticker){
+        var token = getToken();
+        if(!token){
+          window.open(issueUrl(action, ticker), '_blank', 'noopener');
+          startPolling(action, ticker);
+          return Promise.resolve({mode: 'issue'});
+        }
+        var isAuto = (state.meta.auto || []).indexOf(ticker) > -1;
+        var path = (action === 'remove' && isAuto) ? 'watchlist_exclude.txt' : 'watchlist_core.txt';
+
+        return ghRead(token, path).then(function(file){
+          var text = decode(file);
+          var lines = text.split('\n');
+          var body = lines.filter(function(l){ return l.trim() && l.trim().charAt(0) !== '#' });
+          var head = lines.filter(function(l){ return !l.trim() || l.trim().charAt(0) === '#' });
+          var list = body.map(function(l){ return l.trim().toUpperCase() });
+
+          if(action === 'add'){
+            if(list.indexOf(ticker) > -1) throw new Error(ticker + ' sudah ada di watchlist.');
+            list.push(ticker);
+          }else if(path === 'watchlist_exclude.txt'){
+            if(list.indexOf(ticker) < 0) list.push(ticker);
+          }else{
+            list = list.filter(function(t){ return t !== ticker });
+          }
+
+          var out = head.concat(list).join('\n').replace(/\n+$/, '') + '\n';
+          var msg = 'watchlist: ' + action + ' ' + ticker + ' (dari dashboard)';
+          return ghWrite(token, path, out, file && file.sha, msg);
+        }).then(function(){
+          startPolling(action, ticker);
+          return {mode: 'token'};
+        });
+      }
+
+      /* ------------------------------------------------------------ UI */
+      document.getElementById('addBtn').addEventListener('click', function(){
+        document.getElementById('tickerInput').value = '';
+        say('addMsg', getToken() ? 'Mode token aktif — perubahan langsung tersimpan.'
+                                 : 'Mode issue — GitHub akan terbuka di tab baru untuk konfirmasi.');
+        openModal('addModal');
+      });
+      document.getElementById('cfgBtn').addEventListener('click', function(){
+        document.getElementById('tokenInput').value = getToken();
+        say('cfgMsg', getToken() ? 'Token tersimpan di browser ini.' : 'Belum ada token — memakai mode issue.');
+        openModal('cfgModal');
+      });
+      document.getElementById('tokenSave').addEventListener('click', function(){
+        var v = document.getElementById('tokenInput').value.trim();
+        if(!v){ say('cfgMsg', 'Isi token dulu, atau tekan Hapus token untuk kembali ke mode issue.', 'error'); return }
+        store(STORE_TOKEN, v);
+        say('cfgMsg', 'Token disimpan. Tambah/hapus emiten sekarang langsung tersimpan.', 'ok');
+      });
+      document.getElementById('tokenClear').addEventListener('click', function(){
+        store(STORE_TOKEN, null);
+        document.getElementById('tokenInput').value = '';
+        say('cfgMsg', 'Token dihapus. Kembali ke mode issue.', 'ok');
+      });
+
+      function doAdd(){
+        var raw = document.getElementById('tickerInput').value.trim().toUpperCase().replace(/\s/g, '');
+        if(!raw){ say('addMsg', 'Isi kode emitennya dulu.', 'error'); return }
+        if(!TICKER_RE.test(raw)){ say('addMsg', '"' + raw + '" bukan format ticker yang valid. Contoh: NVDA, BRK-B, ASML.', 'error'); return }
+        if(state.items.some(function(d){ return d.item.ticker === raw })){
+          say('addMsg', raw + ' sudah ada di watchlist.', 'error'); return;
+        }
+        var btn = document.getElementById('addConfirm');
+        btn.disabled = true;
+        say('addMsg', 'Mengirim ke GitHub…');
+        submitChange('add', raw).then(function(){
+          closeModal('addModal');
+        }).catch(function(err){
+          say('addMsg', err.message || 'Gagal mengirim perubahan.', 'error');
+        }).then(function(){ btn.disabled = false });
+      }
+      document.getElementById('addConfirm').addEventListener('click', doAdd);
+      document.getElementById('tickerInput').addEventListener('keydown', function(e){
+        if(e.key === 'Enter') doAdd();
+      });
+
+      var pendingRemoval = null;
+      function askRemove(ticker){
+        pendingRemoval = ticker;
+        document.getElementById('delBody').innerHTML =
+          '<b>' + ticker + '</b> akan dikeluarkan dari watchlist dan tidak dianalisa lagi. '
+          + ((state.meta.auto || []).indexOf(ticker) > -1
+              ? 'Karena ini kandidat otomatis, tickernya juga dicekal supaya tidak muncul lagi pada refresh berikutnya.'
+              : 'Kamu bisa menambahkannya lagi kapan saja.');
+        say('delMsg', '');
+        openModal('delModal');
+      }
+      document.getElementById('delConfirm').addEventListener('click', function(){
+        if(!pendingRemoval) return;
+        var btn = this;
+        btn.disabled = true;
+        say('delMsg', 'Mengirim ke GitHub…');
+        submitChange('remove', pendingRemoval).then(function(){
+          closeModal('delModal');
+          pendingRemoval = null;
+        }).catch(function(err){
+          say('delMsg', err.message || 'Gagal mengirim perubahan.', 'error');
+        }).then(function(){ btn.disabled = false });
+      });
+
+      function renderEmptyWatchlist(data){
+        decision.innerHTML = '<div class="empty">Watchlist kosong. Klik <b>＋ Tambah emiten</b> untuk mulai memantau saham pertamamu.</div>';
+        chart.innerHTML = ''; signals.innerHTML = ''; why.innerHTML = '';
+        fixedWatchlist.innerHTML = ''; empty.hidden = false;
+        document.getElementById('watchMeta').textContent = '0 emiten';
+        dataUpdated.textContent = (data && data.updated) || '—';
+      }
+
+      /* Lanjutkan polling kalau halaman dimuat ulang saat proses berjalan. */
+      (function resume(){
+        var p = getPending();
+        if(!p) return;
+        if(Date.now() - (p.started || 0) > POLL_LIMIT * POLL_MS){ setPending(null); return }
+        pollTick();
+      })();
+
       loadSnapshot().catch(function(){decision.innerHTML='<div class="empty">Data snapshot tidak dapat dimuat. Muat ulang halaman untuk mencoba lagi.</div>'});
     })();
   </script>

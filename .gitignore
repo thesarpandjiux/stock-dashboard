@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+.backup-*/
+
+.swing-install.zip
+.swing-src/
+_to_delete/

@@ -1,0 +1,118 @@
+name: Watchlist via issue
+
+# Dashboard statis tidak bisa menulis ke repo sendiri. Jadi tombol
+# "Tambah/Hapus emiten" membuka issue dengan judul yang sudah terisi:
+#
+#     add: NVDA        (atau  tambah: NVDA)
+#     remove: NVDA     (atau  hapus: NVDA)
+#
+# Workflow ini yang mengerjakan sisanya: mengubah watchlist, menganalisa,
+# commit data.json, membalas hasilnya di issue, lalu menutup issue.
+# Tanpa token, tanpa rahasia apa pun di sisi browser.
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: dashboard-data
+  cancel-in-progress: false
+
+jobs:
+  handle:
+    # Hanya pemilik repo yang boleh mengubah watchlist.
+    if: github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baca perintah dari judul issue
+        id: parse
+        env:
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          set -euo pipefail
+          norm=$(printf '%s' "$TITLE" | tr '[:upper:]' '[:lower:]' | xargs)
+          action=""
+          ticker=""
+          case "$norm" in
+            add:*|tambah:*)     action="add";    ticker="${norm#*:}" ;;
+            remove:*|hapus:*)   action="remove"; ticker="${norm#*:}" ;;
+            +*)                 action="add";    ticker="${norm#+}"  ;;
+            -*)                 action="remove"; ticker="${norm#-}"  ;;
+          esac
+          ticker=$(printf '%s' "$ticker" | tr -d '[:space:]' | tr '[:lower:]' '[:upper:]')
+          if [ -z "$action" ] || [ -z "$ticker" ]; then
+            echo "matched=false" >> "$GITHUB_OUTPUT"
+            echo "Judul issue bukan perintah watchlist — dilewati."
+            exit 0
+          fi
+          if ! printf '%s' "$ticker" | grep -Eq '^[A-Z][A-Z0-9]{0,5}([.-][A-Z]{1,2})?$'; then
+            echo "matched=false" >> "$GITHUB_OUTPUT"
+            echo "Format ticker tidak valid: $ticker"
+            exit 0
+          fi
+          echo "matched=true"       >> "$GITHUB_OUTPUT"
+          echo "action=$action"     >> "$GITHUB_OUTPUT"
+          echo "ticker=$ticker"     >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.parse.outputs.matched == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.parse.outputs.matched == 'true'
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        if: steps.parse.outputs.matched == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Jalankan perintah
+        id: run
+        if: steps.parse.outputs.matched == 'true'
+        continue-on-error: true
+        run: python manage.py "${{ steps.parse.outputs.action }}" "${{ steps.parse.outputs.ticker }}"
+
+      - name: Commit perubahan
+        if: steps.parse.outputs.matched == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json watchlist_core.txt watchlist_auto.json watchlist_exclude.txt
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan."
+            exit 0
+          fi
+          git commit -m "watchlist: ${{ steps.parse.outputs.action }} ${{ steps.parse.outputs.ticker }}"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push
+
+      - name: Balas di issue
+        if: steps.parse.outputs.matched == 'true'
+        uses: actions/github-script@v7
+        env:
+          BODY: ${{ steps.run.outputs.message }}
+          STATUS: ${{ steps.run.outputs.status }}
+        with:
+          script: |
+            const body = process.env.BODY || 'Perintah selesai, tetapi tidak ada ringkasan yang dihasilkan.';
+            const ok = process.env.STATUS === 'ok';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body + '\n\n---\n' + (ok
+                ? '_Dashboard akan menampilkan hasilnya dalam 1-2 menit setelah GitHub Pages selesai deploy._'
+                : '_Watchlist tidak diubah._'),
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+            });

@@ -44,69 +44,29 @@ except ImportError:
 
 import os
 
+import watchlist as wl
+
 # Menentukan root direktori dari script itu sendiri
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def get_watchlist(top_n=10) -> list:
-    """Bangun watchlist dinamis: gabungan inti + aktif, dikurangi eksklusi."""
-    
-    def read_tickers(filename):
-        # Baca file relatif dari lokasi script
-        filepath = os.path.join(SCRIPT_DIR, filename)
-        try:
-            with open(filepath, 'r') as f:
-                return {line.strip().upper() for line in f if line.strip() and not line.startswith('#')}
-        except FileNotFoundError:
-            return set()
+# Fallback kalau semua file watchlist kosong/hilang.
+FALLBACK_TICKERS = ["SPY", "AAPL", "MSFT", "AMZN", "NVDA",
+                    "GOOGL", "TSLA", "META", "BRK-B", "JPM"]
 
-    core = read_tickers('watchlist_core.txt')
-    exclude = read_tickers('watchlist_exclude.txt')
-    
-    # Ambil 10 paling aktif dari S&P 500
-    most_active = get_most_active_sp500_tickers(top_n=20) # Ambil lebih banyak untuk di-filter
 
-    # Gabungkan: inti dulu, lalu tambahkan yang aktif sampai cukup 10
-    watchlist = list(core)
-    for ticker in most_active:
-        if len(watchlist) >= top_n:
-            break
-        if ticker not in watchlist and ticker not in exclude:
-            watchlist.append(ticker)
-            
-    # Pastikan tidak lebih dari top_n
-    return watchlist[:top_n]
+def get_watchlist(top_n=None) -> list:
+    """Watchlist final = pinned (pilihanmu) + kandidat auto, dikurangi cekal.
 
-def get_most_active_sp500_tickers(top_n=20) -> list:
+    Isinya dikelola lewat `watchlist.py` supaya dashboard, digest Telegram,
+    dan GitHub Actions selalu membaca daftar yang sama persis.
     """
-    Ambil daftar S&P 500 dari holdings SPY, hitung volume dolar,
-    lalu kembalikan N ticker paling aktif.
-    """
-    try:
-        url = "https://www.ssga.com/us/en/intermediary/etfs/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spy.xlsx"
-        tables = pd.read_html(url, header=0, attrs={'id': 'holdings'})
-        if not tables: return []
-        
-        df = tables[0]
-        df.rename(columns=lambda c: 'Ticker' if 'ticker' in c.lower() else c, inplace=True)
-        if 'Ticker' not in df.columns: return []
+    tickers = wl.resolve(limit=top_n)
+    return tickers or list(FALLBACK_TICKERS)
 
-        tickers = df['Ticker'].head(50).tolist()
-        
-        data = yf.download(tickers, period="5d", progress=False, show_errors=False)
-        if data.empty: return []
 
-        dollar_volume = data['Close'] * data['Volume']
-        avg_dollar_volume = dollar_volume.mean().sort_values(ascending=False)
-        
-        return avg_dollar_volume.head(top_n).index.tolist()
-
-    except Exception:
-        return []
-
-# Hapus daftar statis, ganti dengan pemanggilan fungsi
-TICKERS = get_watchlist()
-if not TICKERS: # Fallback jika semua gagal
-    TICKERS = ["SPY", "AAPL", "MSFT", "AMZN", "NVDA", "GOOGL", "TSLA", "META", "BRK-B", "JPM"]
+# Diisi saat runtime, BUKAN saat import — supaya modul ini aman di-import
+# oleh build_dashboard.py / screener.py tanpa memicu panggilan jaringan.
+TICKERS = []
 
 
 # Telegram — buat bot lewat @BotFather, lalu ambil token & chat_id kamu.
@@ -689,6 +649,8 @@ def send_telegram(text: str) -> bool:
 # -----------------------------------------------------------------------------
 
 def build_digest() -> str:
+    global TICKERS
+    TICKERS = get_watchlist()
     today = datetime.date.today().strftime("%A, %d %B %Y")
     rows = [analyze_ticker(t) for t in TICKERS]
     funds = {r["ticker"]: fetch_fundamentals(r["ticker"]) if r["ok"] else {} for r in rows}
