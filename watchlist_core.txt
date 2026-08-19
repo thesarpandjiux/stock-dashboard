@@ -1,0 +1,12 @@
+# Daftar emiten inti yang selalu ingin kamu pantau.
+# Satu ticker per baris.
+NVDA
+AVGO
+AMD
+AMZN
+GOOGL
+MELI
+LLY
+VOO
+QQQ
+MU

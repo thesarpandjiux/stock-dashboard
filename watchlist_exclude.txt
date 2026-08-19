@@ -1,0 +1,5 @@
+# Daftar emiten yang tidak akan pernah ditampilkan, walau aktif.
+# Satu ticker per baris.
+# Contoh:
+# BA
+# PFE
