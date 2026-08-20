@@ -1,46 +1,40 @@
 {
- "updated": "19 Agustus 2026, 22:04 WIB",
- "updated_iso": "2026-08-19T15:04:58",
+ "updated": "20 Agustus 2026, 09:36 WIB",
+ "updated_iso": "2026-08-20T02:36:57",
  "stale_after_hours": 30,
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
-   "last": 15.2,
-   "chg_1d": -4.04,
-   "chg_3mo": -15.84
-  },
-  {
-   "name": "US 10Y yield",
-   "last": 4.65,
-   "chg_1d": -1.21,
-   "chg_3mo": -0.39
+   "last": 14.89,
+   "chg_1d": -6.0,
+   "chg_3mo": -17.55
   },
   {
    "name": "Dollar Index",
-   "last": 98.91,
-   "chg_1d": -0.74,
-   "chg_3mo": -0.39
+   "last": 98.84,
+   "chg_1d": -0.81,
+   "chg_3mo": -0.46
   },
   {
    "name": "S&P 500",
-   "last": 7741.43,
-   "chg_1d": 0.65,
-   "chg_3mo": 5.27
+   "last": 7707.98,
+   "chg_1d": 0.21,
+   "chg_3mo": 3.7
   },
   {
    "name": "Minyak WTI",
-   "last": 84.99,
-   "chg_1d": 0.06,
-   "chg_3mo": -21.14
+   "last": 84.6,
+   "chg_1d": -0.4,
+   "chg_3mo": -21.5
   }
  ],
- "macro_read": "Volatilitas normal — kondisi wajar untuk swing trading.",
+ "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
  "insights": [
   {
    "k": "Risiko pasar",
-   "v": "Sedang",
-   "cls": "grey",
-   "why": "VIX 15.2 — Volatilitas normal — kondisi wajar untuk swing trading."
+   "v": "Rendah",
+   "cls": "green",
+   "why": "VIX 14.89 — Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko."
   },
   {
    "k": "Setup siap",
@@ -1874,6 +1868,210 @@
    "refresh_failed": false
   },
   {
+   "ticker": "WMT",
+   "source": "pinned",
+   "ok": true,
+   "error": null,
+   "name": "Walmart Inc.",
+   "price": 114.3,
+   "spark": [
+    130.85,
+    121.34,
+    120.27,
+    118.57,
+    118.54,
+    118.9,
+    115.75,
+    114.6,
+    113.06,
+    116.89,
+    117.74,
+    118.88,
+    119.83,
+    118.88,
+    120.59,
+    120.5,
+    121.04,
+    120.82,
+    121.03,
+    118.13,
+    117.18,
+    117.18,
+    119.42,
+    119.0,
+    115.78,
+    115.69,
+    114.6,
+    113.26,
+    108.82,
+    111.84,
+    110.65,
+    111.54,
+    113.1,
+    112.21,
+    113.9,
+    114.78,
+    113.7,
+    112.53,
+    114.95,
+    114.24,
+    112.2,
+    110.39,
+    109.33,
+    108.4,
+    109.47,
+    111.74,
+    113.1,
+    114.22,
+    111.1,
+    111.2,
+    110.71,
+    111.55,
+    112.34,
+    112.07,
+    111.85,
+    112.66,
+    113.26,
+    116.01,
+    115.72,
+    115.27,
+    114.33,
+    115.2,
+    114.3
+   ],
+   "chg_1d": -0.78,
+   "chg_1w": -1.47,
+   "chg_1m": 3.54,
+   "chg_3m": -14.83,
+   "rsi": 52.4,
+   "vs_ma20": 1.4,
+   "vs_ma50": 0.06,
+   "vs_ma200": -3.31,
+   "from_52w_high": -14.83,
+   "from_52w_low": 19.72,
+   "atr_pct": 1.99,
+   "dollar_volume": 2505223541,
+   "is_etf": false,
+   "fwd_pe": 34.84671,
+   "peg": 4.39,
+   "roe": 0.24132,
+   "beta": 0.605,
+   "d2e": 74.816,
+   "fcf": 6862249984.0,
+   "rev_growth": 0.073,
+   "op_margin": 0.042150002,
+   "target": 137.925,
+   "upside": 20.67,
+   "analysts": 40,
+   "earnings_in_days": 0,
+   "swing": {
+    "score": 61,
+    "verdict": "AVOID",
+    "headline": "Harga di bawah MA200 dan MA50 masih di bawah MA200 — tren turun.",
+    "tech_score": 59,
+    "fund_score": 66,
+    "parts": {
+     "trend": 37,
+     "momentum": 57,
+     "pullback": 67,
+     "volatility": 78,
+     "liquidity": 95,
+     "growth": 68,
+     "quality": 80,
+     "balance": 60,
+     "valuation": 38
+    },
+    "entry": 114.3,
+    "stop": 110.67,
+    "target": 121.56,
+    "rr": 2.0,
+    "risk_pct": 3.18,
+    "reward_pct": 6.35,
+    "horizon": "1-4 minggu",
+    "checks": [
+     {
+      "label": "Skor komposit",
+      "pass": false,
+      "detail": "61/100 (min 68)"
+     },
+     {
+      "label": "Tren naik",
+      "pass": false,
+      "detail": "harga > MA50 > MA200"
+     },
+     {
+      "label": "RSI sehat",
+      "pass": true,
+      "detail": "RSI 52.4"
+     },
+     {
+      "label": "Risk/reward",
+      "pass": true,
+      "detail": "2.0:1 (min 1.8:1)"
+     },
+     {
+      "label": "Tidak parabolik",
+      "pass": true,
+      "detail": "1.4% dari MA20"
+     },
+     {
+      "label": "Jauh dari earnings",
+      "pass": false,
+      "detail": "0 hari lagi"
+     }
+    ],
+    "reasons": [
+     "RSI 52.4 di zona sehat — tren hidup, belum kehabisan napas.",
+     "ATR 1.99% memberi ruang gerak yang pas untuk swing.",
+     "Likuid (~$2.5 miliar/hari), mudah masuk-keluar."
+    ],
+    "risks": [
+     "Struktur tren masih lemah; MA belum tersusun naik.",
+     "Earnings 0 hari lagi — gap harga bisa melompati stop.",
+     "Harga di bawah MA200 dan MA50 masih di bawah MA200 — tren turun."
+    ],
+    "blockers": [
+     "Harga di bawah MA200 dan MA50 masih di bawah MA200 — tren turun."
+    ],
+    "days_to_earnings": 0
+   },
+   "data_source": "yahoo",
+   "fetched_iso": "2026-08-20T02:36:41",
+   "news": [
+    {
+     "title": "Amazon Prime Air maybe coming to a city near you",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Yahoo Finance Video"
+    },
+    {
+     "title": "Lowe's earnings: CEO cites caution around consumer spending pressures",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Yahoo Finance Video"
+    },
+    {
+     "title": "Target earnings: Tariff refunds, back-to-school success drive stock",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Yahoo Finance Video"
+    },
+    {
+     "title": "Dow Jones Futures: S&P 500, Nasdaq Rise As Moderna, Merck, Gold Shine But Not These Techs",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "Investor's Business Daily"
+    }
+   ],
+   "news_mood": "netral/campuran",
+   "valuation": "PEG 4.39 (mahal relatif pertumbuhan) · fwd P/E 34.8 · beta 0.60 (lebih tenang dari pasar) · ATR 2.0%/hari",
+   "todos": [
+    "Earnings WMT dalam 0 hari — pertimbangkan menunda entry atau perkecil posisi."
+   ],
+   "has_todo": true,
+   "refresh_failed": false
+  },
+  {
    "ticker": "AAPL",
    "source": "auto",
    "ok": true,
@@ -3089,9 +3287,9 @@
   "VOO lolos syarat swing — tentukan ukuran posisi dari jarak stop 1.39%.",
   "QQQ lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.45%.",
   "Cek penyebab MU turun -23.5% dari puncak 52 minggu — sementara atau tesis rusak?",
+  "Earnings WMT dalam 0 hari — pertimbangkan menunda entry atau perkecil posisi.",
   "AAPL lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.18%.",
-  "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.31%.",
-  "VRTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.11%."
+  "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.31%."
  ],
  "watchlist": {
   "pinned": [
@@ -3103,7 +3301,8 @@
    "LLY",
    "VOO",
    "QQQ",
-   "MU"
+   "MU",
+   "WMT"
   ],
   "auto": [
    "AAPL",

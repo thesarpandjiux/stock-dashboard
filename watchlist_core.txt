@@ -9,3 +9,4 @@ LLY
 VOO
 QQQ
 MU
+WMT
