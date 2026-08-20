@@ -1,19 +1,25 @@
 {
- "updated": "20 Agustus 2026, 09:36 WIB",
- "updated_iso": "2026-08-20T02:36:57",
+ "updated": "20 Agustus 2026, 14:03 WIB",
+ "updated_iso": "2026-08-20T07:03:22",
  "stale_after_hours": 30,
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
    "last": 14.89,
    "chg_1d": -6.0,
-   "chg_3mo": -17.55
+   "chg_3mo": -14.62
+  },
+  {
+   "name": "US 10Y yield",
+   "last": 4.65,
+   "chg_1d": -1.13,
+   "chg_3mo": -0.3
   },
   {
    "name": "Dollar Index",
-   "last": 98.84,
-   "chg_1d": -0.81,
-   "chg_3mo": -0.46
+   "last": 98.78,
+   "chg_1d": -0.05,
+   "chg_3mo": -0.33
   },
   {
    "name": "S&P 500",
@@ -23,9 +29,9 @@
   },
   {
    "name": "Minyak WTI",
-   "last": 84.6,
-   "chg_1d": -0.4,
-   "chg_3mo": -21.5
+   "last": 84.85,
+   "chg_1d": -1.14,
+   "chg_3mo": -13.65
   }
  ],
  "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
@@ -52,7 +58,7 @@
    "k": "Paling lemah",
    "v": "AVGO",
    "cls": "amber",
-   "why": "Skor swing 57/100 · Belum memenuhi: Skor komposit, Tren naik, RSI sehat"
+   "why": "Skor swing 59/100 · Belum memenuhi: Skor komposit, Tren naik, RSI sehat"
   }
  ],
  "items": [
@@ -62,7 +68,7 @@
    "ok": true,
    "error": null,
    "name": "NVIDIA Corporation",
-   "price": 219.41,
+   "price": 217.56,
    "spark": [
     223.21,
     219.25,
@@ -126,22 +132,22 @@
     225.16,
     225.01,
     219.74,
-    219.41
+    217.56
    ],
-   "chg_1d": -0.15,
-   "chg_1w": -2.09,
-   "chg_1m": 5.85,
-   "chg_3m": -0.43,
-   "rsi": 56.2,
-   "vs_ma20": 3.27,
-   "vs_ma50": 5.92,
-   "vs_ma200": 12.51,
-   "from_52w_high": -6.82,
-   "from_52w_low": 32.99,
-   "atr_pct": 2.96,
-   "dollar_volume": 25255336026,
+   "chg_1d": -0.99,
+   "chg_1w": -2.91,
+   "chg_1m": 4.95,
+   "chg_3m": -1.27,
+   "rsi": 54.2,
+   "vs_ma20": 2.44,
+   "vs_ma50": 5.04,
+   "vs_ma200": 11.56,
+   "from_52w_high": -7.6,
+   "from_52w_low": 31.87,
+   "atr_pct": 2.99,
+   "dollar_volume": 25729012988,
    "is_etf": false,
-   "fwd_pe": 17.096094,
+   "fwd_pe": 16.937529,
    "peg": 0.62,
    "roe": 1.14288,
    "beta": 2.215,
@@ -150,18 +156,18 @@
    "rev_growth": 0.852,
    "op_margin": 0.65596,
    "target": 302.82758,
-   "upside": 38.02,
+   "upside": 39.19,
    "analysts": 58,
-   "earnings_in_days": 7,
+   "earnings_in_days": 6,
    "swing": {
     "score": 88,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 84,
+    "tech_score": 83,
     "fund_score": 97,
     "parts": {
      "trend": 94,
-     "momentum": 61,
+     "momentum": 59,
      "pullback": 85,
      "volatility": 88,
      "liquidity": 95,
@@ -170,12 +176,12 @@
      "balance": 92,
      "valuation": 88
     },
-    "entry": 219.41,
-    "stop": 209.01,
-    "target": 240.21,
+    "entry": 217.56,
+    "stop": 207.16,
+    "target": 238.36,
     "rr": 2.0,
-    "risk_pct": 4.74,
-    "reward_pct": 9.48,
+    "risk_pct": 4.78,
+    "reward_pct": 9.56,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -191,7 +197,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 56.2"
+      "detail": "RSI 54.2"
      },
      {
       "label": "Risk/reward",
@@ -201,29 +207,29 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "3.27% dari MA20"
+      "detail": "2.44% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "7 hari lagi"
+      "detail": "6 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 56.2 di zona sehat — tren hidup, belum kehabisan napas.",
-     "Koreksi 2.6% dari puncak 20 hari — area entry yang wajar.",
-     "ATR 2.96% memberi ruang gerak yang pas untuk swing.",
+     "RSI 54.2 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 3.4% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 2.99% memberi ruang gerak yang pas untuk swing.",
      "Pendapatan tumbuh 85% YoY."
     ],
     "risks": [
-     "Earnings 7 hari lagi — gap harga bisa melompati stop."
+     "Earnings 6 hari lagi — gap harga bisa melompati stop."
     ],
     "blockers": [],
-    "days_to_earnings": 7
+    "days_to_earnings": 6
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:38",
+   "fetched_iso": "2026-08-20T07:03:06",
    "news": [
     {
      "title": "Is Nvidia stock too cheap right now?",
@@ -232,29 +238,29 @@
      "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Cerebras says latest offering is 'fastest AI accelerator in the industry' as it takes aim at Nvidia",
+     "title": "Stripe agrees to acquire AI model router OpenRouter",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "Yahoo Finance"
+     "date": "2026-08-20",
+     "publisher": "Electronic Payments"
     },
     {
-     "title": "Warren Buffett Thinks Investors Are \"Gambling\" and \"Playing With Fire\" Right Now. But Here Are 3 Safe Stocks Even the Oracle of Omaha Would Like.",
-     "tone": "▫️",
-     "date": "2026-08-19",
+     "title": "Nvidia Chip-Filled Data Centers Need More Power Than Any Utility Can Promise. Here's Who Actually Wins.",
+     "tone": "🔺",
+     "date": "2026-08-20",
      "publisher": "Motley Fool"
     },
     {
-     "title": "Nvidia's H200 China Story Takes a Major Turn",
+     "title": "Nebius Increases Debt Raise Plan To $5B: Neocloud Operator Reportedly Bids For Decart AI Buyout Eyed by Anthropic",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "GuruFocus.com"
+     "date": "2026-08-20",
+     "publisher": "Stocktwits"
     }
    ],
-   "news_mood": "netral/campuran",
-   "valuation": "PEG 0.62 (murah relatif pertumbuhan) · fwd P/E 17.1 · beta 2.21 (lebih liar dari pasar) · ATR 3.0%/hari",
+   "news_mood": "cenderung positif (1/4 headline)",
+   "valuation": "PEG 0.62 (murah relatif pertumbuhan) · fwd P/E 16.9 · beta 2.21 (lebih liar dari pasar) · ATR 3.0%/hari",
    "todos": [
-    "Earnings NVDA dalam 7 hari — pertimbangkan menunda entry atau perkecil posisi.",
-    "NVDA lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.74%."
+    "Earnings NVDA dalam 6 hari — pertimbangkan menunda entry atau perkecil posisi.",
+    "NVDA lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.78%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -265,7 +271,7 @@
    "ok": true,
    "error": null,
    "name": "Broadcom Inc.",
-   "price": 360.3,
+   "price": 362.48,
    "spark": [
     417.1,
     413.91,
@@ -329,22 +335,22 @@
     392.99,
     392.43,
     380.0,
-    360.3
+    362.48
    ],
-   "chg_1d": -5.18,
-   "chg_1w": -13.4,
-   "chg_1m": -6.78,
-   "chg_3m": -12.21,
-   "rsi": 34.7,
-   "vs_ma20": -9.48,
-   "vs_ma50": -7.38,
-   "vs_ma200": -2.16,
-   "from_52w_high": -25.06,
-   "from_52w_low": 25.32,
-   "atr_pct": 4.61,
-   "dollar_volume": 6663267955,
+   "chg_1d": -4.61,
+   "chg_1w": -12.88,
+   "chg_1m": -6.21,
+   "chg_3m": -11.68,
+   "rsi": 35.3,
+   "vs_ma20": -8.96,
+   "vs_ma50": -6.83,
+   "vs_ma200": -1.57,
+   "from_52w_high": -24.61,
+   "from_52w_low": 26.08,
+   "atr_pct": 4.58,
+   "dollar_volume": 7092256709,
    "is_etf": false,
-   "fwd_pe": 18.448172,
+   "fwd_pe": 18.558016,
    "peg": 0.44,
    "roe": 0.37280998,
    "beta": 1.473,
@@ -353,19 +359,19 @@
    "rev_growth": 0.479,
    "op_margin": 0.48988,
    "target": 527.88446,
-   "upside": 46.51,
+   "upside": 45.63,
    "analysts": 45,
-   "earnings_in_days": 14,
+   "earnings_in_days": 13,
    "swing": {
-    "score": 57,
+    "score": 59,
     "verdict": "WAIT",
     "headline": "Belum memenuhi: Skor komposit, Tren naik, RSI sehat",
-    "tech_score": 37,
+    "tech_score": 39,
     "fund_score": 95,
     "parts": {
      "trend": 14,
-     "momentum": 16,
-     "pullback": 54,
+     "momentum": 24,
+     "pullback": 55,
      "volatility": 68,
      "liquidity": 95,
      "growth": 100,
@@ -373,18 +379,18 @@
      "balance": 82,
      "valuation": 88
     },
-    "entry": 360.3,
-    "stop": 333.74,
-    "target": 413.42,
+    "entry": 362.48,
+    "stop": 335.92,
+    "target": 415.6,
     "rr": 2.0,
-    "risk_pct": 7.37,
-    "reward_pct": 14.74,
+    "risk_pct": 7.33,
+    "reward_pct": 14.65,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": false,
-      "detail": "57/100 (min 68)"
+      "detail": "59/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -394,7 +400,7 @@
      {
       "label": "RSI sehat",
       "pass": false,
-      "detail": "RSI 34.7"
+      "detail": "RSI 35.3"
      },
      {
       "label": "Risk/reward",
@@ -404,28 +410,28 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "-9.48% dari MA20"
+      "detail": "-8.96% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "14 hari lagi"
+      "detail": "13 hari lagi"
      }
     ],
     "reasons": [
      "Pendapatan tumbuh 48% YoY.",
      "PEG 0.44 — harga masih masuk akal terhadap pertumbuhan.",
-     "Likuid (~$6.7 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$7.1 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Struktur tren masih lemah; MA belum tersusun naik.",
-     "Sudah 15.8% di bawah puncak 20 hari — bukan pullback biasa."
+     "Sudah 15.3% di bawah puncak 20 hari — bukan pullback biasa."
     ],
     "blockers": [],
-    "days_to_earnings": 14
+    "days_to_earnings": 13
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:39",
+   "fetched_iso": "2026-08-20T07:03:07",
    "news": [
     {
      "title": "Tech sell-off resumes, counterbalancing bond yield relief: AlphaCheck",
@@ -434,28 +440,28 @@
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "Broadcom Falls 5% as Marvell Lands Google Custom Chip Deal, VMware and Financing Concerns Persist",
-     "tone": "🔻",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Marvell Technology Rockets 13% on $12.2B Google Warrant; Broadcom Falls 3%, Alphabet Unmoved",
-     "tone": "🔻",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Marvell gives Google option to buy $12.2 billion stake in custom chip deal",
+     "title": "AMD and Intel Shares Plummet, What You Need To Know",
      "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "Reuters"
+     "publisher": "StockStory"
+    },
+    {
+     "title": "Why Broadcom (AVGO) Stock Is Trading Lower Today",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "StockStory"
+    },
+    {
+     "title": "Broadcom Gets Fresh Google Warning",
+     "tone": "🔻",
+     "date": "2026-08-19",
+     "publisher": "GuruFocus.com"
     }
    ],
-   "news_mood": "cenderung negatif (3/4 headline)",
-   "valuation": "PEG 0.44 (murah relatif pertumbuhan) · fwd P/E 18.4 · beta 1.47 (lebih liar dari pasar) · ATR 4.6%/hari",
+   "news_mood": "cenderung negatif (2/4 headline)",
+   "valuation": "PEG 0.44 (murah relatif pertumbuhan) · fwd P/E 18.6 · beta 1.47 (lebih liar dari pasar) · ATR 4.6%/hari",
    "todos": [
-    "Cek penyebab AVGO turun -25.1% dari puncak 52 minggu — sementara atau tesis rusak?"
+    "Cek penyebab AVGO turun -24.6% dari puncak 52 minggu — sementara atau tesis rusak?"
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -466,7 +472,7 @@
    "ok": true,
    "error": null,
    "name": "Advanced Micro Devices, Inc.",
-   "price": 464.29,
+   "price": 466.42,
    "spark": [
     447.58,
     449.59,
@@ -530,22 +536,22 @@
     514.39,
     506.0,
     484.39,
-    464.29
+    466.42
    ],
-   "chg_1d": -4.15,
-   "chg_1w": -3.86,
-   "chg_1m": -14.72,
-   "chg_3m": 12.13,
-   "rsi": 43.8,
-   "vs_ma20": -4.65,
-   "vs_ma50": -8.94,
-   "vs_ma200": 41.67,
-   "from_52w_high": -20.08,
-   "from_52w_low": 207.19,
-   "atr_pct": 5.73,
-   "dollar_volume": 12645698774,
+   "chg_1d": -3.71,
+   "chg_1w": -3.42,
+   "chg_1m": -14.33,
+   "chg_3m": 12.65,
+   "rsi": 44.2,
+   "vs_ma20": -4.24,
+   "vs_ma50": -8.53,
+   "vs_ma200": 42.32,
+   "from_52w_high": -19.71,
+   "from_52w_low": 208.6,
+   "atr_pct": 5.71,
+   "dollar_volume": 12958680163,
    "is_etf": false,
-   "fwd_pe": 30.01727,
+   "fwd_pe": 30.154978,
    "peg": 1.1,
    "roe": 0.10196,
    "beta": 2.489,
@@ -554,18 +560,18 @@
    "rev_growth": 0.501,
    "op_margin": 0.1725,
    "target": 612.8383,
-   "upside": 31.99,
+   "upside": 31.39,
    "analysts": 47,
-   "earnings_in_days": 76,
+   "earnings_in_days": 75,
    "swing": {
-    "score": 64,
+    "score": 65,
     "verdict": "WAIT",
     "headline": "Belum memenuhi: Skor komposit, Tren naik",
     "tech_score": 53,
     "fund_score": 86,
     "parts": {
      "trend": 48,
-     "momentum": 31,
+     "momentum": 32,
      "pullback": 69,
      "volatility": 48,
      "liquidity": 95,
@@ -574,18 +580,18 @@
      "balance": 92,
      "valuation": 68
     },
-    "entry": 464.29,
-    "stop": 423.12,
-    "target": 549.48,
-    "rr": 2.07,
-    "risk_pct": 8.87,
-    "reward_pct": 18.35,
+    "entry": 466.42,
+    "stop": 423.82,
+    "target": 551.61,
+    "rr": 2.0,
+    "risk_pct": 9.13,
+    "reward_pct": 18.26,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": false,
-      "detail": "64/100 (min 68)"
+      "detail": "65/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -595,36 +601,36 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 43.8"
+      "detail": "RSI 44.2"
      },
      {
       "label": "Risk/reward",
       "pass": true,
-      "detail": "2.07:1 (min 1.8:1)"
+      "detail": "2.0:1 (min 1.8:1)"
      },
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "-4.65% dari MA20"
+      "detail": "-4.24% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "76 hari lagi"
+      "detail": "75 hari lagi"
      }
     ],
     "reasons": [
      "Pendapatan tumbuh 50% YoY.",
-     "Likuid (~$12.6 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$13.0 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 76
+    "days_to_earnings": 75
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:40",
+   "fetched_iso": "2026-08-20T07:03:08",
    "news": [
     {
      "title": "Is Nvidia stock too cheap right now?",
@@ -639,24 +645,22 @@
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "Broadcom Falls 5% as Marvell Lands Google Custom Chip Deal, VMware and Financing Concerns Persist",
-     "tone": "🔻",
+     "title": "AMD and Intel Shares Plummet, What You Need To Know",
+     "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
+     "publisher": "StockStory"
     },
     {
-     "title": "Where Will AMD Stock Be in 5 Years?",
+     "title": "Billionaire Stanley Druckenmiller Just Dumped Micron and Intel While Adding These 2 AI Stocks. Should Investors Follow Suit?",
      "tone": "▫️",
      "date": "2026-08-19",
      "publisher": "Motley Fool"
     }
    ],
-   "news_mood": "cenderung negatif (2/4 headline)",
-   "valuation": "PEG 1.10 (wajar) · fwd P/E 30.0 · beta 2.49 (lebih liar dari pasar) · ATR 5.7%/hari",
-   "todos": [
-    "Cek penyebab AMD turun -20.1% dari puncak 52 minggu — sementara atau tesis rusak?"
-   ],
-   "has_todo": true,
+   "news_mood": "cenderung negatif (1/4 headline)",
+   "valuation": "PEG 1.10 (wajar) · fwd P/E 30.2 · beta 2.49 (lebih liar dari pasar) · ATR 5.7%/hari",
+   "todos": [],
+   "has_todo": false,
    "refresh_failed": false
   },
   {
@@ -665,7 +669,7 @@
    "ok": true,
    "error": null,
    "name": "Amazon.com, Inc.",
-   "price": 264.5,
+   "price": 265.84,
    "spark": [
     265.01,
     268.46,
@@ -729,22 +733,22 @@
     262.65,
     261.31,
     259.45,
-    264.5
+    265.84
    ],
-   "chg_1d": 1.95,
-   "chg_1w": -1.04,
-   "chg_1m": 6.85,
-   "chg_3m": 1.99,
-   "rsi": 54.7,
-   "vs_ma20": 2.26,
-   "vs_ma50": 6.24,
-   "vs_ma200": 11.03,
-   "from_52w_high": -6.87,
-   "from_52w_low": 33.05,
-   "atr_pct": 3.54,
-   "dollar_volume": 12610472391,
+   "chg_1d": 2.46,
+   "chg_1w": -0.54,
+   "chg_1m": 7.39,
+   "chg_3m": 2.51,
+   "rsi": 55.6,
+   "vs_ma20": 2.75,
+   "vs_ma50": 6.76,
+   "vs_ma200": 11.59,
+   "from_52w_high": -6.4,
+   "from_52w_low": 33.73,
+   "atr_pct": 3.56,
+   "dollar_volume": 12996385741,
    "is_etf": false,
-   "fwd_pe": 25.424723,
+   "fwd_pe": 25.553528,
    "peg": 1.4,
    "roe": 0.30558002,
    "beta": 1.454,
@@ -753,9 +757,9 @@
    "rev_growth": 0.196,
    "op_margin": 0.13689,
    "target": 327.004,
-   "upside": 23.63,
+   "upside": 23.01,
    "analysts": 60,
-   "earnings_in_days": 71,
+   "earnings_in_days": 70,
    "swing": {
     "score": 83,
     "verdict": "BUY",
@@ -764,7 +768,7 @@
     "fund_score": 85,
     "parts": {
      "trend": 94,
-     "momentum": 64,
+     "momentum": 66,
      "pullback": 85,
      "volatility": 68,
      "liquidity": 95,
@@ -773,12 +777,12 @@
      "balance": 72,
      "valuation": 68
     },
-    "entry": 264.5,
-    "stop": 249.53,
-    "target": 294.44,
+    "entry": 265.84,
+    "stop": 250.71,
+    "target": 296.1,
     "rr": 2.0,
-    "risk_pct": 5.66,
-    "reward_pct": 11.32,
+    "risk_pct": 5.69,
+    "reward_pct": 11.38,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -794,7 +798,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 54.7"
+      "detail": "RSI 55.6"
      },
      {
       "label": "Risk/reward",
@@ -804,59 +808,59 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "2.26% dari MA20"
+      "detail": "2.75% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "71 hari lagi"
+      "detail": "70 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 54.7 di zona sehat — tren hidup, belum kehabisan napas.",
-     "Koreksi 6.9% dari puncak 20 hari — area entry yang wajar.",
-     "ATR 3.54% memberi ruang gerak yang pas untuk swing.",
+     "RSI 55.6 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 6.4% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 3.56% memberi ruang gerak yang pas untuk swing.",
      "Pendapatan tumbuh 20% YoY."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 71
+    "days_to_earnings": 70
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:41",
+   "fetched_iso": "2026-08-20T07:03:09",
    "news": [
     {
-     "title": "Amazon's Drone Delivery Ambitions Are Getting Much Bigger",
+     "title": "Amazon Prime Air maybe coming to a city near you",
      "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "GuruFocus.com"
+     "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Amazon Just Gave Investors a Big Reason to Be Bullish",
-     "tone": "🔺",
+     "title": "If Walmart doesn't raise its outlook, the stock will fall: CFRA Research",
+     "tone": "🔻",
      "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
+     "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "The Smart Money is Onto Something With This Highly-Misunderstood Tech Bargain",
+     "title": "Big Tech Is on Pace to Spend $735 Billion on AI Data Centers in 2026. These 3 Industrial Stocks Collect the Checks.",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-20",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "Wall Street Analysts Think Amazon (AMZN) Could Surge 25.6%: Read This Before Placing a Bet",
-     "tone": "🔺",
-     "date": "2026-08-19",
-     "publisher": "Zacks"
+     "title": "Walmart makes key move to compete with Amazon",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "TheStreet"
     }
    ],
-   "news_mood": "cenderung positif (2/4 headline)",
-   "valuation": "PEG 1.40 (wajar) · fwd P/E 25.4 · beta 1.45 (lebih liar dari pasar) · ATR 3.5%/hari",
+   "news_mood": "cenderung negatif (1/4 headline)",
+   "valuation": "PEG 1.40 (wajar) · fwd P/E 25.6 · beta 1.45 (lebih liar dari pasar) · ATR 3.6%/hari",
    "todos": [
-    "AMZN lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.66%."
+    "AMZN lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.69%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -867,7 +871,7 @@
    "ok": true,
    "error": null,
    "name": "Alphabet Inc.",
-   "price": 345.79,
+   "price": 344.72,
    "spark": [
     388.68,
     387.43,
@@ -931,22 +935,22 @@
     345.9,
     344.0,
     344.2,
-    345.79
+    344.72
    ],
-   "chg_1d": 0.46,
-   "chg_1w": 0.65,
-   "chg_1m": -0.39,
-   "chg_3m": -10.75,
-   "rsi": 47.3,
-   "vs_ma20": -0.07,
-   "vs_ma50": -1.9,
-   "vs_ma200": 4.1,
-   "from_52w_high": -14.06,
-   "from_52w_low": 73.98,
-   "atr_pct": 3.08,
-   "dollar_volume": 10063104617,
+   "chg_1d": 0.15,
+   "chg_1w": 0.34,
+   "chg_1m": -0.7,
+   "chg_3m": -11.02,
+   "rsi": 46.5,
+   "vs_ma20": -0.37,
+   "vs_ma50": -2.2,
+   "vs_ma200": 3.78,
+   "from_52w_high": -14.33,
+   "from_52w_low": 73.44,
+   "atr_pct": 3.1,
+   "dollar_volume": 10268174676,
    "is_etf": false,
-   "fwd_pe": 23.449448,
+   "fwd_pe": 23.27582,
    "peg": 0.94,
    "roe": 0.48676,
    "beta": 1.237,
@@ -955,18 +959,18 @@
    "rev_growth": 0.242,
    "op_margin": 0.34033,
    "target": 427.52,
-   "upside": 23.64,
+   "upside": 24.02,
    "analysts": 55,
-   "earnings_in_days": 70,
+   "earnings_in_days": 69,
    "swing": {
     "score": 75,
     "verdict": "WAIT",
     "headline": "Belum memenuhi: Tren naik",
-    "tech_score": 64,
+    "tech_score": 63,
     "fund_score": 96,
     "parts": {
      "trend": 46,
-     "momentum": 58,
+     "momentum": 57,
      "pullback": 69,
      "volatility": 88,
      "liquidity": 95,
@@ -975,12 +979,12 @@
      "balance": 92,
      "valuation": 80
     },
-    "entry": 345.79,
-    "stop": 328.74,
-    "target": 379.89,
+    "entry": 344.72,
+    "stop": 327.62,
+    "target": 378.92,
     "rr": 2.0,
-    "risk_pct": 4.93,
-    "reward_pct": 9.86,
+    "risk_pct": 4.96,
+    "reward_pct": 9.92,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -996,7 +1000,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 47.3"
+      "detail": "RSI 46.5"
      },
      {
       "label": "Risk/reward",
@@ -1006,29 +1010,29 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "-0.07% dari MA20"
+      "detail": "-0.37% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "70 hari lagi"
+      "detail": "69 hari lagi"
      }
     ],
     "reasons": [
-     "RSI 47.3 di zona sehat — tren hidup, belum kehabisan napas.",
-     "ATR 3.08% memberi ruang gerak yang pas untuk swing.",
+     "RSI 46.5 di zona sehat — tren hidup, belum kehabisan napas.",
+     "ATR 3.1% memberi ruang gerak yang pas untuk swing.",
      "Pendapatan tumbuh 24% YoY.",
      "PEG 0.94 — harga masih masuk akal terhadap pertumbuhan.",
-     "Likuid (~$10.1 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$10.3 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 70
+    "days_to_earnings": 69
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:43",
+   "fetched_iso": "2026-08-20T07:03:10",
    "news": [
     {
      "title": "There's 'light at the end of the tunnel' for tech stocks amid bond rout: Eric Jackson",
@@ -1037,26 +1041,26 @@
      "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "OpenAI releases new ChatGPT for Teens with parental controls, guardrails",
-     "tone": "▫️",
-     "date": "2026-08-18",
-     "publisher": "Yahoo Finance Video"
-    },
-    {
-     "title": "Broadcom Rival Marvell Surges After Google Strikes AI Chip Deal, Gets Option to Buy $12.2B Stake",
+     "title": "Why Marvell Stock Surged Today",
      "tone": "🔺",
-     "date": "2026-08-19",
-     "publisher": "Benzinga Prediction Markets"
+     "date": "2026-08-20",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "Broadcom Falls 5% as Marvell Lands Google Custom Chip Deal, VMware and Financing Concerns Persist",
-     "tone": "🔻",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
+     "title": "GOOGL Stock Heads For Third Week In Red: YouTube Reportedly Plans Mega Creator Push To Take On Netflix",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "Stocktwits"
+    },
+    {
+     "title": "Big Tech Is on Pace to Spend $735 Billion on AI Data Centers in 2026. These 3 Industrial Stocks Collect the Checks.",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "Motley Fool"
     }
    ],
-   "news_mood": "netral/campuran",
-   "valuation": "PEG 0.94 (murah relatif pertumbuhan) · fwd P/E 23.4 · beta 1.24 (lebih liar dari pasar) · ATR 3.1%/hari",
+   "news_mood": "cenderung positif (1/4 headline)",
+   "valuation": "PEG 0.94 (murah relatif pertumbuhan) · fwd P/E 23.3 · beta 1.24 (lebih liar dari pasar) · ATR 3.1%/hari",
    "todos": [],
    "has_todo": false,
    "refresh_failed": false
@@ -1067,7 +1071,7 @@
    "ok": true,
    "error": null,
    "name": "Eli Lilly and Company",
-   "price": 1268.61,
+   "price": 1280.34,
    "spark": [
     1017.41,
     1040.16,
@@ -1131,22 +1135,22 @@
     1180.16,
     1183.16,
     1225.73,
-    1268.61
+    1280.34
    ],
-   "chg_1d": 3.5,
-   "chg_1w": 4.11,
-   "chg_1m": 8.08,
-   "chg_3m": 24.38,
-   "rsi": 63.9,
-   "vs_ma20": 6.58,
-   "vs_ma50": 8.11,
-   "vs_ma200": 21.29,
-   "from_52w_high": -0.0,
-   "from_52w_low": 83.6,
-   "atr_pct": 3.61,
-   "dollar_volume": 3372128658,
+   "chg_1d": 4.46,
+   "chg_1w": 5.07,
+   "chg_1m": 9.08,
+   "chg_3m": 25.53,
+   "rsi": 65.2,
+   "vs_ma20": 7.52,
+   "vs_ma50": 9.09,
+   "vs_ma200": 22.41,
+   "from_52w_high": 0.0,
+   "from_52w_low": 85.3,
+   "atr_pct": 3.58,
+   "dollar_volume": 3576316011,
    "is_etf": false,
-   "fwd_pe": 26.799557,
+   "fwd_pe": 27.051191,
    "peg": 1.48,
    "roe": 1.02286,
    "beta": 0.506,
@@ -1155,18 +1159,18 @@
    "rev_growth": 0.477,
    "op_margin": 0.54222,
    "target": 1310.8993,
-   "upside": 3.33,
+   "upside": 2.39,
    "analysts": 28,
-   "earnings_in_days": 71,
+   "earnings_in_days": 70,
    "swing": {
-    "score": 81,
+    "score": 80,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 82,
+    "tech_score": 81,
     "fund_score": 80,
     "parts": {
      "trend": 97,
-     "momentum": 79,
+     "momentum": 74,
      "pullback": 59,
      "volatility": 68,
      "liquidity": 95,
@@ -1175,18 +1179,18 @@
      "balance": 40,
      "valuation": 68
     },
-    "entry": 1268.61,
-    "stop": 1195.3,
-    "target": 1415.24,
+    "entry": 1280.34,
+    "stop": 1207.03,
+    "target": 1426.97,
     "rr": 2.0,
-    "risk_pct": 5.78,
-    "reward_pct": 11.56,
+    "risk_pct": 5.73,
+    "reward_pct": 11.45,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "81/100 (min 68)"
+      "detail": "80/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -1196,7 +1200,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 63.9"
+      "detail": "RSI 65.2"
      },
      {
       "label": "Risk/reward",
@@ -1206,59 +1210,58 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "6.58% dari MA20"
+      "detail": "7.52% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "71 hari lagi"
+      "detail": "70 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 63.9 di zona sehat — tren hidup, belum kehabisan napas.",
-     "ATR 3.61% memberi ruang gerak yang pas untuk swing.",
+     "ATR 3.58% memberi ruang gerak yang pas untuk swing.",
      "Pendapatan tumbuh 48% YoY.",
-     "Likuid (~$3.4 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$3.6 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Utang/ekuitas 162% — rapuh kalau pasar berbalik."
     ],
     "blockers": [],
-    "days_to_earnings": 71
+    "days_to_earnings": 70
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:44",
+   "fetched_iso": "2026-08-20T07:03:11",
    "news": [
     {
-     "title": "Stock Forecast: The Market is Sleeping on Eli Lilly’s Next $1 Trillion Opportunity",
+     "title": "Dow Jones Futures: S&P 500, Nasdaq Rise As Moderna, Merck, Gold Shine But Not These Techs",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Why Novartis, Lilly, and Bristol Myers Are Eyeing This Clinical-Stage Cancer Play",
-     "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Dow Jones Futures Waver After Sandisk, Micron, Credo Lead AI Losses; Target Earnings Beat",
-     "tone": "▫️",
-     "date": "2026-08-19",
+     "date": "2026-08-20",
      "publisher": "Investor's Business Daily"
     },
     {
-     "title": "Eli Lilly, Novo Nordisk Battle It Out In Weight-Loss Pills Market",
+     "title": "Can Eli Lilly Catch Novo Nordisk in the Oral GLP-1 Race?",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Insider Monkey"
+    },
+    {
+     "title": "Could Eli Lilly Be Worth More Than SpaceX by the End of 2026?",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Eli Lilly Price Forecast: The Next Big Stock After Weight-Loss Drug Breakthrough?",
      "tone": "🔻",
      "date": "2026-08-19",
-     "publisher": "Investor's Business Daily"
+     "publisher": "BeInCrypto"
     }
    ],
    "news_mood": "cenderung negatif (1/4 headline)",
-   "valuation": "PEG 1.48 (wajar) · fwd P/E 26.8 · beta 0.51 (lebih tenang dari pasar) · ATR 3.6%/hari",
+   "valuation": "PEG 1.48 (wajar) · fwd P/E 27.1 · beta 0.51 (lebih tenang dari pasar) · ATR 3.6%/hari",
    "todos": [
-    "LLY lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.78%."
+    "LLY lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.73%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -1269,7 +1272,7 @@
    "ok": true,
    "error": null,
    "name": "Vanguard S&P 500 ETF",
-   "price": 709.81,
+   "price": 706.91,
    "spark": [
     679.59,
     680.86,
@@ -1333,20 +1336,20 @@
     713.61,
     710.27,
     705.4,
-    709.81
+    706.91
    ],
-   "chg_1d": 0.63,
-   "chg_1w": -0.05,
-   "chg_1m": 3.19,
-   "chg_3m": 5.53,
-   "rsi": 60.1,
-   "vs_ma20": 1.62,
-   "vs_ma50": 2.94,
-   "vs_ma200": 9.69,
-   "from_52w_high": -0.72,
-   "from_52w_low": 22.92,
+   "chg_1d": 0.21,
+   "chg_1w": -0.46,
+   "chg_1m": 2.77,
+   "chg_3m": 5.1,
+   "rsi": 57.9,
+   "vs_ma20": 1.22,
+   "vs_ma50": 2.52,
+   "vs_ma200": 9.25,
+   "from_52w_high": -1.12,
+   "from_52w_low": 22.42,
    "atr_pct": 0.87,
-   "dollar_volume": 3918307096,
+   "dollar_volume": 4079814270,
    "is_etf": true,
    "fwd_pe": null,
    "peg": null,
@@ -1368,7 +1371,7 @@
     "fund_score": 63,
     "parts": {
      "trend": 94,
-     "momentum": 64,
+     "momentum": 63,
      "pullback": 67,
      "volatility": 40,
      "liquidity": 95,
@@ -1377,12 +1380,12 @@
      "balance": 70,
      "valuation": 60
     },
-    "entry": 709.81,
-    "stop": 699.94,
-    "target": 729.54,
+    "entry": 706.91,
+    "stop": 697.04,
+    "target": 726.65,
     "rr": 2.0,
-    "risk_pct": 1.39,
-    "reward_pct": 2.78,
+    "risk_pct": 1.4,
+    "reward_pct": 2.79,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -1398,7 +1401,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 60.1"
+      "detail": "RSI 57.9"
      },
      {
       "label": "Risk/reward",
@@ -1408,7 +1411,7 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "1.62% dari MA20"
+      "detail": "1.22% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
@@ -1418,9 +1421,9 @@
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 60.1 di zona sehat — tren hidup, belum kehabisan napas.",
+     "RSI 57.9 di zona sehat — tren hidup, belum kehabisan napas.",
      "ETF: penilaian bersandar pada teknikal, bukan neraca.",
-     "Likuid (~$3.9 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$4.1 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
@@ -1429,37 +1432,37 @@
     "days_to_earnings": null
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:46",
+   "fetched_iso": "2026-08-20T07:03:12",
    "news": [
     {
-     "title": "VOO’s 0.03% Fee Hides the Real Cost: 38% of Your S&P 500 Money Is Now in One Sector",
+     "title": "Between Your Last Paycheck and Age 73 Are the Lowest Tax Years of Your Life. These 3 ETFs Are Where That Money Goes",
      "tone": "▫️",
-     "date": "2026-08-18",
+     "date": "2026-08-19",
      "publisher": "24/7 Wall St."
     },
     {
-     "title": "Vanguard Handed 53 Funds a Fee Cut This Year and Skipped the VGT ETF Entirely",
-     "tone": "🔻",
-     "date": "2026-08-18",
+     "title": "The Average 401(k) at 65 Is $258,800. The IRS Owns a Slice of Every Dollar. These 3 ETFs Build the Part It Can’t Touch",
+     "tone": "▫️",
+     "date": "2026-08-19",
      "publisher": "24/7 Wall St."
     },
     {
-     "title": "Where Will the Vanguard S&P 500 ETF Be in 20 Years? History Has Good and Bad News for Investors.",
+     "title": "ETF League Tables: Vanguard Gains $2.7B",
      "tone": "▫️",
-     "date": "2026-08-18",
-     "publisher": "Motley Fool"
-    },
-    {
-     "title": "Is the Small-Cap Surge a Trend or Temporary Rotation?",
-     "tone": "🔺",
-     "date": "2026-08-18",
+     "date": "2026-08-19",
      "publisher": "etf.com"
+    },
+    {
+     "title": "1 Unstoppable Vanguard ETF I Wish I'd Bought 10 Years Ago",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Motley Fool"
     }
    ],
    "news_mood": "netral/campuran",
    "valuation": "ATR 0.9%/hari",
    "todos": [
-    "VOO lolos syarat swing — tentukan ukuran posisi dari jarak stop 1.39%."
+    "VOO lolos syarat swing — tentukan ukuran posisi dari jarak stop 1.4%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -1470,7 +1473,7 @@
    "ok": true,
    "error": null,
    "name": "Invesco QQQ Trust, Series 1",
-   "price": 718.03,
+   "price": 716.08,
    "spark": [
     712.37,
     713.73,
@@ -1534,20 +1537,20 @@
     731.07,
     729.87,
     717.51,
-    718.03
+    716.08
    ],
-   "chg_1d": 0.07,
-   "chg_1w": -0.78,
-   "chg_1m": 1.28,
-   "chg_3m": 2.46,
-   "rsi": 52.4,
-   "vs_ma20": 1.58,
-   "vs_ma50": 0.72,
-   "vs_ma200": 10.31,
-   "from_52w_high": -3.66,
-   "from_52w_low": 28.76,
-   "atr_pct": 1.53,
-   "dollar_volume": 28315810393,
+   "chg_1d": -0.2,
+   "chg_1w": -1.05,
+   "chg_1m": 1.0,
+   "chg_3m": 2.19,
+   "rsi": 51.5,
+   "vs_ma20": 1.32,
+   "vs_ma50": 0.45,
+   "vs_ma200": 10.01,
+   "from_52w_high": -3.93,
+   "from_52w_low": 28.41,
+   "atr_pct": 1.54,
+   "dollar_volume": 28965153840,
    "is_etf": true,
    "fwd_pe": null,
    "peg": null,
@@ -1562,15 +1565,15 @@
    "analysts": null,
    "earnings_in_days": null,
    "swing": {
-    "score": 72,
+    "score": 75,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 78,
+    "tech_score": 81,
     "fund_score": 63,
     "parts": {
      "trend": 91,
      "momentum": 60,
-     "pullback": 67,
+     "pullback": 85,
      "volatility": 78,
      "liquidity": 95,
      "growth": 60,
@@ -1578,18 +1581,18 @@
      "balance": 70,
      "valuation": 60
     },
-    "entry": 718.03,
-    "stop": 700.43,
-    "target": 753.22,
+    "entry": 716.08,
+    "stop": 698.48,
+    "target": 751.27,
     "rr": 2.0,
-    "risk_pct": 2.45,
-    "reward_pct": 4.9,
+    "risk_pct": 2.46,
+    "reward_pct": 4.91,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "72/100 (min 68)"
+      "detail": "75/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -1599,7 +1602,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 52.4"
+      "detail": "RSI 51.5"
      },
      {
       "label": "Risk/reward",
@@ -1609,7 +1612,7 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "1.58% dari MA20"
+      "detail": "1.32% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
@@ -1619,10 +1622,10 @@
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 52.4 di zona sehat — tren hidup, belum kehabisan napas.",
-     "ATR 1.53% memberi ruang gerak yang pas untuk swing.",
-     "ETF: penilaian bersandar pada teknikal, bukan neraca.",
-     "Likuid (~$28.3 miliar/hari), mudah masuk-keluar."
+     "RSI 51.5 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 2.2% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 1.54% memberi ruang gerak yang pas untuk swing.",
+     "ETF: penilaian bersandar pada teknikal, bukan neraca."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
@@ -1631,37 +1634,37 @@
     "days_to_earnings": null
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:47",
+   "fetched_iso": "2026-08-20T07:03:13",
    "news": [
     {
-     "title": "Stock Market Today: Dow Jumps On Treasury News; Bitcoin Rises Ahead Of White House Meet (Live Coverage)",
-     "tone": "🔺",
-     "date": "2026-08-19",
-     "publisher": "Investor's Business Daily"
+     "title": "The 10 Most Popular AI ETFs of 2026",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "etf.com"
     },
     {
-     "title": "Exchange-Traded Funds Higher, Equity Futures Mixed Pre-Bell Wednesday Ahead of Fed Meeting Minutes' Release",
+     "title": "The Market Is in a Bubble. Why I’m Focusing on Quantum Computing Stocks Now.",
      "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "MT Newswires"
+     "publisher": "Barchart"
     },
     {
-     "title": "Volatility Is Falling. It’s a Good Time to Buy Options Again.",
-     "tone": "🔻",
+     "title": "BTIG Flags Major Risk for S&P 500",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "GuruFocus.com"
+    },
+    {
+     "title": "Higher Fees, Better Returns: The Case for Equal-Weighted ETFs",
+     "tone": "▫️",
      "date": "2026-08-19",
      "publisher": "Barrons.com"
-    },
-    {
-     "title": "Apple Shares Jump Tuesday While the Nasdaq Plummets: Here’s Why It Led Magnificent 7 Stocks",
-     "tone": "🔺",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
     }
    ],
-   "news_mood": "cenderung positif (2/4 headline)",
+   "news_mood": "netral/campuran",
    "valuation": "ATR 1.5%/hari",
    "todos": [
-    "QQQ lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.45%."
+    "QQQ lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.46%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -1672,7 +1675,7 @@
    "ok": true,
    "error": null,
    "name": "Micron Technology, Inc.",
-   "price": 928.27,
+   "price": 937.11,
    "spark": [
     731.88,
     761.98,
@@ -1736,22 +1739,22 @@
     971.66,
     1011.75,
     940.76,
-    928.27
+    937.11
    ],
-   "chg_1d": -1.33,
-   "chg_1w": 1.86,
-   "chg_1m": -4.38,
-   "chg_3m": 32.87,
-   "rsi": 51.0,
-   "vs_ma20": 3.8,
-   "vs_ma50": -3.52,
-   "vs_ma200": 64.74,
-   "from_52w_high": -23.5,
-   "from_52w_low": 702.97,
-   "atr_pct": 6.82,
-   "dollar_volume": 37361748885,
+   "chg_1d": -0.39,
+   "chg_1w": 2.83,
+   "chg_1m": -3.47,
+   "chg_3m": 34.13,
+   "rsi": 51.8,
+   "vs_ma20": 4.73,
+   "vs_ma50": -2.61,
+   "vs_ma200": 66.29,
+   "from_52w_high": -22.77,
+   "from_52w_low": 710.62,
+   "atr_pct": 6.76,
+   "dollar_volume": 38341592660,
    "is_etf": false,
-   "fwd_pe": 5.996175,
+   "fwd_pe": 6.0532446,
    "peg": 0.14,
    "roe": 0.66638,
    "beta": 2.213,
@@ -1760,19 +1763,19 @@
    "rev_growth": 3.457,
    "op_margin": 0.80370003,
    "target": 1501.9767,
-   "upside": 61.8,
+   "upside": 60.28,
    "analysts": 43,
-   "earnings_in_days": 35,
+   "earnings_in_days": 34,
    "swing": {
-    "score": 76,
+    "score": 79,
     "verdict": "WAIT",
     "headline": "Belum memenuhi: Tren naik",
-    "tech_score": 66,
+    "tech_score": 69,
     "fund_score": 97,
     "parts": {
      "trend": 59,
-     "momentum": 68,
-     "pullback": 69,
+     "momentum": 70,
+     "pullback": 85,
      "volatility": 48,
      "liquidity": 95,
      "growth": 100,
@@ -1780,18 +1783,18 @@
      "balance": 92,
      "valuation": 88
     },
-    "entry": 928.27,
-    "stop": 826.95,
-    "target": 1130.91,
+    "entry": 937.11,
+    "stop": 835.79,
+    "target": 1139.75,
     "rr": 2.0,
-    "risk_pct": 10.91,
-    "reward_pct": 21.83,
+    "risk_pct": 10.81,
+    "reward_pct": 21.62,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "76/100 (min 68)"
+      "detail": "79/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -1801,7 +1804,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 51.0"
+      "detail": "RSI 51.8"
      },
      {
       "label": "Risk/reward",
@@ -1811,58 +1814,59 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "3.8% dari MA20"
+      "detail": "4.73% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "35 hari lagi"
+      "detail": "34 hari lagi"
      }
     ],
     "reasons": [
-     "RSI 51.0 di zona sehat — tren hidup, belum kehabisan napas.",
+     "RSI 51.8 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 7.4% dari puncak 20 hari — area entry yang wajar.",
      "Pendapatan tumbuh 346% YoY.",
      "PEG 0.14 — harga masih masuk akal terhadap pertumbuhan.",
-     "Likuid (~$37.4 miliar/hari), mudah masuk-keluar."
+     "Likuid (~$38.3 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
-     "ATR 6.82% tinggi — perkecil ukuran posisi."
+     "ATR 6.76% tinggi — perkecil ukuran posisi."
     ],
     "blockers": [],
-    "days_to_earnings": 35
+    "days_to_earnings": 34
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:48",
+   "fetched_iso": "2026-08-20T07:03:14",
    "news": [
     {
-     "title": "Chip-stock bears are back in control. Here's how to play the downside with limited risk: Alpha Options Playbook",
-     "tone": "🔻",
-     "date": "2026-08-18",
-     "publisher": "Yahoo Finance"
+     "title": "Red-Hot Rivals: How Chinese Tech IPOs Are Outshining America’s Biggest Debuts",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "Barrons.com"
     },
     {
-     "title": "SanDisk Is Up 3,911% Over Twelve Months. Hedge Funds Can’t Agree on What to Do.",
+     "title": "Jim Cramer makes aggressive Micron prediction, lists top memory buys",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "TheStreet"
+    },
+    {
+     "title": "The 10 Most Popular AI ETFs of 2026",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "etf.com"
+    },
+    {
+     "title": "SanDisk Looks Cheap On Consensus, But The Payoff Sits In Its Contracts",
      "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "This Brilliant Tech Investor Just Bought SpaceX, Micron, Cerebras and Some Other Semiconductor Names",
-     "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "SK Hynix Rises 6% on $29B Buyback, SanDisk Gains 5%, Micron Climbs 3% as Memory Names Rebound",
-     "tone": "🔺",
-     "date": "2026-08-19",
-     "publisher": "24/7 Wall St."
+     "publisher": "Trefis"
     }
    ],
    "news_mood": "netral/campuran",
-   "valuation": "PEG 0.14 (murah relatif pertumbuhan) · fwd P/E 6.0 · beta 2.21 (lebih liar dari pasar) · ATR 6.8%/hari",
+   "valuation": "PEG 0.14 (murah relatif pertumbuhan) · fwd P/E 6.1 · beta 2.21 (lebih liar dari pasar) · ATR 6.8%/hari",
    "todos": [
-    "Cek penyebab MU turun -23.5% dari puncak 52 minggu — sementara atau tesis rusak?"
+    "Cek penyebab MU turun -22.8% dari puncak 52 minggu — sementara atau tesis rusak?"
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -1950,7 +1954,7 @@
    "from_52w_high": -14.83,
    "from_52w_low": 19.72,
    "atr_pct": 1.99,
-   "dollar_volume": 2505223541,
+   "dollar_volume": 2505553793,
    "is_etf": false,
    "fwd_pe": 34.84671,
    "peg": 4.39,
@@ -2036,7 +2040,7 @@
     "days_to_earnings": 0
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-20T02:36:41",
+   "fetched_iso": "2026-08-20T07:03:15",
    "news": [
     {
      "title": "Amazon Prime Air maybe coming to a city near you",
@@ -2077,7 +2081,7 @@
    "ok": true,
    "error": null,
    "name": "Apple Inc.",
-   "price": 318.77,
+   "price": 316.83,
    "spark": [
     301.99,
     304.73,
@@ -2141,22 +2145,22 @@
     305.93,
     305.59,
     310.03,
-    318.77
+    316.83
    ],
-   "chg_1d": 2.82,
-   "chg_1w": 5.47,
-   "chg_1m": -2.65,
-   "chg_3m": 6.71,
-   "rsi": 55.5,
-   "vs_ma20": 0.89,
-   "vs_ma50": 3.08,
-   "vs_ma200": 13.59,
-   "from_52w_high": -6.19,
-   "from_52w_low": 42.26,
-   "atr_pct": 2.61,
-   "dollar_volume": 16353631233,
+   "chg_1d": 2.19,
+   "chg_1w": 4.82,
+   "chg_1m": -3.25,
+   "chg_3m": 6.07,
+   "rsi": 54.0,
+   "vs_ma20": 0.3,
+   "vs_ma50": 2.46,
+   "vs_ma200": 12.91,
+   "from_52w_high": -6.76,
+   "from_52w_low": 41.4,
+   "atr_pct": 2.64,
+   "dollar_volume": 16804782883,
    "is_etf": false,
-   "fwd_pe": 33.416706,
+   "fwd_pe": 33.213127,
    "peg": 2.47,
    "roe": 1.4875101,
    "beta": 1.086,
@@ -2165,18 +2169,18 @@
    "rev_growth": 0.164,
    "op_margin": 0.32623002,
    "target": 325.699,
-   "upside": 2.17,
+   "upside": 2.8,
    "analysts": 41,
-   "earnings_in_days": 71,
+   "earnings_in_days": 70,
    "swing": {
     "score": 84,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 85,
+    "tech_score": 84,
     "fund_score": 82,
     "parts": {
      "trend": 92,
-     "momentum": 68,
+     "momentum": 67,
      "pullback": 85,
      "volatility": 88,
      "liquidity": 95,
@@ -2185,12 +2189,12 @@
      "balance": 72,
      "valuation": 52
     },
-    "entry": 318.77,
-    "stop": 305.44,
-    "target": 345.42,
+    "entry": 316.83,
+    "stop": 303.45,
+    "target": 343.58,
     "rr": 2.0,
-    "risk_pct": 4.18,
-    "reward_pct": 8.36,
+    "risk_pct": 4.22,
+    "reward_pct": 8.44,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -2206,7 +2210,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 55.5"
+      "detail": "RSI 54.0"
      },
      {
       "label": "Risk/reward",
@@ -2216,29 +2220,29 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "0.89% dari MA20"
+      "detail": "0.3% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "71 hari lagi"
+      "detail": "70 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 55.5 di zona sehat — tren hidup, belum kehabisan napas.",
-     "Koreksi 6.2% dari puncak 20 hari — area entry yang wajar.",
-     "ATR 2.61% memberi ruang gerak yang pas untuk swing.",
+     "RSI 54.0 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 6.8% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 2.64% memberi ruang gerak yang pas untuk swing.",
      "Pendapatan tumbuh 16% YoY."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 71
+    "days_to_earnings": 70
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:50",
+   "fetched_iso": "2026-08-20T07:03:16",
    "news": [
     {
      "title": "Is Nvidia stock too cheap right now?",
@@ -2247,28 +2251,28 @@
      "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Robinhood CEO Calls On U.S. To Approve Tokenized Stocks",
+     "title": "Dow Jones Futures: S&P 500, Nasdaq Rise As Moderna, Merck, Gold Shine But Not These Techs",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "CryptoProwl"
+     "date": "2026-08-20",
+     "publisher": "Investor's Business Daily"
     },
     {
-     "title": "Micron Technology (MU) Is Earning More Than Apple or Microsoft, but Can It Last?",
+     "title": "Asia’s Businesses Struggle to Shake Off the Sway of Their Founding Families",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "Insider Monkey"
+     "date": "2026-08-20",
+     "publisher": "The Wall Street Journal"
     },
     {
-     "title": "a16z Partner Asks Why California Politicians ‘Want to Push Away Startups,’ Says State Already Lost Tesla and SpaceX HQs ‘Due to Political Shenanigans’",
+     "title": "Meta ran ads for an app that only needs one photo and no consent",
      "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "Benzinga"
+     "date": "2026-08-20",
+     "publisher": "TheStreet"
     }
    ],
    "news_mood": "netral/campuran",
-   "valuation": "PEG 2.47 (mahal relatif pertumbuhan) · fwd P/E 33.4 · beta 1.09 (seiring pasar) · ATR 2.6%/hari",
+   "valuation": "PEG 2.47 (mahal relatif pertumbuhan) · fwd P/E 33.2 · beta 1.09 (seiring pasar) · ATR 2.6%/hari",
    "todos": [
-    "AAPL lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.18%."
+    "AAPL lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.22%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -2279,7 +2283,7 @@
    "ok": true,
    "error": null,
    "name": "Booking Holdings Inc. Common St",
-   "price": 215.57,
+   "price": 213.0,
    "spark": [
     156.56,
     159.28,
@@ -2343,22 +2347,22 @@
     212.06,
     204.76,
     208.25,
-    215.57
+    213.0
    ],
-   "chg_1d": 3.52,
-   "chg_1w": 1.56,
-   "chg_1m": 20.16,
-   "chg_3m": 39.84,
-   "rsi": 66.9,
-   "vs_ma20": 6.94,
-   "vs_ma50": 15.77,
-   "vs_ma200": 16.5,
-   "from_52w_high": -5.0,
-   "from_52w_low": 40.21,
-   "atr_pct": 3.32,
-   "dollar_volume": 1267546944,
+   "chg_1d": 2.28,
+   "chg_1w": 0.35,
+   "chg_1m": 18.73,
+   "chg_3m": 38.17,
+   "rsi": 65.2,
+   "vs_ma20": 5.73,
+   "vs_ma50": 14.42,
+   "vs_ma200": 15.12,
+   "from_52w_high": -6.13,
+   "from_52w_low": 38.54,
+   "atr_pct": 3.36,
+   "dollar_volume": 1291893990,
    "is_etf": false,
-   "fwd_pe": 17.417841,
+   "fwd_pe": 17.210188,
    "peg": 0.93,
    "roe": null,
    "beta": 1.068,
@@ -2367,19 +2371,19 @@
    "rev_growth": 0.081,
    "op_margin": 0.34412,
    "target": 237.80556,
-   "upside": 10.31,
+   "upside": 11.65,
    "analysts": 36,
-   "earnings_in_days": 69,
+   "earnings_in_days": 68,
    "swing": {
     "score": 83,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 85,
+    "tech_score": 86,
     "fund_score": 77,
     "parts": {
      "trend": 100,
-     "momentum": 80,
-     "pullback": 59,
+     "momentum": 77,
+     "pullback": 67,
      "volatility": 88,
      "liquidity": 95,
      "growth": 82,
@@ -2387,12 +2391,12 @@
      "balance": 60,
      "valuation": 88
     },
-    "entry": 215.57,
-    "stop": 204.13,
-    "target": 238.45,
+    "entry": 213.0,
+    "stop": 201.56,
+    "target": 235.88,
     "rr": 2.0,
-    "risk_pct": 5.31,
-    "reward_pct": 10.62,
+    "risk_pct": 5.37,
+    "reward_pct": 10.74,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -2408,7 +2412,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 66.9"
+      "detail": "RSI 65.2"
      },
      {
       "label": "Risk/reward",
@@ -2418,17 +2422,17 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "6.94% dari MA20"
+      "detail": "5.73% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "69 hari lagi"
+      "detail": "68 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "ATR 3.32% memberi ruang gerak yang pas untuk swing.",
+     "ATR 3.36% memberi ruang gerak yang pas untuk swing.",
      "PEG 0.93 — harga masih masuk akal terhadap pertumbuhan.",
      "Likuid (~$1.3 miliar/hari), mudah masuk-keluar."
     ],
@@ -2436,11 +2440,17 @@
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 69
+    "days_to_earnings": 68
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:51",
+   "fetched_iso": "2026-08-20T07:03:17",
    "news": [
+    {
+     "title": "What Expedia's Shrinking Share Count Is Still Worth",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Trefis"
+    },
     {
      "title": "Get Paid 11% To Cap Your BKNG Stock At 15% Higher",
      "tone": "▫️",
@@ -2458,18 +2468,12 @@
      "tone": "▫️",
      "date": "2026-08-14",
      "publisher": "The Wall Street Journal"
-    },
-    {
-     "title": "Glenn Fogel runs the world’s largest online travel business. He still personally reads customer complaints because ‘you gotta get that sh*t right’",
-     "tone": "▫️",
-     "date": "2026-08-14",
-     "publisher": "Fortune"
     }
    ],
    "news_mood": "netral/campuran",
-   "valuation": "PEG 0.93 (murah relatif pertumbuhan) · fwd P/E 17.4 · beta 1.07 (seiring pasar) · ATR 3.3%/hari",
+   "valuation": "PEG 0.93 (murah relatif pertumbuhan) · fwd P/E 17.2 · beta 1.07 (seiring pasar) · ATR 3.4%/hari",
    "todos": [
-    "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.31%."
+    "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.37%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -2480,9 +2484,8 @@
    "ok": true,
    "error": null,
    "name": "Vertex Pharmaceuticals Incorpor",
-   "price": 544.32,
+   "price": 552.06,
    "spark": [
-    434.31,
     430.44,
     433.54,
     434.52,
@@ -2525,6 +2528,7 @@
     485.65,
     480.5,
     482.0,
+    472.57,
     473.09,
     477.36,
     479.0,
@@ -2544,22 +2548,22 @@
     505.75,
     515.55,
     528.19,
-    544.32
+    552.06
    ],
-   "chg_1d": 3.05,
-   "chg_1w": 3.54,
-   "chg_1m": 13.28,
-   "chg_3m": 24.68,
-   "rsi": 69.2,
-   "vs_ma20": 9.24,
-   "vs_ma50": 12.01,
-   "vs_ma200": 18.72,
-   "from_52w_high": -0.0,
-   "from_52w_low": 44.53,
-   "atr_pct": 3.14,
-   "dollar_volume": 711852996,
+   "chg_1d": 4.52,
+   "chg_1w": 5.01,
+   "chg_1m": 14.54,
+   "chg_3m": 27.11,
+   "rsi": 71.3,
+   "vs_ma20": 10.7,
+   "vs_ma50": 13.42,
+   "vs_ma200": 20.33,
+   "from_52w_high": 0.0,
+   "from_52w_low": 46.58,
+   "atr_pct": 3.2,
+   "dollar_volume": 753832406,
    "is_etf": false,
-   "fwd_pe": 24.950348,
+   "fwd_pe": 25.30513,
    "peg": 1.73,
    "roe": 0.23542999,
    "beta": 0.305,
@@ -2568,18 +2572,18 @@
    "rev_growth": 0.125,
    "op_margin": 0.38055,
    "target": 563.12,
-   "upside": 3.45,
+   "upside": 2.0,
    "analysts": 25,
-   "earnings_in_days": 75,
+   "earnings_in_days": 74,
    "swing": {
-    "score": 83,
+    "score": 84,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 83,
+    "tech_score": 84,
     "fund_score": 83,
     "parts": {
      "trend": 100,
-     "momentum": 74,
+     "momentum": 78,
      "pullback": 59,
      "volatility": 88,
      "liquidity": 88,
@@ -2588,18 +2592,18 @@
      "balance": 92,
      "valuation": 68
     },
-    "entry": 535.77,
-    "stop": 508.39,
-    "target": 590.51,
+    "entry": 537.91,
+    "stop": 509.62,
+    "target": 594.5,
     "rr": 2.0,
-    "risk_pct": 5.11,
-    "reward_pct": 10.22,
+    "risk_pct": 5.26,
+    "reward_pct": 10.52,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "83/100 (min 68)"
+      "detail": "84/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -2609,7 +2613,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 69.2"
+      "detail": "RSI 71.3"
      },
      {
       "label": "Risk/reward",
@@ -2619,27 +2623,27 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "9.24% dari MA20"
+      "detail": "10.7% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "75 hari lagi"
+      "detail": "74 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "ATR 3.14% memberi ruang gerak yang pas untuk swing.",
-     "Likuid (~$712 juta/hari), mudah masuk-keluar."
+     "ATR 3.2% memberi ruang gerak yang pas untuk swing.",
+     "Likuid (~$754 juta/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 75
+    "days_to_earnings": 74
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:52",
+   "fetched_iso": "2026-08-20T07:03:18",
    "news": [
     {
      "title": "3 Cash-Producing Stocks on Our Watchlist",
@@ -2667,9 +2671,9 @@
     }
    ],
    "news_mood": "cenderung positif (1/4 headline)",
-   "valuation": "PEG 1.73 (wajar) · fwd P/E 25.0 · beta 0.30 (lebih tenang dari pasar) · ATR 3.1%/hari",
+   "valuation": "PEG 1.73 (wajar) · fwd P/E 25.3 · beta 0.30 (lebih tenang dari pasar) · ATR 3.2%/hari",
    "todos": [
-    "VRTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.11%."
+    "VRTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.26%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -2680,7 +2684,7 @@
    "ok": true,
    "error": null,
    "name": "Bank of America Corporation",
-   "price": 63.57,
+   "price": 63.17,
    "spark": [
     50.97,
     51.22,
@@ -2744,22 +2748,22 @@
     64.49,
     63.89,
     64.23,
-    63.57
+    63.17
    ],
-   "chg_1d": -1.03,
-   "chg_1w": -1.91,
-   "chg_1m": 3.84,
-   "chg_3m": 26.04,
-   "rsi": 58.9,
-   "vs_ma20": 0.86,
-   "vs_ma50": 5.53,
-   "vs_ma200": 17.78,
-   "from_52w_high": -1.91,
-   "from_52w_low": 36.77,
-   "atr_pct": 1.52,
-   "dollar_volume": 1682644871,
+   "chg_1d": -1.65,
+   "chg_1w": -2.53,
+   "chg_1m": 3.19,
+   "chg_3m": 25.24,
+   "rsi": 55.9,
+   "vs_ma20": 0.26,
+   "vs_ma50": 4.88,
+   "vs_ma200": 17.05,
+   "from_52w_high": -2.53,
+   "from_52w_low": 35.91,
+   "atr_pct": 1.56,
+   "dollar_volume": 1726532068,
    "is_etf": false,
-   "fwd_pe": 12.004917,
+   "fwd_pe": 11.9293785,
    "peg": 1.1,
    "roe": 0.111990005,
    "beta": 1.168,
@@ -2768,19 +2772,19 @@
    "rev_growth": 0.168,
    "op_margin": 0.38305,
    "target": 68.77273,
-   "upside": 8.18,
+   "upside": 8.87,
    "analysts": 22,
-   "earnings_in_days": 56,
+   "earnings_in_days": 55,
    "swing": {
-    "score": 80,
+    "score": 82,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 83,
+    "tech_score": 85,
     "fund_score": 77,
     "parts": {
      "trend": 100,
-     "momentum": 67,
-     "pullback": 67,
+     "momentum": 65,
+     "pullback": 85,
      "volatility": 78,
      "liquidity": 95,
      "growth": 87,
@@ -2788,18 +2792,18 @@
      "balance": 55,
      "valuation": 76
     },
-    "entry": 63.57,
-    "stop": 62.03,
-    "target": 66.66,
+    "entry": 63.17,
+    "stop": 61.59,
+    "target": 66.33,
     "rr": 2.0,
-    "risk_pct": 2.43,
-    "reward_pct": 4.86,
+    "risk_pct": 2.5,
+    "reward_pct": 5.01,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "80/100 (min 68)"
+      "detail": "82/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -2809,7 +2813,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 58.9"
+      "detail": "RSI 55.9"
      },
      {
       "label": "Risk/reward",
@@ -2819,59 +2823,59 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "0.86% dari MA20"
+      "detail": "0.26% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "56 hari lagi"
+      "detail": "55 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "RSI 58.9 di zona sehat — tren hidup, belum kehabisan napas.",
-     "ATR 1.52% memberi ruang gerak yang pas untuk swing.",
-     "Pendapatan tumbuh 17% YoY.",
-     "Likuid (~$1.7 miliar/hari), mudah masuk-keluar."
+     "RSI 55.9 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 2.5% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 1.56% memberi ruang gerak yang pas untuk swing.",
+     "Pendapatan tumbuh 17% YoY."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 56
+    "days_to_earnings": 55
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:54",
+   "fetched_iso": "2026-08-20T07:03:19",
    "news": [
     {
-     "title": "Bain Capital Specialty Finance (BCSF) Stock Fair Value Falls As Analysts Cut Outlook",
-     "tone": "🔻",
+     "title": "Bank of America makes bullish call on 77-year-old healthcare stock",
+     "tone": "🔺",
      "date": "2026-08-19",
-     "publisher": "Simply Wall St."
+     "publisher": "TheStreet"
     },
     {
-     "title": "BofA Continues to Boost Tech Banking Ranks With New Hires",
+     "title": "Why Workday (WDAY) Stock Is Trading Up Today",
      "tone": "▫️",
      "date": "2026-08-19",
-     "publisher": "Bloomberg"
+     "publisher": "StockStory"
     },
     {
-     "title": "Bank of America Has a Stark Warning on AI Spending",
-     "tone": "🔻",
-     "date": "2026-08-18",
-     "publisher": "GuruFocus.com"
+     "title": "Which Big Bank Stock Has Dominated in 2026: Bank of America, Wells Fargo, or Bank of New York Mellon Corp.?",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "24/7 Wall St."
     },
     {
-     "title": "BofA Sends Bullish Message For Taiwan Semiconductor Stock Fans",
-     "tone": "🔺",
-     "date": "2026-08-18",
-     "publisher": "GuruFocus.com"
+     "title": "Software Stocks Are Bouncing Back From AI Fears. BofA Sees More Gains Ahead.",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Barrons.com"
     }
    ],
-   "news_mood": "cenderung negatif (2/4 headline)",
-   "valuation": "PEG 1.10 (wajar) · fwd P/E 12.0 · beta 1.17 (seiring pasar) · ATR 1.5%/hari",
+   "news_mood": "cenderung positif (1/4 headline)",
+   "valuation": "PEG 1.10 (wajar) · fwd P/E 11.9 · beta 1.17 (seiring pasar) · ATR 1.6%/hari",
    "todos": [
-    "BAC lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.43%."
+    "BAC lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.5%."
    ],
    "has_todo": true,
    "refresh_failed": false
@@ -2882,7 +2886,7 @@
    "ok": true,
    "error": null,
    "name": "Thermo Fisher Scientific Inc",
-   "price": 614.65,
+   "price": 613.54,
    "spark": [
     451.34,
     448.92,
@@ -2946,22 +2950,22 @@
     588.29,
     585.51,
     589.04,
-    614.65
+    613.54
    ],
-   "chg_1d": 4.35,
-   "chg_1w": 1.93,
-   "chg_1m": 17.42,
-   "chg_3m": 37.39,
-   "rsi": 71.0,
-   "vs_ma20": 5.29,
-   "vs_ma50": 14.66,
-   "vs_ma200": 15.44,
-   "from_52w_high": -3.69,
-   "from_52w_low": 40.36,
-   "atr_pct": 2.26,
-   "dollar_volume": 1242818354,
+   "chg_1d": 4.16,
+   "chg_1w": 1.75,
+   "chg_1m": 17.21,
+   "chg_3m": 37.15,
+   "rsi": 70.7,
+   "vs_ma20": 5.11,
+   "vs_ma50": 14.46,
+   "vs_ma200": 15.23,
+   "from_52w_high": -3.86,
+   "from_52w_low": 40.11,
+   "atr_pct": 2.27,
+   "dollar_volume": 1299112617,
    "is_etf": false,
-   "fwd_pe": 22.34272,
+   "fwd_pe": 22.30237,
    "peg": 1.92,
    "roe": 0.13515,
    "beta": 0.847,
@@ -2970,9 +2974,9 @@
    "rev_growth": 0.105,
    "op_margin": 0.18751,
    "target": 631.4231,
-   "upside": 2.73,
+   "upside": 2.91,
    "analysts": 26,
-   "earnings_in_days": 63,
+   "earnings_in_days": 62,
    "swing": {
     "score": 81,
     "verdict": "BUY",
@@ -2990,12 +2994,12 @@
      "balance": 65,
      "valuation": 68
     },
-    "entry": 603.53,
-    "stop": 581.29,
-    "target": 648.01,
+    "entry": 602.42,
+    "stop": 580.18,
+    "target": 646.9,
     "rr": 2.0,
     "risk_pct": 3.69,
-    "reward_pct": 7.37,
+    "reward_pct": 7.38,
     "horizon": "1-4 minggu",
     "checks": [
      {
@@ -3011,7 +3015,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 71.0"
+      "detail": "RSI 70.7"
      },
      {
       "label": "Risk/reward",
@@ -3021,28 +3025,34 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "5.29% dari MA20"
+      "detail": "5.11% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "63 hari lagi"
+      "detail": "62 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "ATR 2.26% memberi ruang gerak yang pas untuk swing.",
-     "Likuid (~$1.2 miliar/hari), mudah masuk-keluar."
+     "ATR 2.27% memberi ruang gerak yang pas untuk swing.",
+     "Likuid (~$1.3 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 63
+    "days_to_earnings": 62
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:55",
+   "fetched_iso": "2026-08-20T07:03:20",
    "news": [
+    {
+     "title": "Here's How Abbott's Medical Devices Arm Acts as a Growth Catalyst",
+     "tone": "🔺",
+     "date": "2026-08-19",
+     "publisher": "Zacks"
+    },
     {
      "title": "Q2 Earnings Highs And Lows: Thermo Fisher (NYSE:TMO) Vs The Rest Of The Research Tools & Consumables Stocks",
      "tone": "▫️",
@@ -3060,15 +3070,9 @@
      "tone": "▫️",
      "date": "2026-08-17",
      "publisher": "Barchart"
-    },
-    {
-     "title": "PTC Therapeutics Targets Fabry Gene Therapy in $111M Bankruptcy Auction Deal",
-     "tone": "▫️",
-     "date": "2026-08-16",
-     "publisher": "MarketBeat"
     }
    ],
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "valuation": "PEG 1.92 (wajar) · fwd P/E 22.3 · beta 0.85 (seiring pasar) · ATR 2.3%/hari",
    "todos": [
     "TMO lolos syarat swing — tentukan ukuran posisi dari jarak stop 3.69%."
@@ -3082,7 +3086,7 @@
    "ok": true,
    "error": null,
    "name": "RTX Corporation",
-   "price": 224.98,
+   "price": 220.35,
    "spark": [
     173.55,
     174.67,
@@ -3146,22 +3150,22 @@
     222.97,
     221.64,
     225.49,
-    224.98
+    220.35
    ],
-   "chg_1d": -0.23,
-   "chg_1w": 1.33,
-   "chg_1m": 16.55,
-   "chg_3m": 29.9,
-   "rsi": 70.5,
-   "vs_ma20": 2.69,
-   "vs_ma50": 11.61,
-   "vs_ma200": 18.54,
-   "from_52w_high": -0.23,
-   "from_52w_low": 50.46,
-   "atr_pct": 1.74,
-   "dollar_volume": 1158273871,
+   "chg_1d": -2.28,
+   "chg_1w": -0.75,
+   "chg_1m": 14.15,
+   "chg_3m": 27.23,
+   "rsi": 60.8,
+   "vs_ma20": 0.68,
+   "vs_ma50": 9.36,
+   "vs_ma200": 16.11,
+   "from_52w_high": -2.28,
+   "from_52w_low": 47.36,
+   "atr_pct": 1.9,
+   "dollar_volume": 1187618224,
    "is_etf": false,
-   "fwd_pe": 28.638493,
+   "fwd_pe": 28.049126,
    "peg": 2.77,
    "roe": 0.12274,
    "beta": 0.294,
@@ -3170,19 +3174,19 @@
    "rev_growth": 0.145,
    "op_margin": 0.12696,
    "target": 232.27182,
-   "upside": 3.24,
+   "upside": 5.41,
    "analysts": 22,
-   "earnings_in_days": 62,
+   "earnings_in_days": 61,
    "swing": {
-    "score": 81,
+    "score": 83,
     "verdict": "BUY",
     "headline": "Setup swing memenuhi seluruh syarat.",
-    "tech_score": 85,
+    "tech_score": 88,
     "fund_score": 73,
     "parts": {
      "trend": 100,
-     "momentum": 75,
-     "pullback": 67,
+     "momentum": 77,
+     "pullback": 85,
      "volatility": 78,
      "liquidity": 95,
      "growth": 82,
@@ -3190,18 +3194,18 @@
      "balance": 72,
      "valuation": 52
     },
-    "entry": 221.85,
-    "stop": 215.58,
-    "target": 234.38,
+    "entry": 220.35,
+    "stop": 213.65,
+    "target": 233.75,
     "rr": 2.0,
-    "risk_pct": 2.82,
-    "reward_pct": 5.65,
+    "risk_pct": 3.04,
+    "reward_pct": 6.08,
     "horizon": "1-4 minggu",
     "checks": [
      {
       "label": "Skor komposit",
       "pass": true,
-      "detail": "81/100 (min 68)"
+      "detail": "83/100 (min 68)"
      },
      {
       "label": "Tren naik",
@@ -3211,7 +3215,7 @@
      {
       "label": "RSI sehat",
       "pass": true,
-      "detail": "RSI 70.5"
+      "detail": "RSI 60.8"
      },
      {
       "label": "Risk/reward",
@@ -3221,28 +3225,42 @@
      {
       "label": "Tidak parabolik",
       "pass": true,
-      "detail": "2.69% dari MA20"
+      "detail": "0.68% dari MA20"
      },
      {
       "label": "Jauh dari earnings",
       "pass": true,
-      "detail": "62 hari lagi"
+      "detail": "61 hari lagi"
      }
     ],
     "reasons": [
      "Susunan moving average mendukung tren naik.",
-     "ATR 1.74% memberi ruang gerak yang pas untuk swing.",
+     "RSI 60.8 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 2.3% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 1.9% memberi ruang gerak yang pas untuk swing.",
      "Likuid (~$1.2 miliar/hari), mudah masuk-keluar."
     ],
     "risks": [
      "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
     ],
     "blockers": [],
-    "days_to_earnings": 62
+    "days_to_earnings": 61
    },
    "data_source": "yahoo",
-   "fetched_iso": "2026-08-19T15:04:56",
+   "fetched_iso": "2026-08-20T07:03:22",
    "news": [
+    {
+     "title": "How Investors May Respond To RTX (RTX) Winning a US$22.9 Billion Tomahawk Deal and Raising Guidance",
+     "tone": "🔺",
+     "date": "2026-08-20",
+     "publisher": "Simply Wall St."
+    },
+    {
+     "title": "Make Your TDG Shares Pay You 9.8% A Year While You Hold Them",
+     "tone": "▫️",
+     "date": "2026-08-20",
+     "publisher": "Trefis"
+    },
     {
      "title": "A New Defense Stock Is Born: Lyntris IPO Set For Wednesday",
      "tone": "▫️",
@@ -3250,46 +3268,34 @@
      "publisher": "Investor's Business Daily"
     },
     {
-     "title": "2 Industrial Stocks I'd Buy Every Day Before RTX",
-     "tone": "▫️",
-     "date": "2026-08-19",
-     "publisher": "Motley Fool"
-    },
-    {
-     "title": "RTX, Lockheed, and 7 More Stocks to Consider as Missile Production Rockets Higher",
+     "title": "Honeywell Aerospace Stock Has Fallen Far Enough. Morgan Stanley Says It’s Time to Buy.",
      "tone": "🔻",
-     "date": "2026-08-18",
+     "date": "2026-08-19",
      "publisher": "Barrons.com"
-    },
-    {
-     "title": "Is Northrop Grumman Expanding Its Presence in Military Training?",
-     "tone": "🔺",
-     "date": "2026-08-18",
-     "publisher": "Zacks"
     }
    ],
    "news_mood": "netral/campuran",
-   "valuation": "PEG 2.77 (mahal relatif pertumbuhan) · fwd P/E 28.6 · beta 0.29 (lebih tenang dari pasar) · ATR 1.7%/hari",
+   "valuation": "PEG 2.77 (mahal relatif pertumbuhan) · fwd P/E 28.0 · beta 0.29 (lebih tenang dari pasar) · ATR 1.9%/hari",
    "todos": [
-    "RTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.82%."
+    "RTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 3.04%."
    ],
    "has_todo": true,
    "refresh_failed": false
   }
  ],
  "todos": [
-  "Earnings NVDA dalam 7 hari — pertimbangkan menunda entry atau perkecil posisi.",
-  "NVDA lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.74%.",
-  "Cek penyebab AVGO turun -25.1% dari puncak 52 minggu — sementara atau tesis rusak?",
-  "Cek penyebab AMD turun -20.1% dari puncak 52 minggu — sementara atau tesis rusak?",
-  "AMZN lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.66%.",
-  "LLY lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.78%.",
-  "VOO lolos syarat swing — tentukan ukuran posisi dari jarak stop 1.39%.",
-  "QQQ lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.45%.",
-  "Cek penyebab MU turun -23.5% dari puncak 52 minggu — sementara atau tesis rusak?",
+  "Earnings NVDA dalam 6 hari — pertimbangkan menunda entry atau perkecil posisi.",
+  "NVDA lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.78%.",
+  "Cek penyebab AVGO turun -24.6% dari puncak 52 minggu — sementara atau tesis rusak?",
+  "AMZN lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.69%.",
+  "LLY lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.73%.",
+  "VOO lolos syarat swing — tentukan ukuran posisi dari jarak stop 1.4%.",
+  "QQQ lolos syarat swing — tentukan ukuran posisi dari jarak stop 2.46%.",
+  "Cek penyebab MU turun -22.8% dari puncak 52 minggu — sementara atau tesis rusak?",
   "Earnings WMT dalam 0 hari — pertimbangkan menunda entry atau perkecil posisi.",
-  "AAPL lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.18%.",
-  "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.31%."
+  "AAPL lolos syarat swing — tentukan ukuran posisi dari jarak stop 4.22%.",
+  "BKNG lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.37%.",
+  "VRTX lolos syarat swing — tentukan ukuran posisi dari jarak stop 5.26%."
  ],
  "watchlist": {
   "pinned": [
