@@ -10,3 +10,4 @@ VOO
 QQQ
 MU
 WMT
+TSM

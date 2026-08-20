@@ -1,13 +1,13 @@
 {
- "updated": "20 Agustus 2026, 14:03 WIB",
- "updated_iso": "2026-08-20T07:03:22",
+ "updated": "20 Agustus 2026, 14:31 WIB",
+ "updated_iso": "2026-08-20T07:31:32",
  "stale_after_hours": 30,
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
-   "last": 14.89,
-   "chg_1d": -6.0,
-   "chg_3mo": -14.62
+   "last": 14.92,
+   "chg_1d": 0.2,
+   "chg_3mo": -14.45
   },
   {
    "name": "US 10Y yield",
@@ -17,7 +17,7 @@
   },
   {
    "name": "Dollar Index",
-   "last": 98.78,
+   "last": 98.79,
    "chg_1d": -0.05,
    "chg_3mo": -0.33
   },
@@ -29,9 +29,9 @@
   },
   {
    "name": "Minyak WTI",
-   "last": 84.85,
-   "chg_1d": -1.14,
-   "chg_3mo": -13.65
+   "last": 85.48,
+   "chg_1d": -0.41,
+   "chg_3mo": -13.01
   }
  ],
  "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
@@ -40,7 +40,7 @@
    "k": "Risiko pasar",
    "v": "Rendah",
    "cls": "green",
-   "why": "VIX 14.89 — Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko."
+   "why": "VIX 14.92 — Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko."
   },
   {
    "k": "Setup siap",
@@ -2076,6 +2076,206 @@
    "refresh_failed": false
   },
   {
+   "ticker": "TSM",
+   "source": "pinned",
+   "ok": true,
+   "error": null,
+   "name": "Taiwan Semiconductor Manufactur",
+   "price": 412.09,
+   "spark": [
+    400.68,
+    406.2,
+    403.57,
+    411.36,
+    421.74,
+    423.87,
+    417.47,
+    434.61,
+    445.65,
+    435.67,
+    443.88,
+    414.2,
+    425.8,
+    426.92,
+    407.8,
+    421.07,
+    423.93,
+    441.4,
+    425.83,
+    432.15,
+    462.12,
+    467.67,
+    436.39,
+    440.83,
+    434.99,
+    432.35,
+    455.1,
+    477.57,
+    444.23,
+    434.16,
+    451.79,
+    432.57,
+    436.98,
+    436.96,
+    434.11,
+    421.58,
+    420.39,
+    419.48,
+    409.74,
+    398.37,
+    402.3,
+    424.61,
+    421.21,
+    415.58,
+    403.41,
+    399.09,
+    392.31,
+    374.67,
+    403.31,
+    404.25,
+    406.11,
+    417.17,
+    414.0,
+    418.2,
+    420.04,
+    418.47,
+    422.06,
+    429.15,
+    430.49,
+    426.35,
+    430.97,
+    413.41,
+    412.09
+   ],
+   "chg_1d": -0.32,
+   "chg_1w": -3.98,
+   "chg_1m": -2.95,
+   "chg_3m": 5.21,
+   "rsi": 46.7,
+   "vs_ma20": -0.11,
+   "vs_ma50": -2.93,
+   "vs_ma200": 13.18,
+   "from_52w_high": -13.71,
+   "from_52w_low": 83.28,
+   "atr_pct": 2.92,
+   "dollar_volume": 5079889017,
+   "is_etf": false,
+   "fwd_pe": 18.919466,
+   "peg": 1.03,
+   "roe": 0.39969003,
+   "beta": 1.258,
+   "d2e": 16.504,
+   "fcf": 730826014720.0,
+   "rev_growth": 0.36,
+   "op_margin": 0.60344005,
+   "target": 547.09375,
+   "upside": 32.76,
+   "analysts": 18,
+   "earnings_in_days": 56,
+   "swing": {
+    "score": 76,
+    "verdict": "WAIT",
+    "headline": "Belum memenuhi: Tren naik",
+    "tech_score": 66,
+    "fund_score": 95,
+    "parts": {
+     "trend": 49,
+     "momentum": 53,
+     "pullback": 85,
+     "volatility": 88,
+     "liquidity": 95,
+     "growth": 100,
+     "quality": 100,
+     "balance": 92,
+     "valuation": 76
+    },
+    "entry": 412.09,
+    "stop": 392.82,
+    "target": 450.63,
+    "rr": 2.0,
+    "risk_pct": 4.68,
+    "reward_pct": 9.35,
+    "horizon": "1-4 minggu",
+    "checks": [
+     {
+      "label": "Skor komposit",
+      "pass": true,
+      "detail": "76/100 (min 68)"
+     },
+     {
+      "label": "Tren naik",
+      "pass": false,
+      "detail": "harga > MA50 > MA200"
+     },
+     {
+      "label": "RSI sehat",
+      "pass": true,
+      "detail": "RSI 46.7"
+     },
+     {
+      "label": "Risk/reward",
+      "pass": true,
+      "detail": "2.0:1 (min 1.8:1)"
+     },
+     {
+      "label": "Tidak parabolik",
+      "pass": true,
+      "detail": "-0.11% dari MA20"
+     },
+     {
+      "label": "Jauh dari earnings",
+      "pass": true,
+      "detail": "56 hari lagi"
+     }
+    ],
+    "reasons": [
+     "RSI 46.7 di zona sehat — tren hidup, belum kehabisan napas.",
+     "Koreksi 4.4% dari puncak 20 hari — area entry yang wajar.",
+     "ATR 2.92% memberi ruang gerak yang pas untuk swing.",
+     "Pendapatan tumbuh 36% YoY.",
+     "Likuid (~$5.1 miliar/hari), mudah masuk-keluar."
+    ],
+    "risks": [
+     "Tidak ada risiko struktural yang menonjol — tetap pakai stop loss."
+    ],
+    "blockers": [],
+    "days_to_earnings": 56
+   },
+   "data_source": "yahoo",
+   "fetched_iso": "2026-08-20T07:31:31",
+   "news": [
+    {
+     "title": "TSMC Trades 30.87% Above GF Value as Chip Capacity Tightens",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "GuruFocus.com"
+    },
+    {
+     "title": "Samsung Tumbled Nearly 8% in Seoul Even as AI Demand Drives Chip Prices Up To 15%",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Benzinga Prediction Markets"
+    },
+    {
+     "title": "U.S. Markets Prepare For AI Compute Derivatives Tied To TSMC, Nvidia GPU Prices",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Investor's Business Daily"
+    },
+    {
+     "title": "SoundHound AI vs. Taiwan Semiconductor Manufacturing: Which Technology Stock Is a Better Buy in 2026?",
+     "tone": "▫️",
+     "date": "2026-08-19",
+     "publisher": "Motley Fool"
+    }
+   ],
+   "news_mood": "netral/campuran",
+   "valuation": "PEG 1.03 (wajar) · fwd P/E 18.9 · beta 1.26 (lebih liar dari pasar) · ATR 2.9%/hari",
+   "todos": [],
+   "has_todo": false,
+   "refresh_failed": false
+  },
+  {
    "ticker": "AAPL",
    "source": "auto",
    "ok": true,
@@ -3308,7 +3508,8 @@
    "VOO",
    "QQQ",
    "MU",
-   "WMT"
+   "WMT",
+   "TSM"
   ],
   "auto": [
    "AAPL",
