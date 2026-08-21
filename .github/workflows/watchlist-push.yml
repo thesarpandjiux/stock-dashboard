@@ -44,11 +44,29 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Jangan pernah commit data.json yang rusak — lebih baik job gagal
+          # dan dashboard tetap memakai snapshot lama yang masih sah.
+          python3 -c "import json; json.load(open('data.json'))"
           git add data.json
           if git diff --staged --quiet; then
             echo "Tidak ada perubahan."
             exit 0
           fi
           git commit -m "data: sinkronkan setelah watchlist berubah"
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push
+          # data.json adalah berkas hasil generate: kalau remote sempat berubah
+          # (mis. cron di Mac ikut menulis), versi hasil run ini yang menang —
+          # jangan pernah biarkan git menyisipkan penanda konflik ke dalamnya.
+          for attempt in 1 2 3; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort || true
+              sleep 5
+              continue
+            fi
+            if git push; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::gagal push setelah 3 percobaan"
+          exit 1

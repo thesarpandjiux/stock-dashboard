@@ -1,0 +1,7 @@
+# data.json & watchlist_auto.json dihasilkan mesin, bukan diketik manusia.
+# "-merge" membuat git TIDAK pernah menyisipkan penanda konflik (<<<<<<<) ke
+# dalamnya saat dua sisi sama-sama berubah; git memakai versi cabang saat ini
+# dan menandai konflik. Hasilnya berkas tetap JSON yang sah, sehingga dashboard
+# tidak pernah mati gara-gara file rusak.
+data.json -merge
+watchlist_auto.json -merge

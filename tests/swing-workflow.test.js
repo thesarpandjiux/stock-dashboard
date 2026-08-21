@@ -52,9 +52,13 @@ const context = {
   semiconductorTickers: ['NVDA', 'AVGO', 'AMD', 'MU'],
   clamp: (value, min, max) => Math.max(min, Math.min(max, value)),
   pct: (value) => `${value >= 0 ? '+' : ''}${Number(value).toFixed(1)}%`,
+  money: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }),
 };
 vm.createContext(context);
 vm.runInContext([
+  // fromServer dipakai scoreItem saat snapshot sudah memuat blok `swing`
+  // hasil hitungan GitHub Actions.
+  extractFunction(inlineScript, 'fromServer'),
   extractFunction(inlineScript, 'scoreItem'),
   extractFunction(inlineScript, 'executionStatus'),
   extractFunction(inlineScript, 'buildFocusList'),

@@ -80,10 +80,26 @@ def pct(a, b):
 
 
 def load_previous():
+    """Baca data.json sebelumnya untuk dipakai sebagai cadangan.
+
+    Kalau berkasnya rusak — mis. tersisipi penanda konflik git karena dua
+    proses menulisnya bersamaan — jangan ikut mati: laporkan, lalu bangun
+    ulang dari nol. Hasilnya data.json yang sah lagi.
+    """
     try:
         with open(OUT_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (FileNotFoundError, ValueError):
+            raw = f.read()
+    except FileNotFoundError:
+        return {}
+    if "<<<<<<<" in raw or ">>>>>>>" in raw:
+        print("PERINGATAN: data.json berisi penanda konflik git — "
+              "diabaikan dan dibangun ulang dari nol.", file=sys.stderr)
+        return {}
+    try:
+        return json.loads(raw)
+    except ValueError as e:
+        print(f"PERINGATAN: data.json tidak bisa dibaca ({e}) — "
+              "dibangun ulang dari nol.", file=sys.stderr)
         return {}
 
 
