@@ -1,65 +1,65 @@
 {
- "updated": "2026-08-19T15:01:02+00:00",
+ "updated": "2026-08-21T22:13:41+00:00",
  "tickers": [
-  {
-   "ticker": "AAPL",
-   "name": "Apple Inc.",
-   "score": 84,
-   "verdict": "BUY",
-   "tech_score": 85,
-   "fund_score": 82,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
-  },
   {
    "ticker": "BKNG",
    "name": "Booking Holdings Inc. Common St",
-   "score": 83,
+   "score": 86,
    "verdict": "BUY",
-   "tech_score": 86,
+   "tech_score": 91,
    "fund_score": 77,
    "why": "Setup swing memenuhi seluruh syarat.",
    "added": "2026-08-19"
   },
   {
+   "ticker": "BLK",
+   "name": "BlackRock, Inc.",
+   "score": 86,
+   "verdict": "BUY",
+   "tech_score": 85,
+   "fund_score": 88,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-21"
+  },
+  {
    "ticker": "VRTX",
    "name": "Vertex Pharmaceuticals Incorpor",
-   "score": 83,
+   "score": 85,
    "verdict": "BUY",
-   "tech_score": 83,
+   "tech_score": 86,
    "fund_score": 83,
    "why": "Setup swing memenuhi seluruh syarat.",
    "added": "2026-08-19"
   },
   {
-   "ticker": "BAC",
-   "name": "Bank of America Corporation",
+   "ticker": "ABBV",
+   "name": "AbbVie Inc.",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 75,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-21"
+  },
+  {
+   "ticker": "ABNB",
+   "name": "Airbnb, Inc.",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 84,
+   "fund_score": 81,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-21"
+  },
+  {
+   "ticker": "COF",
+   "name": "Capital One Financial Corporati",
    "score": 82,
    "verdict": "BUY",
    "tech_score": 86,
-   "fund_score": 77,
+   "fund_score": 75,
    "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
-  },
-  {
-   "ticker": "TMO",
-   "name": "Thermo Fisher Scientific Inc",
-   "score": 81,
-   "verdict": "BUY",
-   "tech_score": 86,
-   "fund_score": 71,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
-  },
-  {
-   "ticker": "RTX",
-   "name": "RTX Corporation",
-   "score": 81,
-   "verdict": "BUY",
-   "tech_score": 85,
-   "fund_score": 73,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
+   "added": "2026-08-21"
   }
  ]
 }
