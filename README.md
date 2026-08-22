@@ -55,23 +55,38 @@ Token disimpan di `localStorage` browser itu saja dan hanya dikirim ke
 browser itu bisa membacanya, jadi jangan pakai di perangkat bersama. Kalau
 ragu, tetap pakai mode issue.
 
-## Refresh 5 hari sekali
+## Dua jadwal otomatis
 
-`.github/workflows/refresh.yml` berjalan pada cron `0 22 */5 * *`
-(22:00 UTC = 05:00 WIB, setelah bursa AS tutup) dan:
+| Workflow | Kapan | Yang dikerjakan |
+|---|---|---|
+| **Refresh harga harian** | Senin–Jumat, 22:00 UTC (05:00 WIB) | Menghitung ulang harga, indikator, dan verdict BUY/WAIT/AVOID untuk emiten yang sudah ada di watchlist. |
+| **Cari emiten baru (5 hari)** | Tanggal 1, 6, 11, 16, 21, 26, 31 — 23:00 UTC (06:00 WIB) | Memindai ~150 emiten paling likuid, memberi skor swing, mengisi slot kandidat otomatis, lalu menghitung ulang semuanya. |
 
-1. menjalankan `screener.py` — memindai universe likuid, memberi skor swing,
-   dan mengisi slot kandidat otomatis (maks. 6) dengan emiten baru yang
-   potensial;
-2. menjalankan `build_dashboard.py` — menghitung ulang seluruh angka dan
-   verdict untuk semua emiten;
-3. commit `data.json` + `watchlist_auto.json`.
+Keduanya berjalan setelah bursa AS tutup, dan berbagi satu antrean
+(`concurrency: dashboard-data`) supaya tidak pernah menulis `data.json`
+bersamaan.
 
-Emiten pinned **tidak pernah** dikeluarkan mesin — hanya slot auto yang
-dirotasi. Menghapus kandidat auto lewat dashboard sekaligus mencekalnya supaya
-tidak muncul lagi di siklus berikutnya.
+Emiten pinned **tidak pernah** dikeluarkan mesin — hanya slot auto (maks. 6)
+yang dirotasi. Menghapus kandidat auto lewat dashboard sekaligus mencekalnya
+supaya tidak muncul lagi di siklus berikutnya.
 
-Mau menjalankan sekarang juga? Actions → *Refresh watchlist (5 hari)* → *Run workflow*.
+Mau menjalankan sekarang juga? Actions → pilih workflow-nya → *Run workflow*.
+
+### Kenapa `data.json` tidak boleh punya dua penulis
+
+`data.json` dihasilkan mesin. Kalau ada proses lain (mis. cron di laptop) ikut
+menulis dan mem-push berkas yang sama, git bisa menyisipkan penanda konflik
+(`<<<<<<<`) ke dalamnya — dan berkas itu berhenti jadi JSON yang sah, sehingga
+dashboard mati total. Tiga lapis pengaman sekarang mencegahnya:
+
+1. `.gitattributes` menandai `data.json` dan `watchlist_auto.json` dengan
+   `-merge`, jadi git tidak pernah menyisipkan penanda konflik — dia memakai
+   satu versi utuh dan menandai konflik.
+2. Setiap workflow memvalidasi `data.json` bisa di-parse sebelum commit.
+3. `build_dashboard.py` mengenali berkas rusak, mengabaikannya, dan membangun
+   ulang dari nol alih-alih ikut gagal.
+
+Tetap saja: **jangan jalankan generator kedua di luar Actions.**
 
 ## Cara skor dihitung
 

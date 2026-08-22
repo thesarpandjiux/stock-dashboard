@@ -1,17 +1,20 @@
-name: Refresh watchlist (5 hari)
+name: Cari emiten baru (5 hari)
 
-# Cron GitHub berjalan dalam UTC. `*/5` pada kolom tanggal = tanggal
-# 1, 6, 11, 16, 21, 26, 31 — jadi jaraknya 5 hari, kecuali pergantian bulan.
-# 22:00 UTC = 05:00 WIB, setelah bursa AS tutup.
+# Memindai ~150 emiten paling likuid, memberi skor swing, lalu mengisi slot
+# kandidat otomatis dengan yang terbaik. Emiten pilihanmu sendiri tidak pernah
+# disentuh — hanya slot auto yang dirotasi. Sesudah itu seluruh angka dihitung
+# ulang sekalian.
+#
+# Refresh harga sehari-hari ditangani workflow "Refresh harga harian".
+#
+# Cron GitHub memakai UTC. `*/5` pada kolom tanggal = tanggal 1, 6, 11, 16,
+# 21, 26, 31 — jaraknya 5 hari, kecuali di pergantian bulan. 23:00 UTC =
+# 06:00 WIB, sengaja satu jam setelah job harian supaya keduanya tidak
+# berebut menulis di menit yang sama.
 on:
   schedule:
-    - cron: "0 22 */5 * *"
+    - cron: "0 23 */5 * *"
   workflow_dispatch:
-    inputs:
-      skip_screener:
-        description: "Lewati pencarian kandidat baru (refresh data saja)"
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -21,7 +24,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  refresh:
+  screener:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -36,7 +39,6 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Cari kandidat swing baru
-        if: ${{ inputs.skip_screener != true }}
         run: python screener.py
         continue-on-error: true
 
@@ -55,7 +57,7 @@ jobs:
             echo "Tidak ada perubahan."
             exit 0
           fi
-          git commit -m "data: refresh 5-harian $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git commit -m "data: rotasi kandidat 5-harian $(date -u '+%Y-%m-%d %H:%M UTC')"
           # data.json adalah berkas hasil generate: kalau remote sempat berubah
           # (mis. cron di Mac ikut menulis), versi hasil run ini yang menang —
           # jangan pernah biarkan git menyisipkan penanda konflik ke dalamnya.
