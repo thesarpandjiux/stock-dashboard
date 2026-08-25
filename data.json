@@ -1,36 +1,36 @@
 {
- "updated": "24 August 2026, 21:42 WIB",
- "updated_iso": "2026-08-24T21:42:01.806408",
+ "updated": "25 August 2026, 21:43 WIB",
+ "updated_iso": "2026-08-25T21:43:09.645315",
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
-   "last": 15.91,
-   "chg_1d": 5.16,
-   "chg_3mo": -4.1
+   "last": 15.78,
+   "chg_1d": -0.44,
+   "chg_3mo": -4.88
   },
   {
    "name": "US 10Y yield",
-   "last": 4.7,
-   "chg_1d": -0.8,
-   "chg_3mo": 4.61
+   "last": 4.66,
+   "chg_1d": -1.02,
+   "chg_3mo": 3.63
   },
   {
    "name": "Dollar Index",
-   "last": 98.94,
-   "chg_1d": 0.14,
-   "chg_3mo": -0.23
+   "last": 98.95,
+   "chg_1d": -0.05,
+   "chg_3mo": -0.22
   },
   {
    "name": "S&P 500",
-   "last": 7657.99,
-   "chg_1d": -0.21,
-   "chg_3mo": 1.85
+   "last": 7661.68,
+   "chg_1d": 0.12,
+   "chg_3mo": 1.9
   },
   {
    "name": "Minyak WTI",
-   "last": 84.98,
-   "chg_1d": -2.39,
-   "chg_3mo": -9.49
+   "last": 82.66,
+   "chg_1d": -2.76,
+   "chg_3mo": -11.96
   }
  ],
  "macro_read": "Volatilitas normal.",
@@ -39,23 +39,23 @@
    "k": "Risiko pasar",
    "v": "Sedang",
    "cls": "grey",
-   "why": "VIX 15.91 — volatilitas normal."
+   "why": "VIX 15.78 — volatilitas normal."
   },
   {
    "k": "Momentum terbaik",
-   "v": "ABNB",
+   "v": "VRTX",
    "cls": "green",
-   "why": "+7.72% dalam sepekan · RSI 81.2"
+   "why": "+4.58% dalam sepekan · RSI 73.9"
   },
   {
    "k": "Paling tertekan",
-   "v": "MU",
+   "v": "AVGO",
    "cls": "amber",
-   "why": "-25.57% dari puncak 52 minggu — cek penyebabnya"
+   "why": "-25.61% dari puncak 52 minggu — cek penyebabnya"
   },
   {
    "k": "Fokus DCA",
-   "v": "5 emiten perlu dicek",
+   "v": "4 emiten perlu dicek",
    "cls": "grey",
    "why": "Beli tetap sesuai jadwal. Riset ini untuk paham, bukan untuk timing."
   }
@@ -65,9 +65,8 @@
    "ticker": "NVDA",
    "ok": true,
    "error": null,
-   "price": 210.22,
+   "price": 211.17,
    "spark": [
-    214.61,
     212.35,
     214.0,
     210.89,
@@ -129,15 +128,16 @@
     217.56,
     216.85,
     214.72,
-    210.22
+    208.48,
+    211.17
    ],
-   "chg_1d": -2.1,
-   "chg_1w": -6.57,
-   "rsi": 47.9,
-   "vs_ma50": 1.22,
-   "vs_ma200": 7.71,
-   "from_52w_high": -10.72,
-   "from_52w_low": 27.42,
+   "chg_1d": 1.29,
+   "chg_1w": -3.9,
+   "rsi": 39.7,
+   "vs_ma50": 1.64,
+   "vs_ma200": 8.15,
+   "from_52w_high": -10.32,
+   "from_52w_low": 28.0,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -150,8 +150,8 @@
     "utang/ekuitas 7% rendah",
     "laba tumbuh 214%"
    ],
-   "valuation": "PEG 0.59 (murah relatif pertumbuhan) · EV/EBITDA 31.2 · P/B 26.0 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 16.115711,
+   "valuation": "PEG 0.59 (murah relatif pertumbuhan) · EV/EBITDA 30.2 · P/B 26.2 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 16.193926,
    "peg": 0.59,
    "roe": 1.14288,
    "beta": 2.215,
@@ -159,27 +159,27 @@
    "fcf": 46335873024,
    "rev_growth": 0.852,
    "target": 304.72882,
-   "upside": 44.96,
+   "upside": 44.3,
    "analysts": 59,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "Tech stocks today: All eyes on Nvidia as Meta trial resumes",
+     "title": "SpaceX orbital data center launch moved up to 2027, Musk says",
      "tone": "▫️",
-     "date": "2026-08-24",
+     "date": "2026-08-25",
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "Nvidia, software giants' earnings: What to watch the week of August 24th",
+     "title": "Nvidia stock hopes to snap seven-day losing streak ahead of earnings",
      "tone": "▫️",
-     "date": "2026-08-24",
+     "date": "2026-08-25",
      "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Nvidia Could Drop 20% On Poor Earnings",
-     "tone": "🔻",
-     "date": "2026-08-24",
-     "publisher": "24/7 Wall St."
+     "title": "Software is crushing chips by a record margin: Chart of the Day",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "Yahoo Finance"
     }
    ],
    "has_todo": true
@@ -188,9 +188,8 @@
    "ticker": "AVGO",
    "ok": true,
    "error": null,
-   "price": 363.01,
+   "price": 357.65,
    "spark": [
-    421.34,
     421.19,
     425.91,
     446.06,
@@ -252,22 +251,23 @@
     362.48,
     364.03,
     368.45,
-    363.01
+    358.76,
+    357.65
    ],
-   "chg_1d": -1.48,
-   "chg_1w": -7.5,
-   "rsi": 19.3,
-   "vs_ma50": -6.44,
-   "vs_ma200": -1.45,
-   "from_52w_high": -24.5,
-   "from_52w_low": 24.28,
+   "chg_1d": -0.31,
+   "chg_1w": -5.88,
+   "rsi": 18.1,
+   "vs_ma50": -7.69,
+   "vs_ma200": -2.9,
+   "from_52w_high": -25.61,
+   "from_52w_low": 22.45,
    "is_etf": false,
    "cond_score": -5,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "RSI 19.3 oversold",
-    "-6.44% di bawah MA50",
-    "-24.5% dari 52w high"
+    "RSI 18.1 oversold",
+    "-7.69% di bawah MA50",
+    "-25.61% dari 52w high"
    ],
    "health_score": 4,
    "health_label": "💪 Kuat",
@@ -276,8 +276,8 @@
     "margin operasi 49%",
     "laba tumbuh 85%"
    ],
-   "valuation": "PEG 0.41 (murah relatif pertumbuhan) · EV/EBITDA 42.7 · P/B 19.7 · beta 1.47 (lebih liar dari pasar)",
-   "fwd_pe": 18.615551,
+   "valuation": "PEG 0.41 (murah relatif pertumbuhan) · EV/EBITDA 41.6 · P/B 19.4 · beta 1.47 (lebih liar dari pasar)",
+   "fwd_pe": 18.337656,
    "peg": 0.41,
    "roe": 0.37280998,
    "beta": 1.473,
@@ -285,27 +285,27 @@
    "fcf": 27212249088,
    "rev_growth": 0.479,
    "target": 526.30005,
-   "upside": 44.98,
+   "upside": 47.16,
    "analysts": 46,
-   "news_mood": "cenderung negatif (1/4 headline)",
+   "news_mood": "cenderung positif (3/4 headline)",
    "news": [
     {
-     "title": "Broadcom’s $60 Billion AI Debt Deal Hides a $370 Billion Question Nobody on Wall Street Wants to Answer",
-     "tone": "▫️",
-     "date": "2026-08-24",
+     "title": "Broadcom Vs. Micron: Why They’re So Strong as Capital Shifts to Inference and Agentic AI",
+     "tone": "🔺",
+     "date": "2026-08-25",
      "publisher": "24/7 Wall St."
     },
     {
-     "title": "NVIDIA Stock Can Fall By A Third Or Rise By Half And Still Be Normal",
-     "tone": "🔻",
-     "date": "2026-08-24",
-     "publisher": "Trefis"
+     "title": "These 2 Artificial Intelligence (AI) Stocks Could Soar by 66% and 46%, According to Wall Street",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "The AI Opportunity Qualcomm Investors May Be Underestimating",
+     "title": "Stock Market News for Aug 25, 2026",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-25",
+     "publisher": "Zacks"
     }
    ],
    "has_todo": true
@@ -314,9 +314,8 @@
    "ticker": "AMD",
    "ok": true,
    "error": null,
-   "price": 457.53,
+   "price": 474.11,
    "spark": [
-    503.89,
     495.54,
     518.09,
     516.1,
@@ -378,21 +377,21 @@
     466.42,
     469.46,
     473.25,
-    457.53
+    456.75,
+    474.11
    ],
-   "chg_1d": -3.32,
-   "chg_1w": -9.58,
-   "rsi": 32.9,
-   "vs_ma50": -10.22,
-   "vs_ma200": 38.27,
-   "from_52w_high": -21.24,
-   "from_52w_low": 202.72,
+   "chg_1d": 3.8,
+   "chg_1w": -2.12,
+   "rsi": 47.5,
+   "vs_ma50": -6.83,
+   "vs_ma200": 42.81,
+   "from_52w_high": -18.38,
+   "from_52w_low": 213.69,
    "is_etf": false,
-   "cond_score": -3,
-   "cond_label": "🟢 Tertekan (murah secara teknikal)",
+   "cond_score": -1,
+   "cond_label": "⚪ Netral",
    "cond_why": [
-    "-10.22% di bawah MA50",
-    "-21.24% dari 52w high"
+    "-6.83% di bawah MA50"
    ],
    "health_score": 2,
    "health_label": "😐 Campuran",
@@ -400,8 +399,8 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 160%"
    ],
-   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 79.9 · P/B 11.1 · beta 2.49 (lebih liar dari pasar)",
-   "fwd_pe": 29.538027,
+   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 77.1 · P/B 11.5 · beta 2.49 (lebih liar dari pasar)",
+   "fwd_pe": 30.596083,
    "peg": 1.01,
    "roe": 0.10196,
    "beta": 2.489,
@@ -409,38 +408,37 @@
    "fcf": 8841499648,
    "rev_growth": 0.501,
    "target": 613.0917,
-   "upside": 34.0,
+   "upside": 29.31,
    "analysts": 48,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "Marvell’s $120 Billion Google Deal Changes Everything Ahead of Earnings",
+     "title": "How investors should approach Nvidia’s earnings",
      "tone": "▫️",
      "date": "2026-08-24",
-     "publisher": "Barrons.com"
+     "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "NVIDIA Stock Can Fall By A Third Or Rise By Half And Still Be Normal",
-     "tone": "🔻",
-     "date": "2026-08-24",
-     "publisher": "Trefis"
-    },
-    {
-     "title": "Can AMD (AMD) Win From the Shift Toward More CPU-Heavy AI Data Centers?",
+     "title": "AMD Stock Upgraded To Strong Buy. Here's Why.",
      "tone": "🔺",
-     "date": "2026-08-24",
-     "publisher": "Insider Monkey"
+     "date": "2026-08-25",
+     "publisher": "Investor's Business Daily"
+    },
+    {
+     "title": "Company News for Aug 25, 2026",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Zacks"
     }
    ],
-   "has_todo": true
+   "has_todo": false
   },
   {
    "ticker": "AMZN",
    "ok": true,
    "error": null,
-   "price": 262.76,
+   "price": 261.16,
    "spark": [
-    265.29,
     271.85,
     274.0,
     270.64,
@@ -502,15 +500,16 @@
     265.84,
     260.11,
     258.63,
-    262.76
+    262.07,
+    261.16
    ],
-   "chg_1d": 1.6,
-   "chg_1w": 0.55,
-   "rsi": 34.5,
-   "vs_ma50": 5.04,
-   "vs_ma200": 10.22,
-   "from_52w_high": -7.49,
-   "from_52w_low": 32.18,
+   "chg_1d": -0.35,
+   "chg_1w": 0.66,
+   "rsi": 36.6,
+   "vs_ma50": 4.22,
+   "vs_ma200": 9.53,
+   "from_52w_high": -8.05,
+   "from_52w_low": 31.37,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -523,8 +522,8 @@
     "utang/ekuitas 46% rendah",
     "laba tumbuh 242%"
    ],
-   "valuation": "PEG 1.38 (wajar) · EV/EBITDA 17.3 · P/B 5.1 · beta 1.45 (lebih liar dari pasar)",
-   "fwd_pe": 25.2798,
+   "valuation": "PEG 1.38 (wajar) · EV/EBITDA 17.5 · P/B 5.1 · beta 1.45 (lebih liar dari pasar)",
+   "fwd_pe": 25.131588,
    "peg": 1.38,
    "roe": 0.30558002,
    "beta": 1.454,
@@ -532,27 +531,27 @@
    "fcf": 3219124992,
    "rev_growth": 0.196,
    "target": 327.004,
-   "upside": 24.45,
+   "upside": 25.21,
    "analysts": 60,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Nvidia earnings may come down to guidance and Jensen Huang's confidence",
+     "title": "The luxury retail categories that consumers continue to spend the most on",
      "tone": "▫️",
      "date": "2026-08-24",
      "publisher": "Yahoo Finance Video"
     },
     {
-     "title": "Temu Parent PDD Second-Quarter Earnings Top Views; Revenue Falls Short",
-     "tone": "🔻",
-     "date": "2026-08-24",
-     "publisher": "MT Newswires"
-    },
-    {
-     "title": "Billionaire Stanley Druckenmiller Bought Amazon and Alphabet in Q2. But His Single Biggest Holding Is Neither of Them -- and It's Not Nvidia Either.",
+     "title": "Tesla Cybercab to launch Sept. 3 as robotaxi bet ramps up",
      "tone": "▫️",
      "date": "2026-08-24",
-     "publisher": "Motley Fool"
+     "publisher": "Yahoo Finance"
+    },
+    {
+     "title": "Top Investors Name 5 AI Stocks That Could Win No Matter Which Model Leads",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -561,9 +560,8 @@
    "ticker": "GOOGL",
    "ok": true,
    "error": null,
-   "price": 349.53,
+   "price": 346.64,
    "spark": [
-    388.65,
     388.6,
     389.9,
     380.11,
@@ -625,21 +623,20 @@
     344.72,
     340.67,
     344.82,
-    349.53
+    348.06,
+    346.64
    ],
-   "chg_1d": 1.37,
-   "chg_1w": 1.61,
-   "rsi": 26.3,
-   "vs_ma50": -0.59,
-   "vs_ma200": 4.92,
-   "from_52w_high": -13.13,
-   "from_52w_low": 69.22,
+   "chg_1d": -0.41,
+   "chg_1w": 0.71,
+   "rsi": 32.1,
+   "vs_ma50": -1.33,
+   "vs_ma200": 3.96,
+   "from_52w_high": -13.85,
+   "from_52w_low": 67.82,
    "is_etf": false,
-   "cond_score": -2,
-   "cond_label": "🟢 Tertekan (murah secara teknikal)",
-   "cond_why": [
-    "RSI 26.3 oversold"
-   ],
+   "cond_score": 0,
+   "cond_label": "⚪ Netral",
+   "cond_why": [],
    "health_score": 4,
    "health_label": "💪 Kuat",
    "health_notes": [
@@ -649,8 +646,8 @@
     "utang/ekuitas 19% rendah",
     "laba tumbuh 294%"
    ],
-   "valuation": "PEG 0.93 (murah relatif pertumbuhan) · EV/EBITDA 23.8 · P/B 6.9 · beta 1.24 (lebih liar dari pasar)",
-   "fwd_pe": 23.600012,
+   "valuation": "PEG 0.93 (murah relatif pertumbuhan) · EV/EBITDA 24.0 · P/B 6.8 · beta 1.24 (lebih liar dari pasar)",
+   "fwd_pe": 23.40691,
    "peg": 0.93,
    "roe": 0.48676,
    "beta": 1.237,
@@ -658,16 +655,10 @@
    "fcf": 22665000960,
    "rev_growth": 0.242,
    "target": 428.06668,
-   "upside": 22.47,
+   "upside": 23.49,
    "analysts": 54,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
-    {
-     "title": "Tesla Cybercab to launch Sept. 3 as robotaxi bet ramps up",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Yahoo Finance"
-    },
     {
      "title": "Nvidia's Q2 earnings to test resurgent AI trade",
      "tone": "🔺",
@@ -675,10 +666,16 @@
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "The Smart Money Is Sending a Mixed Signal on AI Stocks",
+     "title": "Morgan Stanley: Google AI Chip Boom Could Unlock $200 Billion",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-25",
+     "publisher": "GuruFocus.com"
+    },
+    {
+     "title": "Berkshire Hathaway Bought $10 Billion of Alphabet Straight From the Company, Bypassing the Open Market",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Motley Fool"
     }
    ],
    "has_todo": false
@@ -687,9 +684,8 @@
    "ticker": "LLY",
    "ok": true,
    "error": null,
-   "price": 1238.2,
+   "price": 1252.08,
    "spark": [
-    1063.22,
     1081.37,
     1125.19,
     1103.42,
@@ -751,15 +747,16 @@
     1280.34,
     1244.4,
     1255.4,
-    1238.2
+    1246.93,
+    1252.08
    ],
-   "chg_1d": -1.37,
-   "chg_1w": 4.65,
-   "rsi": 67.6,
-   "vs_ma50": 4.96,
-   "vs_ma200": 17.76,
-   "from_52w_high": -3.29,
-   "from_52w_low": 79.2,
+   "chg_1d": 0.41,
+   "chg_1w": 2.15,
+   "rsi": 64.2,
+   "vs_ma50": 5.9,
+   "vs_ma200": 18.89,
+   "from_52w_high": -2.21,
+   "from_52w_low": 81.21,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -772,8 +769,8 @@
     "utang/ekuitas 162% tinggi",
     "laba tumbuh 26%"
    ],
-   "valuation": "PEG 1.58 (wajar) · EV/EBITDA 27.9 · P/B 32.6 · beta 0.51 (lebih tenang dari pasar)",
-   "fwd_pe": 26.204245,
+   "valuation": "PEG 1.58 (wajar) · EV/EBITDA 27.8 · P/B 32.9 · beta 0.51 (lebih tenang dari pasar)",
+   "fwd_pe": 26.508156,
    "peg": 1.58,
    "roe": 1.02286,
    "beta": 0.506,
@@ -781,27 +778,27 @@
    "fcf": 11065900032,
    "rev_growth": 0.477,
    "target": 1315.0406,
-   "upside": 6.21,
+   "upside": 5.03,
    "analysts": 29,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Stock Market News for Aug 24, 2026",
+     "title": "Eli Lilly vs Novo Nordisk: One Winner in The Weight-Loss Drug Gold Rush",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Zacks"
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
     },
     {
-     "title": "Roche and Eli Lilly Win FDA Clearance for Alzheimer’s Blood Test",
+     "title": "2 Profitable Stocks with Solid Fundamentals and 1 We Turn Down",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "StockStory"
+    },
+    {
+     "title": "Eli Lilly Stock Raised Its Forecast, So Why Is The Market Shrugging?",
      "tone": "🔺",
      "date": "2026-08-24",
-     "publisher": "InvestorsHub"
-    },
-    {
-     "title": "Lilly's GLP-1 pill hits UK pharmacies as US battle with Novo intensifies",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Proactive"
+     "publisher": "Trefis"
     }
    ],
    "has_todo": false
@@ -810,9 +807,8 @@
    "ticker": "VOO",
    "ok": true,
    "error": null,
-   "price": 702.27,
+   "price": 702.59,
    "spark": [
-    688.01,
     687.96,
     691.9,
     693.47,
@@ -874,15 +870,16 @@
     706.91,
     701.01,
     703.71,
-    702.27
+    701.83,
+    702.59
    ],
-   "chg_1d": -0.2,
-   "chg_1w": -1.13,
-   "rsi": 40.9,
-   "vs_ma50": 1.59,
-   "vs_ma200": 8.32,
-   "from_52w_high": -1.77,
-   "from_52w_low": 21.24,
+   "chg_1d": 0.11,
+   "chg_1w": -0.4,
+   "rsi": 43.2,
+   "vs_ma50": 1.57,
+   "vs_ma200": 8.3,
+   "from_52w_high": -1.73,
+   "from_52w_low": 21.29,
    "is_etf": true,
    "cond_score": 1,
    "cond_label": "⚪ Netral",
@@ -893,7 +890,7 @@
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 1.8",
-   "fwd_pe": 25.73617,
+   "fwd_pe": 25.744781,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -906,22 +903,22 @@
    "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "History Says You Should Know These 3 Things Before Buying the Vanguard S&P 500 ETF (VOO)",
+     "title": "Nearly Two-Thirds Of The S&P 500 Already Sell Off In A Big Way",
      "tone": "▫️",
-     "date": "2026-08-23",
-     "publisher": "Motley Fool"
+     "date": "2026-08-25",
+     "publisher": "Investor's Business Daily"
     },
     {
-     "title": "‘The village idiot could have made it’: Warren Buffett’s dead-simple playbook to supercharge your retirement now",
+     "title": "Vanguard 500 Index Fund Admiral Shares (VFIAX): What Investors Should Know",
      "tone": "▫️",
-     "date": "2026-08-23",
-     "publisher": "Moneywise"
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
     },
     {
-     "title": "Every S&P 500 Index Fund Owner Holds More Nvidia Than Apple",
+     "title": "Fidelity 500 Index Fund (FXAIX): What Investors Should Know",
      "tone": "▫️",
-     "date": "2026-08-22",
-     "publisher": "Motley Fool"
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -930,9 +927,8 @@
    "ticker": "QQQ",
    "ok": true,
    "error": null,
-   "price": 706.36,
+   "price": 709.08,
    "spark": [
-    729.48,
     728.65,
     734.79,
     737.5,
@@ -994,15 +990,16 @@
     716.08,
     710.93,
     713.44,
-    706.36
+    706.32,
+    709.08
    ],
-   "chg_1d": -0.99,
-   "chg_1w": -3.22,
-   "rsi": 36.9,
-   "vs_ma50": -0.95,
-   "vs_ma200": 8.31,
-   "from_52w_high": -5.23,
-   "from_52w_low": 26.66,
+   "chg_1d": 0.39,
+   "chg_1w": -1.17,
+   "rsi": 43.5,
+   "vs_ma50": -0.54,
+   "vs_ma200": 8.65,
+   "from_52w_high": -4.87,
+   "from_52w_low": 27.15,
    "is_etf": true,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -1011,7 +1008,7 @@
    "health_label": "—",
    "health_notes": [],
    "valuation": "P/B 2.0",
-   "fwd_pe": 30.207102,
+   "fwd_pe": 30.314215,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1021,25 +1018,25 @@
    "target": null,
    "upside": null,
    "analysts": null,
-   "news_mood": "cenderung negatif (1/4 headline)",
+   "news_mood": "cenderung negatif (2/4 headline)",
    "news": [
     {
-     "title": "Stock Market Today: Dow Rises Ahead of 'Economic D-Day'; Micron, Sandisk Dive (Live Coverage)",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Investor's Business Daily"
-    },
-    {
-     "title": "Applied Optoelectronics Sinks 12% on $600M Equity Offering, Lumentum and Coherent Drop 5%",
-     "tone": "🔻",
-     "date": "2026-08-24",
+     "title": "AMD and Intel Rise 3% on a Strong Buy Upgrade and a Pelosi Disclosure, NVIDIA and Broadcom Tick Up",
+     "tone": "🔺",
+     "date": "2026-08-25",
      "publisher": "24/7 Wall St."
     },
     {
-     "title": "Exchange-Traded Funds, Equity Futures Fall Pre-Bell Monday as Investors Await Details on US Sanctions Against Iran",
+     "title": "Exchange-Traded Funds, Equity Futures Higher Pre-Bell Tuesday as Chip Stocks Recover",
      "tone": "▫️",
-     "date": "2026-08-24",
+     "date": "2026-08-25",
      "publisher": "MT Newswires"
+    },
+    {
+     "title": "Gorilla Sinks 11% Despite Guiding 2027 Revenue Up to 29% Above Consensus, Evolv Technologies and Ambarella Tick Up",
+     "tone": "🔻",
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -1048,9 +1045,8 @@
    "ticker": "MU",
    "ok": true,
    "error": null,
-   "price": 903.14,
+   "price": 922.42,
    "spark": [
-    895.74,
     928.27,
     923.38,
     970.85,
@@ -1112,21 +1108,21 @@
     937.11,
     974.33,
     966.78,
-    903.14
+    910.43,
+    922.42
    ],
-   "chg_1d": -6.58,
-   "chg_1w": -10.73,
-   "rsi": 51.4,
-   "vs_ma50": -6.19,
-   "vs_ma200": 57.24,
-   "from_52w_high": -25.57,
-   "from_52w_low": 677.01,
+   "chg_1d": 1.32,
+   "chg_1w": -1.95,
+   "rsi": 53.9,
+   "vs_ma50": -4.08,
+   "vs_ma200": 59.63,
+   "from_52w_high": -23.98,
+   "from_52w_low": 693.59,
    "is_etf": false,
-   "cond_score": -3,
+   "cond_score": -2,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-6.19% di bawah MA50",
-    "-25.57% dari 52w high"
+    "-23.98% dari 52w high"
    ],
    "health_score": 4,
    "health_label": "💪 Kuat",
@@ -1137,8 +1133,8 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 1368%"
    ],
-   "valuation": "PEG 0.14 (murah relatif pertumbuhan) · EV/EBITDA 15.7 · P/B 10.1 · beta 2.21 (lebih liar dari pasar)",
-   "fwd_pe": 5.8270016,
+   "valuation": "PEG 0.14 (murah relatif pertumbuhan) · EV/EBITDA 14.8 · P/B 10.3 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 5.947483,
    "peg": 0.14,
    "roe": 0.66638,
    "beta": 2.213,
@@ -1146,27 +1142,27 @@
    "fcf": 7639499776,
    "rev_growth": 3.457,
    "target": 1515.1136,
-   "upside": 67.76,
+   "upside": 64.25,
    "analysts": 44,
-   "news_mood": "cenderung negatif (2/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Stock market today: S&P 500, Nasdaq slip as tech stocks sag, US-Canada trade spat escalates",
-     "tone": "▫️",
+     "title": "Stock market today: S&P 500, Nasdaq fall as chip stocks sink, US unveils new Iran sanctions",
+     "tone": "🔻",
      "date": "2026-08-24",
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "Why Micron Stock Dropped This Morning",
-     "tone": "🔻",
+     "title": "Wall Street is rotating out of 2026's biggest winners: Chart of the Day",
+     "tone": "🔺",
      "date": "2026-08-24",
-     "publisher": "Motley Fool"
+     "publisher": "Yahoo Finance"
     },
     {
-     "title": "Micron Stock Drops After Chinese Memory IPO Filing. Can It Fight Off the Competition?",
-     "tone": "🔻",
-     "date": "2026-08-24",
-     "publisher": "Barrons.com"
+     "title": "Stock Market Today: Nasdaq Charges Higher As Treasury Yields Fall; Nvidia, Micron, Sandisk Rally (Live Coverage)",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Investor's Business Daily"
     }
    ],
    "has_todo": true
@@ -1175,9 +1171,8 @@
    "ticker": "WMT",
    "ok": true,
    "error": null,
-   "price": 104.26,
+   "price": 104.68,
    "spark": [
-    118.29,
     118.26,
     118.62,
     115.47,
@@ -1239,21 +1234,22 @@
     114.03,
     103.59,
     103.7,
-    104.26
+    106.49,
+    104.68
    ],
-   "chg_1d": 0.54,
-   "chg_1w": -8.59,
-   "rsi": 32.4,
-   "vs_ma50": -7.74,
-   "vs_ma200": -11.62,
-   "from_52w_high": -22.12,
-   "from_52w_low": 9.46,
+   "chg_1d": -1.7,
+   "chg_1w": -8.91,
+   "rsi": 34.1,
+   "vs_ma50": -7.14,
+   "vs_ma200": -11.29,
+   "from_52w_high": -21.81,
+   "from_52w_low": 9.9,
    "is_etf": false,
    "cond_score": -3,
    "cond_label": "🟢 Tertekan (murah secara teknikal)",
    "cond_why": [
-    "-7.74% di bawah MA50",
-    "-22.12% dari 52w high"
+    "-7.14% di bawah MA50",
+    "-21.81% dari 52w high"
    ],
    "health_score": -1,
    "health_label": "😐 Campuran",
@@ -1263,8 +1259,8 @@
     "current ratio 0.77 (<1, likuiditas ketat)",
     "laba turun -9%"
    ],
-   "valuation": "PEG 3.95 (mahal relatif pertumbuhan) · EV/EBITDA 19.0 · P/B 8.8 · beta 0.60 (lebih tenang dari pasar)",
-   "fwd_pe": 32.330235,
+   "valuation": "PEG 3.95 (mahal relatif pertumbuhan) · EV/EBITDA 19.5 · P/B 8.8 · beta 0.60 (lebih tenang dari pasar)",
+   "fwd_pe": 32.455814,
    "peg": 3.95,
    "roe": 0.22313999,
    "beta": 0.605,
@@ -1272,27 +1268,27 @@
    "fcf": 8984500224,
    "rev_growth": 0.059,
    "target": 128.425,
-   "upside": 23.18,
+   "upside": 22.68,
    "analysts": 40,
    "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "Three Cracks in Consumer Spending Reveal Why Walmart Had Its Worst Day Since 2022 Despite an Earnings Beat",
+     "title": "Consumer confidence ticked lower in August — the lowest reading since January",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Yahoo Finance Video"
+    },
+    {
+     "title": "Walmart will finally accept Apple Pay. But here's what customers should know.",
+     "tone": "▫️",
+     "date": "2026-08-24",
+     "publisher": "Yahoo Personal Finance"
+    },
+    {
+     "title": "Walmart Doubles Sub-30-Minute Deliveries, Fueling E-Commerce Growth",
      "tone": "🔺",
-     "date": "2026-08-24",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Can Walmart's Tap to Pay Push Strengthen Customer Engagement?",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Zacks"
-    },
-    {
-     "title": "Walmart Has Too Many Stores",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-25",
+     "publisher": "Sourcing Journal"
     }
    ],
    "has_todo": true
@@ -1301,9 +1297,8 @@
    "ticker": "TSM",
    "ok": true,
    "error": null,
-   "price": 407.39,
+   "price": 415.75,
    "spark": [
-    411.36,
     421.74,
     423.87,
     417.47,
@@ -1365,15 +1360,16 @@
     412.09,
     416.0,
     418.95,
-    407.39
+    410.12,
+    415.75
    ],
-   "chg_1d": -2.76,
-   "chg_1w": -5.47,
-   "rsi": 42.9,
-   "vs_ma50": -3.97,
-   "vs_ma200": 11.36,
-   "from_52w_high": -14.7,
-   "from_52w_low": 80.35,
+   "chg_1d": 1.37,
+   "chg_1w": 0.57,
+   "rsi": 51.3,
+   "vs_ma50": -1.98,
+   "vs_ma200": 13.45,
+   "from_52w_high": -12.94,
+   "from_52w_low": 84.05,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -1386,8 +1382,8 @@
     "utang/ekuitas 17% rendah",
     "laba tumbuh 77%"
    ],
-   "valuation": "PEG 1.00 (wajar) · EV/EBITDA 4.7 · P/B 83.9 · beta 1.26 (lebih liar dari pasar)",
-   "fwd_pe": 18.708046,
+   "valuation": "PEG 1.00 (wajar) · EV/EBITDA 4.6 · P/B 85.6 · beta 1.26 (lebih liar dari pasar)",
+   "fwd_pe": 19.086584,
    "peg": 1.0,
    "roe": 0.39969003,
    "beta": 1.258,
@@ -1395,27 +1391,27 @@
    "fcf": 730826014720,
    "rev_growth": 0.36,
    "target": 554.45483,
-   "upside": 36.1,
+   "upside": 33.36,
    "analysts": 18,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "NVIDIA's Q2 Earnings: AI Data Center Chip Demand to Aid Revenue Growth",
+     "title": "Top Investors Name 5 AI Stocks That Could Win No Matter Which Model Leads",
      "tone": "🔺",
-     "date": "2026-08-24",
+     "date": "2026-08-25",
+     "publisher": "24/7 Wall St."
+    },
+    {
+     "title": "Bet on These 5 Dividend Growth Stocks Ahead of NVIDIA's Q2 Earnings Report",
+     "tone": "🔺",
+     "date": "2026-08-25",
      "publisher": "Zacks"
     },
     {
-     "title": "Could Taiwan Semiconductor Manufacturing Co. (TSM) Be the Biggest Long-Term Winner From the AI Chip Boom?",
-     "tone": "🔺",
-     "date": "2026-08-24",
-     "publisher": "Insider Monkey"
-    },
-    {
-     "title": "Nvidia’s Trillion-Dollar Chip Market Has Friends and Foes Closing In",
+     "title": "CRM's Q2 Earnings Coming Up: Rising Agentforce Adoption to Aid Sales",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Bloomberg"
+     "date": "2026-08-25",
+     "publisher": "Zacks"
     }
    ],
    "has_todo": false
@@ -1424,9 +1420,8 @@
    "ticker": "BKNG",
    "ok": true,
    "error": null,
-   "price": 214.21,
+   "price": 213.38,
    "spark": [
-    162.89,
     167.95,
     169.39,
     167.01,
@@ -1488,21 +1483,21 @@
     213.0,
     209.87,
     209.62,
-    214.21
+    213.36,
+    213.38
    ],
-   "chg_1d": 2.19,
-   "chg_1w": 4.62,
-   "rsi": 70.7,
-   "vs_ma50": 13.3,
-   "vs_ma200": 15.67,
-   "from_52w_high": -5.35,
-   "from_52w_low": 39.33,
+   "chg_1d": 0.01,
+   "chg_1w": 2.46,
+   "rsi": 59.2,
+   "vs_ma50": 12.29,
+   "vs_ma200": 15.17,
+   "from_52w_high": -5.71,
+   "from_52w_low": 38.79,
    "is_etf": false,
-   "cond_score": 3,
-   "cond_label": "🔴 Extended (panas secara teknikal)",
+   "cond_score": 1,
+   "cond_label": "⚪ Netral",
    "cond_why": [
-    "RSI 70.7 overbought",
-    "+13.3% di atas MA50"
+    "+12.29% di atas MA50"
    ],
    "health_score": 2,
    "health_label": "😐 Campuran",
@@ -1510,8 +1505,8 @@
     "margin operasi 34%",
     "laba tumbuh 130%"
    ],
-   "valuation": "PEG 0.92 (murah relatif pertumbuhan) · EV/EBITDA 15.5 · beta 1.07 (seiring pasar)",
-   "fwd_pe": 17.307146,
+   "valuation": "PEG 0.92 (murah relatif pertumbuhan) · EV/EBITDA 15.8 · beta 1.07 (seiring pasar)",
+   "fwd_pe": 17.242506,
    "peg": 0.92,
    "roe": null,
    "beta": 1.068,
@@ -1519,27 +1514,27 @@
    "fcf": 7725875200,
    "rev_growth": 0.081,
    "target": 237.80556,
-   "upside": 11.02,
+   "upside": 11.45,
    "analysts": 36,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Airbnb (ABNB) Hits a 4-Year High While Booking Holdings (BKNG) Trims its Outlook",
+     "title": "Airbnb And Expedia Stocks Are Riding High. Here's Why.",
      "tone": "▫️",
-     "date": "2026-08-21",
-     "publisher": "Insider Monkey"
+     "date": "2026-08-25",
+     "publisher": "Investor's Business Daily"
     },
     {
-     "title": "Booking vs. CAVA: Comparing Total Scale and Growth Trajectories in Quarterly Revenue Trends",
-     "tone": "🔺",
-     "date": "2026-08-20",
-     "publisher": "Motley Fool"
-    },
-    {
-     "title": "What Expedia's Shrinking Share Count Is Still Worth",
+     "title": "Get Paid 10.0% To Cap Your BKNG Stock At 15% Higher",
      "tone": "▫️",
-     "date": "2026-08-19",
+     "date": "2026-08-25",
      "publisher": "Trefis"
+    },
+    {
+     "title": "2 Nasdaq 100 Stocks to Research Further and 1 Facing Challenges",
+     "tone": "▫️",
+     "date": "2026-08-24",
+     "publisher": "StockStory"
     }
    ],
    "has_todo": false
@@ -1548,9 +1543,8 @@
    "ticker": "BLK",
    "ok": true,
    "error": null,
-   "price": 1168.36,
+   "price": 1171.68,
    "spark": [
-    1071.36,
     1064.34,
     1040.63,
     1041.01,
@@ -1612,15 +1606,16 @@
     1158.92,
     1139.82,
     1156.55,
-    1168.36
+    1172.61,
+    1171.68
    ],
-   "chg_1d": 1.02,
-   "chg_1w": 1.85,
+   "chg_1d": -0.08,
+   "chg_1w": 1.5,
    "rsi": 61.3,
-   "vs_ma50": 9.12,
-   "vs_ma200": 11.42,
-   "from_52w_high": -1.28,
-   "from_52w_low": 27.31,
+   "vs_ma50": 9.14,
+   "vs_ma200": 11.67,
+   "from_52w_high": -1.0,
+   "from_52w_low": 27.67,
    "is_etf": false,
    "cond_score": 1,
    "cond_label": "⚪ Netral",
@@ -1633,8 +1628,8 @@
     "margin operasi 35%",
     "utang/ekuitas 23% rendah"
    ],
-   "valuation": "PEG 1.12 (wajar) · EV/EBITDA 16.8 · P/B 3.1 · beta 1.43 (lebih liar dari pasar)",
-   "fwd_pe": 18.168297,
+   "valuation": "PEG 1.12 (wajar) · EV/EBITDA 17.1 · P/B 3.2 · beta 1.43 (lebih liar dari pasar)",
+   "fwd_pe": 18.219847,
    "peg": 1.12,
    "roe": 0.122779995,
    "beta": 1.425,
@@ -1642,27 +1637,27 @@
    "fcf": 7578124800,
    "rev_growth": 0.306,
    "target": 1320.8125,
-   "upside": 13.05,
+   "upside": 12.73,
    "analysts": 16,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "SharpLink’s Ethereum Treasury Draws 60% Institutional Ownership",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "CoinGape"
-    },
-    {
-     "title": "ETF Closures Have Nearly Doubled This Year. What to Do If Your Fund Closes.",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Barrons.com"
-    },
-    {
-     "title": "Bitcoin to $120K? ‘Year’s Most Volatile Macro Event’ In 4 Days May Spark Rally, Says Analyst",
+     "title": "Nvidia's Q2 earnings to test resurgent AI trade",
      "tone": "🔺",
-     "date": "2026-08-24",
-     "publisher": "CCN"
+     "date": "2026-08-23",
+     "publisher": "Yahoo Finance"
+    },
+    {
+     "title": "BEN's Digital Asset Strategy: Unlocking the Next Growth Opportunity",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "Zacks"
+    },
+    {
+     "title": "BlackRock's TCPC Cleanup: A Move to Sharpen Private Credit Strategy?",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Zacks"
     }
    ],
    "has_todo": false
@@ -1671,9 +1666,8 @@
    "ticker": "VRTX",
    "ok": true,
    "error": null,
-   "price": 547.22,
+   "price": 552.4,
    "spark": [
-    435.93,
     437.22,
     447.97,
     447.54,
@@ -1735,21 +1729,22 @@
     552.06,
     540.26,
     548.05,
-    547.22
+    547.59,
+    552.4
    ],
-   "chg_1d": -0.15,
-   "chg_1w": 6.14,
+   "chg_1d": 0.88,
+   "chg_1w": 4.58,
    "rsi": 73.9,
-   "vs_ma50": 11.02,
-   "vs_ma200": 18.81,
-   "from_52w_high": -0.88,
-   "from_52w_low": 45.3,
+   "vs_ma50": 11.58,
+   "vs_ma200": 19.75,
+   "from_52w_high": 0.0,
+   "from_52w_low": 46.67,
    "is_etf": false,
    "cond_score": 4,
    "cond_label": "🔴 Extended (panas secara teknikal)",
    "cond_why": [
     "RSI 73.9 overbought",
-    "+11.02% di atas MA50",
+    "+11.58% di atas MA50",
     "dekat 52w high"
    ],
    "health_score": 4,
@@ -1759,19 +1754,25 @@
     "margin operasi 38%",
     "utang/ekuitas 10% rendah"
    ],
-   "valuation": "PEG 1.90 (wajar) · EV/EBITDA 26.1 · P/B 6.8 · beta 0.30 (lebih tenang dari pasar)",
-   "fwd_pe": 24.946877,
+   "valuation": "PEG 1.90 (wajar) · EV/EBITDA 26.1 · P/B 6.9 · beta 0.30 (lebih tenang dari pasar)",
+   "fwd_pe": 25.112104,
    "peg": 1.9,
    "roe": 0.23542999,
    "beta": 0.305,
    "d2e": 9.767,
    "fcf": 2627887616,
    "rev_growth": 0.125,
-   "target": 560.2083,
-   "upside": 2.37,
-   "analysts": 24,
+   "target": 563.12,
+   "upside": 1.94,
+   "analysts": 25,
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
+    {
+     "title": "Inflation Is Rising Again. History Says These 2 Stocks Are Among the Smartest Places to Hide",
+     "tone": "🔺",
+     "date": "2026-08-24",
+     "publisher": "Motley Fool"
+    },
     {
      "title": "Vertex Pharmaceuticals' Rally Has a New Engine -- and Wall Street Thinks the Best Is Still Ahead",
      "tone": "🔺",
@@ -1783,12 +1784,6 @@
      "tone": "▫️",
      "date": "2026-08-20",
      "publisher": "Barchart"
-    },
-    {
-     "title": "3 Cash-Producing Stocks on Our Watchlist",
-     "tone": "▫️",
-     "date": "2026-08-18",
-     "publisher": "StockStory"
     }
    ],
    "has_todo": false
@@ -1797,9 +1792,8 @@
    "ticker": "ABBV",
    "ok": true,
    "error": null,
-   "price": 263.36,
+   "price": 264.97,
    "spark": [
-    211.61,
     213.88,
     217.08,
     216.18,
@@ -1861,20 +1855,21 @@
     265.97,
     261.83,
     264.96,
-    263.36
+    264.52,
+    264.97
    ],
-   "chg_1d": -0.6,
-   "chg_1w": 5.21,
-   "rsi": 73.8,
-   "vs_ma50": 6.18,
-   "vs_ma200": 17.56,
-   "from_52w_high": -0.98,
-   "from_52w_low": 34.38,
+   "chg_1d": 0.17,
+   "chg_1w": 2.34,
+   "rsi": 74.7,
+   "vs_ma50": 6.48,
+   "vs_ma200": 18.13,
+   "from_52w_high": -0.37,
+   "from_52w_low": 35.2,
    "is_etf": false,
    "cond_score": 3,
    "cond_label": "🔴 Extended (panas secara teknikal)",
    "cond_why": [
-    "RSI 73.8 overbought",
+    "RSI 74.7 overbought",
     "dekat 52w high"
    ],
    "health_score": 1,
@@ -1885,7 +1880,7 @@
     "laba tumbuh 290%"
    ],
    "valuation": "PEG 0.43 (murah relatif pertumbuhan) · EV/EBITDA 17.3 · beta 0.28 (lebih tenang dari pasar)",
-   "fwd_pe": 16.174591,
+   "fwd_pe": 16.275007,
    "peg": 0.43,
    "roe": null,
    "beta": 0.28,
@@ -1893,27 +1888,27 @@
    "fcf": 16870250496,
    "rev_growth": 0.102,
    "target": 276.5862,
-   "upside": 5.02,
+   "upside": 4.38,
    "analysts": 29,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Why Regenxbio Halted Its Gene Therapy Trial—and Why the Stock Is Tumbling",
+     "title": "2 S&P 500 Stocks with Exciting Potential and 1 We Brush Off",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Barrons.com"
+     "date": "2026-08-25",
+     "publisher": "StockStory"
     },
     {
-     "title": "SYRE Rallies 44.9% in 3 Months. Can Clinical Catalysts Sustain It?",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "Zacks"
+     "title": "Is AbbVie (ABBV) Quietly Rebalancing Its Growth Story Around Oncology Innovation?",
+     "tone": "🔺",
+     "date": "2026-08-25",
+     "publisher": "Simply Wall St."
     },
     {
-     "title": "JPMorgan’s Berro Says Bond Market Can Handle High-Grade Stampede",
-     "tone": "▫️",
+     "title": "Eli Lilly Stock Raised Its Forecast, So Why Is The Market Shrugging?",
+     "tone": "🔺",
      "date": "2026-08-24",
-     "publisher": "Bloomberg"
+     "publisher": "Trefis"
     }
    ],
    "has_todo": false
@@ -1922,9 +1917,8 @@
    "ticker": "ABNB",
    "ok": true,
    "error": null,
-   "price": 193.13,
+   "price": 189.53,
    "spark": [
-    132.68,
     132.1,
     134.5,
     133.31,
@@ -1986,21 +1980,22 @@
     186.39,
     185.0,
     187.3,
-    193.13
+    190.21,
+    189.53
    ],
-   "chg_1d": 3.12,
-   "chg_1w": 7.72,
-   "rsi": 81.2,
-   "vs_ma50": 24.73,
-   "vs_ma200": 41.46,
-   "from_52w_high": 0.0,
-   "from_52w_low": 73.15,
+   "chg_1d": -0.36,
+   "chg_1w": 3.43,
+   "rsi": 78.8,
+   "vs_ma50": 21.55,
+   "vs_ma200": 38.5,
+   "from_52w_high": -0.36,
+   "from_52w_low": 69.92,
    "is_etf": false,
    "cond_score": 4,
    "cond_label": "🔴 Extended (panas secara teknikal)",
    "cond_why": [
-    "RSI 81.2 overbought",
-    "+24.73% di atas MA50",
+    "RSI 78.8 overbought",
+    "+21.55% di atas MA50",
     "dekat 52w high"
    ],
    "health_score": 5,
@@ -2011,36 +2006,36 @@
     "utang/ekuitas 32% rendah",
     "laba tumbuh 33%"
    ],
-   "valuation": "PEG 2.01 (mahal relatif pertumbuhan) · EV/EBITDA 36.5 · P/B 14.6 · beta 1.14 (seiring pasar)",
-   "fwd_pe": 31.453062,
+   "valuation": "PEG 2.01 (mahal relatif pertumbuhan) · EV/EBITDA 37.1 · P/B 14.3 · beta 1.14 (seiring pasar)",
+   "fwd_pe": 30.860928,
    "peg": 2.01,
    "roe": 0.34542,
    "beta": 1.137,
    "d2e": 32.004,
    "fcf": 3206874880,
    "rev_growth": 0.165,
-   "target": 175.5,
-   "upside": -9.13,
+   "target": 176.75641,
+   "upside": -6.74,
    "analysts": 39,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "2 Momentum  Stocks with Exciting Potential and 1 We Avoid",
+     "title": "Airbnb And Expedia Stocks Are Riding High. Here's Why.",
      "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "StockStory"
+     "date": "2026-08-25",
+     "publisher": "Investor's Business Daily"
     },
     {
-     "title": "Airbnb (ABNB) Stock Trades At A Premium Following Its 49% 3 Year Run",
-     "tone": "🔺",
-     "date": "2026-08-22",
-     "publisher": "Simply Wall St."
+     "title": "Why Did TGT, ABNB, IMAX Stocks Hit 52-Week Highs Today?",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Stocktwits"
     },
     {
-     "title": "Airbnb Just Hit a Four-Year High. The Downgrade Says That’s the Problem.",
-     "tone": "🔻",
-     "date": "2026-08-22",
-     "publisher": "Insider Monkey"
+     "title": "Get Paid 10.0% To Cap Your BKNG Stock At 15% Higher",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Trefis"
     }
    ],
    "has_todo": false
@@ -2049,9 +2044,8 @@
    "ticker": "COF",
    "ok": true,
    "error": null,
-   "price": 220.46,
+   "price": 217.37,
    "spark": [
-    185.76,
     188.14,
     186.36,
     187.27,
@@ -2113,15 +2107,16 @@
     220.73,
     212.48,
     217.91,
-    220.46
+    216.27,
+    217.37
    ],
-   "chg_1d": 1.17,
-   "chg_1w": -0.44,
-   "rsi": 49.1,
-   "vs_ma50": 5.98,
-   "vs_ma200": 7.04,
-   "from_52w_high": -13.53,
-   "from_52w_low": 26.17,
+   "chg_1d": 0.51,
+   "chg_1w": -1.85,
+   "rsi": 45.1,
+   "vs_ma50": 4.2,
+   "vs_ma200": 5.55,
+   "from_52w_high": -14.74,
+   "from_52w_low": 24.4,
    "is_etf": false,
    "cond_score": 0,
    "cond_label": "⚪ Netral",
@@ -2132,7 +2127,7 @@
     "margin operasi 34%"
    ],
    "valuation": "PEG 0.23 (murah relatif pertumbuhan) · P/B 1.3 · beta 1.02 (seiring pasar)",
-   "fwd_pe": 9.169975,
+   "fwd_pe": 9.04351,
    "peg": 0.23,
    "roe": 0.09031,
    "beta": 1.016,
@@ -2140,10 +2135,16 @@
    "fcf": null,
    "rev_growth": 11.11,
    "target": 257.36365,
-   "upside": 16.74,
+   "upside": 18.4,
    "analysts": 22,
    "news_mood": "cenderung positif (1/4 headline)",
    "news": [
+    {
+     "title": "How Investors May Respond To Capital One Financial (COF) Extending Capital One Arena Naming Rights in Washington",
+     "tone": "▫️",
+     "date": "2026-08-25",
+     "publisher": "Simply Wall St."
+    },
     {
      "title": "Capital One (COF) Stock Has Strong Returns But Fair Value Looks Higher",
      "tone": "🔺",
@@ -2155,24 +2156,17 @@
      "tone": "▫️",
      "date": "2026-08-24",
      "publisher": "Simply Wall St."
-    },
-    {
-     "title": "3 Financials Stocks We’re Skeptical Of",
-     "tone": "▫️",
-     "date": "2026-08-24",
-     "publisher": "StockStory"
     }
    ],
    "has_todo": false
   }
  ],
  "todos": [
-  "Earnings NVDA dalam 3 hari (2026-08-27) — harga bisa bergerak tajam, ini normal.",
-  "Baca alasan AVGO turun -24.5% dari high — masalah sementara atau thesis rusak?",
-  "Earnings AVGO dalam 10 hari (2026-09-03) — harga bisa bergerak tajam, ini normal.",
-  "Baca alasan AMD turun -21.24% dari high — masalah sementara atau thesis rusak?",
-  "Baca alasan MU turun -25.57% dari high — masalah sementara atau thesis rusak?",
-  "Baca alasan WMT turun -22.12% dari high — masalah sementara atau thesis rusak?",
+  "Earnings NVDA dalam 2 hari (2026-08-27) — harga bisa bergerak tajam, ini normal.",
+  "Baca alasan AVGO turun -25.61% dari high — masalah sementara atau thesis rusak?",
+  "Earnings AVGO dalam 9 hari (2026-09-03) — harga bisa bergerak tajam, ini normal.",
+  "Baca alasan MU turun -23.98% dari high — masalah sementara atau thesis rusak?",
+  "Baca alasan WMT turun -21.81% dari high — masalah sementara atau thesis rusak?",
   "PEG WMT 4.0 — harga jauh di depan pertumbuhan. Pahami ekspektasi apa yang sudah dihargai pasar."
  ]
 }
