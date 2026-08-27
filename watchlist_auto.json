@@ -1,65 +1,65 @@
 {
- "updated": "2026-08-21T22:13:41+00:00",
+ "updated": "2026-08-27T04:26:54+00:00",
  "tickers": [
+  {
+   "ticker": "COP",
+   "name": "ConocoPhillips",
+   "score": 89,
+   "verdict": "BUY",
+   "tech_score": 88,
+   "fund_score": 90,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-27"
+  },
+  {
+   "ticker": "CVX",
+   "name": "Chevron Corporation",
+   "score": 86,
+   "verdict": "BUY",
+   "tech_score": 84,
+   "fund_score": 89,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-08-27"
+  },
+  {
+   "ticker": "SHOP",
+   "name": "Shopify Inc.",
+   "score": 85,
+   "verdict": "WAIT",
+   "tech_score": 86,
+   "fund_score": 84,
+   "why": "Belum memenuhi: Tren naik",
+   "added": "2026-08-27"
+  },
   {
    "ticker": "BKNG",
    "name": "Booking Holdings Inc. Common St",
-   "score": 86,
+   "score": 84,
    "verdict": "BUY",
-   "tech_score": 91,
+   "tech_score": 87,
    "fund_score": 77,
    "why": "Setup swing memenuhi seluruh syarat.",
    "added": "2026-08-19"
   },
   {
-   "ticker": "BLK",
-   "name": "BlackRock, Inc.",
-   "score": 86,
-   "verdict": "BUY",
-   "tech_score": 85,
-   "fund_score": 88,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-21"
+   "ticker": "HOOD",
+   "name": "Robinhood Markets, Inc.",
+   "score": 84,
+   "verdict": "WAIT",
+   "tech_score": 87,
+   "fund_score": 79,
+   "why": "Belum memenuhi: Tidak parabolik",
+   "added": "2026-08-27"
   },
   {
-   "ticker": "VRTX",
-   "name": "Vertex Pharmaceuticals Incorpor",
-   "score": 85,
-   "verdict": "BUY",
-   "tech_score": 86,
-   "fund_score": 83,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
-  },
-  {
-   "ticker": "ABBV",
-   "name": "AbbVie Inc.",
+   "ticker": "DELL",
+   "name": "Dell Technologies Inc.",
    "score": 83,
    "verdict": "BUY",
-   "tech_score": 86,
-   "fund_score": 75,
+   "tech_score": 88,
+   "fund_score": 74,
    "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-21"
-  },
-  {
-   "ticker": "ABNB",
-   "name": "Airbnb, Inc.",
-   "score": 83,
-   "verdict": "BUY",
-   "tech_score": 84,
-   "fund_score": 81,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-21"
-  },
-  {
-   "ticker": "COF",
-   "name": "Capital One Financial Corporati",
-   "score": 82,
-   "verdict": "BUY",
-   "tech_score": 86,
-   "fund_score": 75,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-21"
+   "added": "2026-08-27"
   }
  ]
 }
