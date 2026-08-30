@@ -1,6 +1,6 @@
 {
- "updated": "29 August 2026, 22:11 WIB",
- "updated_iso": "2026-08-29T22:11:10.980215",
+ "updated": "30 August 2026, 22:00 WIB",
+ "updated_iso": "2026-08-30T22:00:02.877846",
  "macro": [
   {
    "name": "VIX (indeks ketakutan)",
@@ -18,7 +18,7 @@
    "name": "Dollar Index",
    "last": 99.16,
    "chg_1d": -0.01,
-   "chg_3mo": 0.25
+   "chg_3mo": -0.04
   },
   {
    "name": "S&P 500",
@@ -28,9 +28,9 @@
   },
   {
    "name": "Minyak WTI",
-   "last": NaN,
-   "chg_1d": NaN,
-   "chg_3mo": NaN
+   "last": 83.4,
+   "chg_1d": -0.16,
+   "chg_3mo": -9.51
   }
  ],
  "macro_read": "Pasar tenang (VIX rendah). Justru saat begini orang lupa risiko.",
@@ -55,7 +55,7 @@
   },
   {
    "k": "Fokus DCA",
-   "v": "2 emiten perlu dicek",
+   "v": "3 emiten perlu dicek",
    "cls": "grey",
    "why": "Beli tetap sesuai jadwal. Riset ini untuk paham, bukan untuk timing."
   }
@@ -150,36 +150,36 @@
     "utang/ekuitas 17% rendah",
     "laba tumbuh 128%"
    ],
-   "valuation": "PEG 0.59 (murah relatif pertumbuhan) · EV/EBITDA 25.9 · P/B 27.0 · beta 2.21 (lebih liar dari pasar)",
+   "valuation": "PEG 0.63 (murah relatif pertumbuhan) · EV/EBITDA 25.9 · P/B 27.0 · beta 2.21 (lebih liar dari pasar)",
    "fwd_pe": 14.213399,
-   "peg": 0.59,
+   "peg": 0.63,
    "roe": 1.17211,
    "beta": 2.215,
    "d2e": 16.971,
    "fcf": 41809874944,
    "rev_growth": 1.059,
-   "target": 305.7931,
+   "target": 323.41898,
    "upside": NaN,
    "analysts": 58,
-   "news_mood": "cenderung negatif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Wall Street is turning Nvidia's AI chips into a new futures market: Chart of the Day",
+     "title": "'All about acceleration': After Nvidia earnings, the tech trade is getting more segmented",
      "tone": "▫️",
-     "date": "2026-08-29",
+     "date": "2026-08-30",
      "publisher": "Yahoo Finance"
     },
     {
-     "title": "How $100 a Month Could Grow Into a 6-Figure Portfolio, According to History",
+     "title": "Apple's big handoff and a jobs report: What to watch this week",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Motley Fool"
+     "date": "2026-08-30",
+     "publisher": "Yahoo Finance"
     },
     {
-     "title": "5-star analyst drops jaw-dropping Nvidia stock price target",
-     "tone": "🔻",
-     "date": "2026-08-29",
-     "publisher": "TheStreet"
+     "title": "Elon Musk’s 15-Gigawatt Warning Points to a Very Different Set of AI Winners in 2027",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -272,9 +272,9 @@
     "margin operasi 49%",
     "laba tumbuh 85%"
    ],
-   "valuation": "PEG 0.40 (murah relatif pertumbuhan) · EV/EBITDA 42.8 · P/B 20.0 · beta 1.47 (lebih liar dari pasar)",
+   "valuation": "PEG 0.42 (murah relatif pertumbuhan) · EV/EBITDA 42.8 · P/B 20.0 · beta 1.47 (lebih liar dari pasar)",
    "fwd_pe": 18.905115,
-   "peg": 0.4,
+   "peg": 0.42,
    "roe": 0.37280998,
    "beta": 1.473,
    "d2e": 74.018,
@@ -283,25 +283,25 @@
    "target": 525.97394,
    "upside": NaN,
    "analysts": 46,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "6 things investors need to watch in the week ahead",
+     "title": "Hock Tan Guided Broadcom Past $100 Billion of AI Revenue in 2027. The Stock Is 25% off Its High.",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Yahoo Finance Video"
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "Jim Cramer Sold 1 AI Chipmaker Over $80 Billion in Debt. But He Defended NVIDIA",
+     "title": "Broadcom or AMD? Here's Why the Market Is Pricing the Same AI Boom So Differently Across 2 Chip Stocks.",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "24/7 Wall St."
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "VUG vs. VOOG Is Not a Fee Fight | How the Cheaper Vanguard Growth ETF Is Losing",
-     "tone": "🔺",
+     "title": "Billionaire Stanley Druckenmiller Sold Broadcom and Bought These Artificial Intelligence (AI) Giants Instead",
+     "tone": "▫️",
      "date": "2026-08-29",
-     "publisher": "24/7 Wall St."
+     "publisher": "Motley Fool"
     }
    ],
    "has_todo": true
@@ -393,9 +393,9 @@
     "utang/ekuitas 6% rendah",
     "laba tumbuh 160%"
    ],
-   "valuation": "PEG 1.03 (wajar) · EV/EBITDA 78.6 · P/B 11.3 · beta 2.49 (lebih liar dari pasar)",
+   "valuation": "PEG 1.02 (wajar) · EV/EBITDA 78.6 · P/B 11.3 · beta 2.49 (lebih liar dari pasar)",
    "fwd_pe": 30.133204,
-   "peg": 1.03,
+   "peg": 1.02,
    "roe": 0.10196,
    "beta": 2.489,
    "d2e": 6.361,
@@ -404,25 +404,25 @@
    "target": 613.8449,
    "upside": NaN,
    "analysts": 49,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "This AI Fund Is Crushing QQQ, and Nvidia Is Barely 2% of It",
+     "title": "Broadcom or AMD? Here's Why the Market Is Pricing the Same AI Boom So Differently Across 2 Chip Stocks.",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "History Says the Nasdaq-100 Does This in September. AI Investors Should Take Note.",
-     "tone": "▫️",
-     "date": "2026-08-28",
+     "date": "2026-08-30",
      "publisher": "Motley Fool"
     },
     {
-     "title": "Broadcom vs. AMD: Which AI Chip Stock Has the Better Risk-Reward?",
+     "title": "Street Calls of the Week",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Zacks"
+     "date": "2026-08-30",
+     "publisher": "Investing.com"
+    },
+    {
+     "title": "Intel vs. AMD: Why the Market Share Number Is Misleading",
+     "tone": "▫️",
+     "date": "2026-08-29",
+     "publisher": "Barchart"
     }
    ],
    "has_todo": false
@@ -516,36 +516,36 @@
     "utang/ekuitas 46% rendah",
     "laba tumbuh 242%"
    ],
-   "valuation": "PEG 1.39 (wajar) · EV/EBITDA 17.8 · P/B 5.2 · beta 1.45 (lebih liar dari pasar)",
+   "valuation": "PEG 1.36 (wajar) · EV/EBITDA 17.8 · P/B 5.2 · beta 1.45 (lebih liar dari pasar)",
    "fwd_pe": 25.641668,
-   "peg": 1.39,
+   "peg": 1.36,
    "roe": 0.30558002,
    "beta": 1.454,
    "d2e": 45.617,
    "fcf": 3219124992,
    "rev_growth": 0.196,
-   "target": 327.004,
+   "target": 327.6707,
    "upside": NaN,
    "analysts": 60,
-   "news_mood": "cenderung positif (2/4 headline)",
+   "news_mood": "cenderung negatif (1/4 headline)",
    "news": [
     {
-     "title": "EXCLUSIVE: Claude Revenue Surges 1,000% as Anthropic Gains on ChatGPT",
-     "tone": "🔺",
-     "date": "2026-08-29",
-     "publisher": "Benzinga"
-    },
-    {
-     "title": "Stock Market Week Ahead: Chips, Cybersecurity And Jobs",
+     "title": "Amazon Has Badly Underperformed the S&P 500 and Nasdaq-100 Since Jeff Bezos Stepped Down as CEO. Could Apple Do the Same Starting Sept. 1 When Tim Cook Steps Down?",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Investor's Business Daily"
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "These 7 Stocks Are Analyst Favorites For Magnificent Earnings Growth; Amazon Holds Key Level",
-     "tone": "🔺",
-     "date": "2026-08-29",
-     "publisher": "Investor's Business Daily"
+     "title": "Is This the Single Best Reason to Buy Amazon Stock Right Now?",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "History Says Amazon Stock's 2 Worst Years of the Past 15 Ended in Net Losses, and Both Rebounds Were Huge",
+     "tone": "🔻",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     }
    ],
    "has_todo": false
@@ -640,9 +640,9 @@
     "utang/ekuitas 19% rendah",
     "laba tumbuh 294%"
    ],
-   "valuation": "PEG 0.94 (murah relatif pertumbuhan) · EV/EBITDA 23.9 · P/B 6.8 · beta 1.24 (lebih liar dari pasar)",
+   "valuation": "PEG 0.92 (murah relatif pertumbuhan) · EV/EBITDA 23.9 · P/B 6.8 · beta 1.24 (lebih liar dari pasar)",
    "fwd_pe": 23.374542,
-   "peg": 0.94,
+   "peg": 0.92,
    "roe": 0.48676,
    "beta": 1.237,
    "d2e": 18.859,
@@ -651,25 +651,25 @@
    "target": 428.06668,
    "upside": NaN,
    "analysts": 54,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "cenderung negatif (1/4 headline)",
    "news": [
     {
-     "title": "Trending: Take-Two Interactive price ascends as 'Grand Theft Auto VI' is teased",
+     "title": "Why Rezolve AI Stock Skyrocketed This Week",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Yahoo Finance Video"
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "VUG vs. VOOG Is Not a Fee Fight | How the Cheaper Vanguard Growth ETF Is Losing",
-     "tone": "🔺",
-     "date": "2026-08-29",
-     "publisher": "24/7 Wall St."
+     "title": "Warren Buffett's Successor, Greg Abel, Keeps Buying This Incredible Artificial Intelligence (AI) Stock That Buffett Also Loved",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "Stock Market Week Ahead: Chips, Cybersecurity And Jobs",
+     "title": "Morgan Stanley delivers candid verdict after Elastic’s stunning earnings",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Investor's Business Daily"
+     "date": "2026-08-30",
+     "publisher": "TheStreet"
     }
    ],
    "has_todo": false
@@ -763,9 +763,9 @@
     "utang/ekuitas 162% tinggi",
     "laba tumbuh 26%"
    ],
-   "valuation": "PEG 1.55 (wajar) · EV/EBITDA 26.2 · P/B 30.9 · beta 0.51 (lebih tenang dari pasar)",
+   "valuation": "PEG 1.48 (wajar) · EV/EBITDA 26.2 · P/B 30.9 · beta 0.51 (lebih tenang dari pasar)",
    "fwd_pe": 24.867916,
-   "peg": 1.55,
+   "peg": 1.48,
    "roe": 1.02286,
    "beta": 0.506,
    "d2e": 162.071,
@@ -777,22 +777,22 @@
    "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "These 7 Stocks Are Analyst Favorites For Magnificent Earnings Growth; Amazon Holds Key Level",
-     "tone": "🔺",
+     "title": "Why Is Eli Lilly (LLY) Getting A Bigger Role For Mounjaro?",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Simply Wall St."
+    },
+    {
+     "title": "3 Things That Matter Most for Eli Lilly Now",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Has Novo Nordisk Finally Found the Catalyst That Could Flip the Script on Eli Lilly?",
+     "tone": "▫️",
      "date": "2026-08-29",
-     "publisher": "Investor's Business Daily"
-    },
-    {
-     "title": "Sector Update: Healthcare Stocks Decline Late Afternoon",
-     "tone": "🔻",
-     "date": "2026-08-28",
-     "publisher": "MT Newswires"
-    },
-    {
-     "title": "Is OmniAb (OABI)’s Eli Lilly (LLY) Partnership a Game Changer for OABI?",
-     "tone": "🔺",
-     "date": "2026-08-28",
-     "publisher": "Insider Monkey"
+     "publisher": "Motley Fool"
     }
    ],
    "has_todo": false
@@ -892,25 +892,25 @@
    "target": null,
    "upside": null,
    "analysts": null,
-   "news_mood": "cenderung positif (3/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
+    {
+     "title": "Where Will the Vanguard S&P 500 ETF (VOO) Be in 20 Years? Here's What History Suggests.",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "VOO vs. RSP: If AI Stocks Get Too Concentrated, Here's Which One I'd Choose",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
     {
      "title": "VUG vs. VOOG Is Not a Fee Fight | How the Cheaper Vanguard Growth ETF Is Losing",
      "tone": "🔺",
      "date": "2026-08-29",
      "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "This “Boring” Vanguard Dividend ETF Is Quietly Beating the S&P 500 in 2026",
-     "tone": "🔺",
-     "date": "2026-08-29",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Here's How Much a $50,000 Investment in the S&P 500 Could Grow in 25 Years",
-     "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Motley Fool"
     }
    ],
    "has_todo": false
@@ -999,8 +999,8 @@
    "health_score": null,
    "health_label": "—",
    "health_notes": [],
-   "valuation": null,
-   "fwd_pe": null,
+   "valuation": "P/B 2.0",
+   "fwd_pe": 30.634703,
    "peg": null,
    "roe": null,
    "beta": null,
@@ -1013,20 +1013,20 @@
    "news_mood": "netral/campuran",
    "news": [
     {
+     "title": "If You'd Invested $1,000 in QQQ 20 Years Ago, Here's What You'd Have Today",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
+    {
+     "title": "Why JEPQ’s 10.7% Yield Looked Irresistible Until Nvidia Rallied",
+     "tone": "▫️",
+     "date": "2026-08-29",
+     "publisher": "24/7 Wall St."
+    },
+    {
      "title": "How a 66-Year-Old’s $600,000 in QQQI Pays Her Monthly With Almost No Tax Bill, Until the Day She Sells",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "This AI Fund Is Crushing QQQ, and Nvidia Is Barely 2% of It",
-     "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "24/7 Wall St."
-    },
-    {
-     "title": "Amazon Jumps 4% on Expanded AWS Chip Deal: Why Is NVIDIA Falling 4%?",
-     "tone": "🔺",
      "date": "2026-08-28",
      "publisher": "24/7 Wall St."
     }
@@ -1114,39 +1114,45 @@
    "cond_score": 0,
    "cond_label": "⚪ Netral",
    "cond_why": [],
-   "health_score": null,
-   "health_label": "—",
-   "health_notes": [],
-   "valuation": null,
-   "fwd_pe": null,
-   "peg": null,
-   "roe": null,
-   "beta": null,
-   "d2e": null,
-   "fcf": null,
-   "rev_growth": null,
-   "target": null,
-   "upside": null,
-   "analysts": null,
+   "health_score": 4,
+   "health_label": "💪 Kuat",
+   "health_notes": [
+    "ROE 67% kuat",
+    "margin operasi 80%",
+    "FCF cuma 15% dari kas operasi (capex berat)",
+    "utang/ekuitas 6% rendah",
+    "laba tumbuh 1368%"
+   ],
+   "valuation": "PEG 0.14 (murah relatif pertumbuhan) · EV/EBITDA 15.2 · P/B 10.5 · beta 2.21 (lebih liar dari pasar)",
+   "fwd_pe": 6.017472,
+   "peg": 0.14,
+   "roe": 0.66638,
+   "beta": 2.213,
+   "d2e": 6.33,
+   "fcf": 7639499776,
+   "rev_growth": 3.457,
+   "target": 1513.409,
+   "upside": NaN,
+   "analysts": 44,
    "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Intel Sold Its NAND Memory Business for About $9 Billion. Micron Is Now Worth More Than Twice What Intel Is.",
+     "title": "Micron vs. Sandisk: 1 Artificial Intelligence (AI) Memory Stock Is Clearly the Better Buy Today",
      "tone": "▫️",
-     "date": "2026-08-29",
+     "date": "2026-08-30",
      "publisher": "Motley Fool"
     },
     {
-     "title": "Jim Cramer Shared Why Micron Technology, Inc. (NASDAQ:MU)’s Shares Didn’t Rise On Shortage News",
+     "title": "AI’s memory stack: What investors need to know",
      "tone": "▫️",
      "date": "2026-08-29",
-     "publisher": "Insider Monkey"
+     "publisher": "Investing.com"
     },
     {
-     "title": "Nvidia Quietly Became Its Own Market Category",
+     "title": "Memory Now Accounts for 50% of Global Semiconductor Revenue — But There’s a Catch",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "GuruFocus.com"
+     "date": "2026-08-29",
+     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -1232,42 +1238,47 @@
    "cond_score": 0,
    "cond_label": "⚪ Netral",
    "cond_why": [],
-   "health_score": null,
-   "health_label": "—",
-   "health_notes": [],
-   "valuation": null,
-   "fwd_pe": null,
-   "peg": null,
-   "roe": null,
-   "beta": null,
-   "d2e": null,
-   "fcf": null,
-   "rev_growth": null,
-   "target": null,
-   "upside": null,
-   "analysts": null,
+   "health_score": -1,
+   "health_label": "😐 Campuran",
+   "health_notes": [
+    "ROE 22% kuat",
+    "margin operasi tipis 5%",
+    "current ratio 0.77 (<1, likuiditas ketat)",
+    "laba turun -9%"
+   ],
+   "valuation": "PEG 3.91 (mahal relatif pertumbuhan) · EV/EBITDA 18.9 · P/B 8.7 · beta 0.60 (lebih tenang dari pasar)",
+   "fwd_pe": 31.985725,
+   "peg": 3.91,
+   "roe": 0.22313999,
+   "beta": 0.605,
+   "d2e": 70.378,
+   "fcf": 8984500224,
+   "rev_growth": 0.059,
+   "target": 127.725,
+   "upside": NaN,
+   "analysts": 40,
    "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "Retailers feel the sting as cautious consumers weigh their options",
+     "title": "Walmart Is Down 24%. Is It Finally the Ultimate Dividend King Stock to Buy and Never Sell?",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Yahoo Finance"
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "Kevin O'Leary, worth $400 million, compares paper towel prices at Walmart as grocery costs climb 5.9%",
-     "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Moneywise"
+     "title": "3 Consumer Stocks Driving Growth From a Regional-to-National Expansion",
+     "tone": "🔺",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
     },
     {
-     "title": "A Costco Special Dividend Could Be Coming, but Walmart Has Raised Its Dividend for 53 Consecutive Years. Here's the Better Buy Now.",
+     "title": "Since 2007, Walmart Stock Has Climbed Higher 68% of the Time in September. Here's Why This September May Look Different.",
      "tone": "▫️",
-     "date": "2026-08-29",
+     "date": "2026-08-30",
      "publisher": "Motley Fool"
     }
    ],
-   "has_todo": false
+   "has_todo": true
   },
   {
    "ticker": "TSM",
@@ -1358,9 +1369,9 @@
     "utang/ekuitas 17% rendah",
     "laba tumbuh 77%"
    ],
-   "valuation": "PEG 1.00 (wajar) · EV/EBITDA 4.7 · P/B 85.9 · beta 1.26 (lebih liar dari pasar)",
+   "valuation": "PEG 1.02 (wajar) · EV/EBITDA 4.7 · P/B 85.9 · beta 1.26 (lebih liar dari pasar)",
    "fwd_pe": 19.168764,
-   "peg": 1.0,
+   "peg": 1.02,
    "roe": 0.39969003,
    "beta": 1.258,
    "d2e": 16.504,
@@ -1372,6 +1383,12 @@
    "news_mood": "netral/campuran",
    "news": [
     {
+     "title": "Apple Was Always 1 Step Behind in AI. In Chipmaking, It’s Now 1 Step Ahead.",
+     "tone": "▫️",
+     "date": "2026-08-29",
+     "publisher": "Barchart"
+    },
+    {
      "title": "TSMC vs. ASML: Which Semiconductor Giant Is the Better Stock Buy?",
      "tone": "▫️",
      "date": "2026-08-29",
@@ -1382,12 +1399,6 @@
      "tone": "▫️",
      "date": "2026-08-29",
      "publisher": "Simply Wall St."
-    },
-    {
-     "title": "Nvidia Quietly Became Its Own Market Category",
-     "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "GuruFocus.com"
     }
    ],
    "has_todo": false
@@ -1480,9 +1491,9 @@
     "utang/ekuitas 36% rendah",
     "laba tumbuh 107%"
    ],
-   "valuation": "PEG 1.03 (wajar) · EV/EBITDA 6.4 · P/B 2.4 · beta 0.12 (lebih tenang dari pasar)",
+   "valuation": "PEG 1.01 (wajar) · EV/EBITDA 6.4 · P/B 2.4 · beta 0.12 (lebih tenang dari pasar)",
    "fwd_pe": 13.679668,
-   "peg": 1.03,
+   "peg": 1.01,
    "roe": 0.1418,
    "beta": 0.123,
    "d2e": 35.639,
@@ -1491,25 +1502,25 @@
    "target": 145.33333,
    "upside": NaN,
    "analysts": 24,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
+    {
+     "title": "Pentagon to take 35% stake in Venezuela oil venture, WSJ reports",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Investing.com"
+    },
+    {
+     "title": "Trump Venezuela oil deal draws criticism from government allies, opposition",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Investing.com"
+    },
     {
      "title": "The Number ExxonMobil No Longer Puts In Front Of Its Results",
      "tone": "▫️",
      "date": "2026-08-28",
      "publisher": "Trefis"
-    },
-    {
-     "title": "Devon Energy vs. ConocoPhillips: Which Oil Stock Is the Better Buy?",
-     "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Zacks"
-    },
-    {
-     "title": "Chevron Could Be Big Winner If Venezuela Pulls Out of OPEC",
-     "tone": "🔺",
-     "date": "2026-08-28",
-     "publisher": "24/7 Wall St."
     }
    ],
    "has_todo": false
@@ -1613,25 +1624,25 @@
    "target": 218.29167,
    "upside": NaN,
    "analysts": 24,
-   "news_mood": "cenderung positif (1/4 headline)",
+   "news_mood": "netral/campuran",
    "news": [
     {
-     "title": "Chevron's Microsoft Data Center Deal Was a Bigger Story Than Its Earnings. Here's Why.",
+     "title": "Prediction: Here's How Much Chevron Will Increase Its Dividend By 2030",
      "tone": "▫️",
-     "date": "2026-08-29",
+     "date": "2026-08-30",
      "publisher": "Motley Fool"
     },
     {
-     "title": "Prediction: This Pipeline Stock's Payout Will Grow Faster Than Chevron's [or Exxon's] Over the Next 5 Years",
+     "title": "Pentagon to take 35% stake in Venezuela oil venture, WSJ reports",
      "tone": "▫️",
-     "date": "2026-08-29",
-     "publisher": "Motley Fool"
+     "date": "2026-08-30",
+     "publisher": "Investing.com"
     },
     {
-     "title": "Chevron (CVX) Nears Major Venezuela Oil Deal: Is a New Growth Engine Emerging?",
-     "tone": "🔺",
-     "date": "2026-08-29",
-     "publisher": "Insider Monkey"
+     "title": "Trump Venezuela oil deal draws criticism from government allies, opposition",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Investing.com"
     }
    ],
    "has_todo": false
@@ -1737,12 +1748,6 @@
    "news_mood": "cenderung positif (2/4 headline)",
    "news": [
     {
-     "title": "Affirm is 'firing on all cylinders': COO talks perspective on US consumer",
-     "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Yahoo Finance Video"
-    },
-    {
      "title": "Microsoft, Palantir Among Stocks To Watch As Software Bounces Back",
      "tone": "▫️",
      "date": "2026-08-29",
@@ -1752,6 +1757,12 @@
      "title": "Affirm Holdings (AFRM) Expands In Australia And Names Michael Linford President",
      "tone": "🔺",
      "date": "2026-08-29",
+     "publisher": "Simply Wall St."
+    },
+    {
+     "title": "How Investors May Respond To Shopify (SHOP) Beating Estimates And Deepening Its Affirm AI Finance Tie-Up",
+     "tone": "🔺",
+     "date": "2026-08-28",
      "publisher": "Simply Wall St."
     }
    ],
@@ -1844,15 +1855,15 @@
     "margin operasi 34%",
     "laba tumbuh 130%"
    ],
-   "valuation": "PEG 0.94 (murah relatif pertumbuhan) · EV/EBITDA 15.2 · beta 1.07 (seiring pasar)",
+   "valuation": "PEG 0.89 (murah relatif pertumbuhan) · EV/EBITDA 15.2 · beta 1.07 (seiring pasar)",
    "fwd_pe": 16.614698,
-   "peg": 0.94,
+   "peg": 0.89,
    "roe": null,
    "beta": 1.068,
    "d2e": null,
    "fcf": 7725875200,
    "rev_growth": 0.081,
-   "target": 237.80556,
+   "target": 238.5,
    "upside": NaN,
    "analysts": 36,
    "news_mood": "netral/campuran",
@@ -1967,19 +1978,25 @@
     "utang/ekuitas 240% tinggi",
     "laba tumbuh 48%"
    ],
-   "valuation": "PEG 2.54 (mahal relatif pertumbuhan) · P/B 9.9 · beta 2.32 (lebih liar dari pasar)",
+   "valuation": "PEG 2.49 (mahal relatif pertumbuhan) · P/B 9.9 · beta 2.32 (lebih liar dari pasar)",
    "fwd_pe": 31.786974,
-   "peg": 2.54,
+   "peg": 2.49,
    "roe": 0.23618999,
    "beta": 2.321,
    "d2e": 240.279,
    "fcf": null,
    "rev_growth": 0.323,
-   "target": 120.08462,
+   "target": 121.50538,
    "upside": NaN,
    "analysts": 26,
-   "news_mood": "cenderung positif (3/4 headline)",
+   "news_mood": "cenderung positif (2/4 headline)",
    "news": [
+    {
+     "title": "Robinhood and Interactive Brokers Both Ride Retail Volume. Only One Earns on Idle Cash.",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Motley Fool"
+    },
     {
      "title": "Reform UK plays down crypto ties as it courts business, diplomats",
      "tone": "▫️",
@@ -1991,12 +2008,6 @@
      "tone": "🔺",
      "date": "2026-08-29",
      "publisher": "Insider Monkey"
-    },
-    {
-     "title": "DKNG Soars Nearly 10%, FLUT Jumps 8% — DraftKings, Flutter Entertainment Rally On Ruling That Sports Bets Aren’t Swaps",
-     "tone": "🔺",
-     "date": "2026-08-28",
-     "publisher": "Stocktwits"
     }
    ],
    "has_todo": false
@@ -2088,9 +2099,9 @@
     "current ratio 0.95 (<1, likuiditas ketat)",
     "laba tumbuh 282%"
    ],
-   "valuation": "PEG 0.74 (murah relatif pertumbuhan) · EV/EBITDA 22.5 · beta 1.40 (lebih liar dari pasar)",
+   "valuation": "PEG 0.77 (murah relatif pertumbuhan) · EV/EBITDA 22.5 · beta 1.40 (lebih liar dari pasar)",
    "fwd_pe": 20.37284,
-   "peg": 0.74,
+   "peg": 0.77,
    "roe": null,
    "beta": 1.401,
    "d2e": null,
@@ -2099,32 +2110,33 @@
    "target": 510.26086,
    "upside": NaN,
    "analysts": 23,
-   "news_mood": "netral/campuran",
+   "news_mood": "cenderung positif (1/4 headline)",
    "news": [
     {
-     "title": "6 things investors need to watch in the week ahead",
+     "title": "Dow Jones Futures Due Amid Bullish, Bearish Market Signals. What To Do Now.",
      "tone": "▫️",
-     "date": "2026-08-28",
-     "publisher": "Yahoo Finance Video"
-    },
-    {
-     "title": "Dow Jones Futures: Microsoft, Titans Mask Market Weakness. Here's What To Do.",
-     "tone": "🔻",
-     "date": "2026-08-29",
+     "date": "2026-08-30",
      "publisher": "Investor's Business Daily"
     },
     {
-     "title": "How Much Upside Can AAPL Stock's Growth Deliver?",
-     "tone": "🔺",
-     "date": "2026-08-28",
-     "publisher": "Trefis"
+     "title": "What to Expect in Markets This Week: Dell, Several Consumer Companies to Report; August Jobs Data Due",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Investopedia"
+    },
+    {
+     "title": "What Does Dell Technologies (DELL) Push Into Disaggregated Private Cloud Mean?",
+     "tone": "▫️",
+     "date": "2026-08-30",
+     "publisher": "Simply Wall St."
     }
    ],
    "has_todo": true
   }
  ],
  "todos": [
-  "Earnings AVGO dalam 5 hari (2026-09-03) — harga bisa bergerak tajam, ini normal.",
-  "Earnings DELL dalam 4 hari (2026-09-02) — harga bisa bergerak tajam, ini normal."
+  "Earnings AVGO dalam 4 hari (2026-09-03) — harga bisa bergerak tajam, ini normal.",
+  "PEG WMT 3.9 — harga jauh di depan pertumbuhan. Pahami ekspektasi apa yang sudah dihargai pasar.",
+  "Earnings DELL dalam 3 hari (2026-09-02) — harga bisa bergerak tajam, ini normal."
  ]
 }
