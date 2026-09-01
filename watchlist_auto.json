@@ -1,65 +1,65 @@
 {
- "updated": "2026-08-27T04:26:54+00:00",
+ "updated": "2026-09-01T01:44:47+00:00",
  "tickers": [
   {
-   "ticker": "COP",
-   "name": "ConocoPhillips",
-   "score": 89,
+   "ticker": "ABNB",
+   "name": "Airbnb, Inc.",
+   "score": 88,
    "verdict": "BUY",
-   "tech_score": 88,
-   "fund_score": 90,
+   "tech_score": 90,
+   "fund_score": 83,
    "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-27"
-  },
-  {
-   "ticker": "CVX",
-   "name": "Chevron Corporation",
-   "score": 86,
-   "verdict": "BUY",
-   "tech_score": 84,
-   "fund_score": 89,
-   "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-27"
+   "added": "2026-09-01"
   },
   {
    "ticker": "SHOP",
    "name": "Shopify Inc.",
-   "score": 85,
-   "verdict": "WAIT",
-   "tech_score": 86,
-   "fund_score": 84,
-   "why": "Belum memenuhi: Tren naik",
-   "added": "2026-08-27"
-  },
-  {
-   "ticker": "BKNG",
-   "name": "Booking Holdings Inc. Common St",
    "score": 84,
    "verdict": "BUY",
-   "tech_score": 87,
-   "fund_score": 77,
+   "tech_score": 85,
+   "fund_score": 84,
    "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-19"
-  },
-  {
-   "ticker": "HOOD",
-   "name": "Robinhood Markets, Inc.",
-   "score": 84,
-   "verdict": "WAIT",
-   "tech_score": 87,
-   "fund_score": 79,
-   "why": "Belum memenuhi: Tidak parabolik",
    "added": "2026-08-27"
   },
   {
-   "ticker": "DELL",
-   "name": "Dell Technologies Inc.",
+   "ticker": "AMGN",
+   "name": "Amgen Inc.",
    "score": 83,
    "verdict": "BUY",
-   "tech_score": 88,
-   "fund_score": 74,
+   "tech_score": 89,
+   "fund_score": 73,
    "why": "Setup swing memenuhi seluruh syarat.",
-   "added": "2026-08-27"
+   "added": "2026-09-01"
+  },
+  {
+   "ticker": "SCHW",
+   "name": "Charles Schwab Corporation (The",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 77,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-09-01"
+  },
+  {
+   "ticker": "SMCI",
+   "name": "Super Micro Computer, Inc.",
+   "score": 83,
+   "verdict": "BUY",
+   "tech_score": 85,
+   "fund_score": 81,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-09-01"
+  },
+  {
+   "ticker": "ABBV",
+   "name": "AbbVie Inc.",
+   "score": 82,
+   "verdict": "BUY",
+   "tech_score": 86,
+   "fund_score": 75,
+   "why": "Setup swing memenuhi seluruh syarat.",
+   "added": "2026-09-01"
   }
  ]
 }
