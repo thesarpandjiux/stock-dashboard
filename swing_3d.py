@@ -1,4 +1,5 @@
 import math
+from datetime import datetime, timedelta
 
 
 ACCOUNT_CAPITAL = 1000.0
@@ -177,6 +178,235 @@ def daily_features(highs, lows, closes, volumes, spy_closes, sector_closes=None)
             sector_closes
         )
     return features
+
+
+# Research hypotheses, not optimized parameters: minimum first-hour relative
+# volume, minimum structural reward per unit risk, and stop buffer under
+# structure in daily ATR units.
+RESEARCH_MIN_H1_RELATIVE_VOLUME = 1.3
+RESEARCH_MIN_STRUCTURAL_RR = 1.5
+RESEARCH_STOP_BUFFER_ATR = 0.10
+RESEARCH_BREAKOUT_LOOKBACK_BARS = 5
+RESEARCH_MAX_TARGET_R = 2.0  # cap on reward when no resistance caps it sooner
+
+
+def _parse_iso(value):
+    if not isinstance(value, str):
+        raise ValueError("timestamp must be an ISO-8601 string, got %r" % (value,))
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        raise ValueError("not an ISO-8601 timestamp: %r" % (value,))
+    if parsed.tzinfo is None:
+        raise ValueError("timestamp must carry a timezone offset: %r" % (value,))
+    return parsed
+
+
+def _nth_trading_day_close(start_iso, session_number):
+    """Close time (15:50) of the `session_number`-th trading session, where
+    the session containing start_iso counts as session 1; weekdays only.
+
+    A position entered during session 1 on its H1 close may be held through
+    the close of session 3, so the deadline is the close of the session
+    `session_number - 1` sessions later.
+
+    ponytail: weekday-only calendar; real exchange holidays (and early
+    closes) shift the true third-day deadline. Replace with a holiday
+    calendar before production.
+    """
+    start = _parse_iso(start_iso)
+    day = start.date()
+    remaining = session_number - 1
+    while remaining > 0:
+        day += timedelta(days=1)
+        if day.weekday() < 5:
+            remaining -= 1
+    return datetime.combine(day, start.timetz().replace(hour=15, minute=50)).isoformat()
+
+
+def h1_features(opens, highs, lows, closes, volumes, vwaps,
+                expected_first_hour_volume, asofs):
+    """Causal features from completed first-hour bars only (oldest first).
+
+    Last bar is the most recent completed first hour. breakout_5d compares
+    the last close only against highs of the prior bars inside the research
+    lookback window; bars before that window are ignored, so an old spike
+    cannot manufacture a breakout. No network, no clock, no future bars.
+    """
+    arrays = (opens, highs, lows, closes, volumes, vwaps, asofs)
+    lengths = {len(a) for a in arrays}
+    if len(lengths) != 1 or 0 in lengths:
+        raise ValueError("h1 arrays must be equal length and non-empty")
+    try:
+        expected_first_hour_volume = float(expected_first_hour_volume)
+    except (TypeError, ValueError, OverflowError):
+        raise ValueError("expected_first_hour_volume must be numeric")
+    if not math.isfinite(expected_first_hour_volume) or expected_first_hour_volume <= 0:
+        raise ValueError("expected_first_hour_volume must be positive")
+
+    close, high, low, vwap = closes[-1], highs[-1], lows[-1], vwaps[-1]
+    lookback = RESEARCH_BREAKOUT_LOOKBACK_BARS
+    prior_highs = highs[-1 - lookback:-1]
+    features = {
+        "bars": len(closes),
+        "open": opens[-1],
+        "high": high,
+        "low": low,
+        "close": close,
+        "vwap": vwap,
+        "volume": volumes[-1],
+        "asof": asofs[-1],
+        "relative_volume": volumes[-1] / expected_first_hour_volume,
+        "bullish_close": close > opens[-1],
+        # Higher low: prior bar's low is the nearest completed structure.
+        "higher_low": len(lows) >= 2 and low > lows[-2],
+        "breakout_5d": len(prior_highs) > 0 and close > max(prior_highs),
+    }
+    return features
+
+
+def _wait(reason, phase, asof=None):
+    out = reject(reason, phase, asof)
+    out["status"] = "WAIT"
+    return out
+
+
+def _confirm_gate(candidate, h1, daily, now_iso):
+    """Status before structural sizing: WAIT/REJECT or None to proceed.
+
+    Pure decision over supplied inputs. now_iso is the caller's clock read;
+    an H1 bar stamped after it cannot have been completed yet.
+    """
+    now = _parse_iso(now_iso)
+    if not h1.get("fresh"):
+        return reject("STALE_H1_DATA", "H1", h1.get("asof"))
+    if not h1.get("complete"):
+        return _wait("H1_INCOMPLETE", "H1", h1.get("asof"))
+    try:
+        h1_asof = _parse_iso(h1["asof"])
+    except ValueError:
+        return _wait("H1_ASOF_UNPARSEABLE", "H1", h1.get("asof"))
+    if h1_asof > now:
+        # A completed bar stamped after "now" is a look-ahead; fail closed.
+        return _wait("H1_ASOF_IN_FUTURE", "H1", h1.get("asof"))
+    if not daily.get("data_fresh", True):
+        return reject("STALE_DAILY_DATA", "H1", daily.get("asof"))
+    if not daily.get("earnings_verified", True):
+        return _wait("EARNINGS_UNVERIFIED", "H1", daily.get("asof"))
+    earnings_days = daily.get("earnings_in_trading_days")
+    if earnings_days is not None and earnings_days <= RESEARCH_EARNINGS_HOLD_BUFFER_DAYS:
+        return reject("EARNINGS_WITHIN_HOLD", "H1", daily.get("asof"))
+    return None
+
+
+def _finalize(result, h1, daily):
+    """Attach the confirmation contract fields to any terminal result.
+
+    WAIT/REJECT carry the daily verification status (already True whenever
+    the candidate reached the sizing stage); a produced plan keeps True.
+    """
+    result.setdefault("trigger", None)
+    result.setdefault("reward_risk", None)
+    result.setdefault("exit_deadline", None)
+    result.setdefault("asof", h1.get("asof"))
+    result.setdefault("earnings_verified", h1.get("earnings_verified", False))
+    result["data_fresh"] = bool(h1.get("fresh")) and bool(h1.get("data_fresh", True))
+    return result
+
+
+def confirm_h1(candidate, h1, daily, now_iso):
+    """Confirm a daily CANDIDATE on the completed first-hour bar and size it.
+
+    Entry is the H1 close (only known after the bar completes). Structural
+    stop is min(daily trigger low, H1 low) minus a fixed ATR buffer, taken
+    before sizing; an entry gap away from the stop never moves it upward.
+    Target is min(prior daily resistance, entry + 2 * risk_per_share).
+    READY carries the bounded execution plan; anything short of every hard
+    gate, trigger, and risk check stays WAIT or REJECT. Malformed numeric
+    inputs fail closed with an explicit REJECT, never a crash.
+    """
+    if candidate.get("status") != "CANDIDATE":
+        out = _finalize(dict(candidate), h1, daily)
+        out.setdefault("phase", "H1")
+        return out
+    gate = _confirm_gate(candidate, h1, daily, now_iso)
+    if gate is not None:
+        h1 = dict(h1)
+        h1["data_fresh"] = bool(h1.get("fresh")) and bool(daily.get("data_fresh", True))
+        h1["earnings_verified"] = daily.get("earnings_verified", False)
+        return _finalize(gate, h1, daily)
+    # Past the gate: earnings verified and data fresh were required to get
+    # here, so every downstream WAIT/REJECT/READY reports them as such.
+    h1 = dict(h1)
+    h1["earnings_verified"] = True
+    h1["data_fresh"] = True
+
+    try:
+        close = float(h1["close"])
+        vwap = float(h1["vwap"])
+        relative_volume = float(h1["relative_volume"])
+    except (KeyError, TypeError, ValueError, OverflowError):
+        return _finalize(reject("INVALID_H1_INPUT", "H1", h1.get("asof")), h1, daily)
+    if close <= vwap:
+        return _finalize(_wait("BELOW_SESSION_VWAP", "H1", h1.get("asof")), h1, daily)
+    if relative_volume < RESEARCH_MIN_H1_RELATIVE_VOLUME:
+        return _finalize(_wait("LOW_FIRST_HOUR_VOLUME", "H1", h1.get("asof")), h1, daily)
+    bullish = h1.get("bullish_close")
+    if bullish is None:  # hand-built h1 dicts may omit it; derive from bars
+        try:
+            bullish = close > float(h1["open"])
+        except (KeyError, TypeError, ValueError, OverflowError):
+            return _finalize(
+                reject("INVALID_H1_INPUT", "H1", h1.get("asof")), h1, daily
+            )
+    if not bullish:
+        return _finalize(_wait("BEARISH_FIRST_HOUR", "H1", h1.get("asof")), h1, daily)
+    breakout = bool(h1.get("breakout_5d"))
+    pullback = bool(h1.get("higher_low"))
+    if not (breakout or pullback):
+        return _finalize(_wait("NO_H1_TRIGGER", "H1", h1.get("asof")), h1, daily)
+    trigger = "BREAKOUT_5D" if breakout else "HIGHER_LOW_PULLBACK"
+
+    try:
+        entry = close
+        stop = min(float(daily["trigger_low"]), float(h1["low"])) \
+            - RESEARCH_STOP_BUFFER_ATR * float(daily["atr"])
+        risk_per_share = entry - stop
+        resistance = daily.get("resistance")
+    except (KeyError, TypeError, ValueError, OverflowError):
+        return _finalize(
+            reject("INVALID_STRUCTURAL_LEVELS", "H1", h1.get("asof")), h1, daily
+        )
+    if risk_per_share <= 0:
+        return _finalize(
+            reject("INVALID_STRUCTURAL_LEVELS", "H1", h1.get("asof")), h1, daily
+        )
+    plan = position_plan(entry, stop)
+    if not plan["eligible"]:
+        out = reject(plan["reason"], "H1", h1.get("asof"))
+        out["entry"], out["stop"] = entry, stop
+        return _finalize(out, h1, daily)
+    target = entry + RESEARCH_MAX_TARGET_R * risk_per_share
+    if resistance is not None:
+        target = min(float(resistance), target)
+    reward_risk = (target - entry) / risk_per_share
+    if reward_risk < RESEARCH_MIN_STRUCTURAL_RR:
+        return _finalize(
+            reject("INSUFFICIENT_STRUCTURAL_RR", "H1", h1.get("asof")), h1, daily
+        )
+
+    plan.update({
+        "status": "READY",
+        "phase": "H1",
+        "target": round(target, 4),
+        "reasons": ["H1_CONFIRMED", trigger],
+        "blockers": [],
+        "trigger": trigger,
+        "reward_risk": round(reward_risk, 4),
+        "exit_deadline": _nth_trading_day_close(h1["asof"], 3),
+        "asof": h1.get("asof"),
+    })
+    return _finalize(plan, h1, daily)
 
 
 def evaluate_daily(features, earnings_verified, earnings_in_trading_days, data_fresh):
