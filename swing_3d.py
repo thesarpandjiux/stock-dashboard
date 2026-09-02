@@ -1,3 +1,6 @@
+import math
+
+
 ACCOUNT_CAPITAL = 1000.0
 RISK_BUDGET = 0.50
 MIN_POSITION = 20.0
@@ -13,11 +16,38 @@ def position_plan(
     min_value=MIN_POSITION,
     max_value=MAX_POSITION,
 ):
-    entry, stop = float(entry), float(stop)
-    if entry <= 0 or stop <= 0 or stop >= entry:
+    try:
+        entry, stop = map(float, (entry, stop))
+    except (TypeError, ValueError):
+        return {"eligible": False, "reason": "INVALID_LEVELS"}
+    try:
+        capital, risk_budget, min_value, max_value = map(
+            float, (capital, risk_budget, min_value, max_value)
+        )
+    except (TypeError, ValueError):
+        return {"eligible": False, "reason": "INVALID_CONFIGURATION"}
+
+    if (
+        not all(map(math.isfinite, (entry, stop)))
+        or entry <= 0
+        or stop <= 0
+        or stop >= entry
+    ):
         return {
             "eligible": False,
             "reason": "INVALID_LEVELS",
+            "entry": entry,
+            "stop": stop,
+        }
+    configuration = (capital, risk_budget, min_value, max_value)
+    if (
+        not all(map(math.isfinite, configuration))
+        or any(value <= 0 for value in configuration)
+        or min_value > max_value
+    ):
+        return {
+            "eligible": False,
+            "reason": "INVALID_CONFIGURATION",
             "entry": entry,
             "stop": stop,
         }

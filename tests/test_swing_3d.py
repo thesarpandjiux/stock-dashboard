@@ -21,6 +21,34 @@ class TestPositionPlan(unittest.TestCase):
         self.assertEqual(p["stop"], 98)
         self.assertLessEqual(p["risk_dollars"], 0.50)
 
+    def test_rejects_invalid_configuration(self):
+        cases = (
+            {"capital": 0},
+            {"capital": -1000},
+            {"risk_budget": -0.50},
+            {"min_value": -20},
+            {"max_value": -50},
+            {"min_value": 50, "max_value": 20},
+            {"capital": float("nan")},
+        )
+        for overrides in cases:
+            with self.subTest(overrides=overrides):
+                p = s.position_plan(entry=100, stop=99, **overrides)
+                self.assertFalse(p["eligible"])
+                self.assertEqual(p["reason"], "INVALID_CONFIGURATION")
+                self.assertNotIn("shares", p)
+
+    def test_rejects_non_finite_levels(self):
+        for levels in (
+            {"entry": float("nan"), "stop": 99},
+            {"entry": 100, "stop": float("nan")},
+        ):
+            with self.subTest(levels=levels):
+                p = s.position_plan(**levels)
+                self.assertFalse(p["eligible"])
+                self.assertEqual(p["reason"], "INVALID_LEVELS")
+                self.assertNotIn("shares", p)
+
     def test_reject_has_domain_contract(self):
         p = s.reject("NO_SETUP", "screen", "2026-09-02")
         self.assertEqual(
