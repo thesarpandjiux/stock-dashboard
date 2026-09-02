@@ -18,8 +18,10 @@ dan skor fundamental jatuh ke nilai netral.
 """
 
 import io
+import re
 import time
 import urllib.request
+from datetime import date, datetime, timedelta, timezone
 
 try:
     import yfinance as yf
@@ -30,17 +32,48 @@ RETRIES = 3
 BACKOFF = 2.5           # detik, dikalikan percobaan ke-n
 PAUSE_BETWEEN = 0.6     # jeda sopan antar ticker
 
+# 1-3 day swing mode. Sesinya dianggap "lengkap" bila sekarang sudah lewat
+# 15:50 ET (data harian tersedia) pada hari bursa; sebaliknya kemarin.
+# ponytail: weekday-only calendar; real exchange holidays shift the true
+# last-completed session. Replace with a holiday calendar before production.
+ET = timezone.utc  # fallback bila tzdata absen; _now_et memperbaiki di bawah
+try:
+    import zoneinfo
+    ET = zoneinfo.ZoneInfo("America/New_York")
+except Exception:  # noqa: BLE001 -- pragma: no cover
+    pass
+SESSION_CLOSE = (15, 50)
+
+
+def _now_et():
+    """Current time in America/New_York, timezone-aware.
+
+    ponytail: weekday-only mapping, no holiday calendar; flags full-session
+    absence for freshness gating until a real exchange calendar lands.
+    """
+    return datetime.now(ET)
+
 
 class Bars:
-    """Deret OHLCV harian, urut lama -> baru."""
+    """Deret OHLCV harian/intraday, urut lama -> baru.
 
-    __slots__ = ("highs", "lows", "closes", "volumes", "source")
+    Asumsi tambahan untuk mode 1-3 hari: bar terakhir adalah sesi penuh yang
+    sudah selesai, dan `asofs`/`opens` len-nya sama dengan bar lain. Bar
+    intraday yang belum selesai TIDAK boleh masuk; caller menyaringnya dulu.
+    """
 
-    def __init__(self, highs, lows, closes, volumes, source):
+    __slots__ = ("opens", "highs", "lows", "closes", "volumes", "asofs",
+                 "interval", "source")
+
+    def __init__(self, highs, lows, closes, volumes, source,
+                 opens=None, asofs=None, interval="1d"):
+        self.opens = list(opens) if opens else []
         self.highs = highs
         self.lows = lows
         self.closes = closes
         self.volumes = volumes
+        self.asofs = list(asofs) if asofs else []
+        self.interval = interval
         self.source = source
 
     def __len__(self):
@@ -51,22 +84,27 @@ class Bars:
 # YAHOO
 # --------------------------------------------------------------------------
 
-def _yahoo_bars(ticker: str, period="1y"):
+def _yahoo_bars(ticker: str, period="1y", interval="1d"):
     if yf is None:
         return None
-    hist = yf.Ticker(ticker).history(period=period, interval="1d",
+    hist = yf.Ticker(ticker).history(period=period, interval=interval,
                                      auto_adjust=True)
     if hist is None or hist.empty:
         return None
     hist = hist.dropna(subset=["Close"])
     if hist.empty:
         return None
+    opens = hist["Open"].tolist() if "Open" in hist else []
     vol = hist["Volume"].fillna(0).tolist() if "Volume" in hist else []
+    asofs = [ts.isoformat() for ts in hist.index]
     return Bars(
+        opens=opens,
         highs=hist["High"].tolist(),
         lows=hist["Low"].tolist(),
         closes=hist["Close"].tolist(),
         volumes=vol,
+        asofs=asofs,
+        interval=interval,
         source="yahoo",
     )
 
@@ -203,3 +241,171 @@ def get_news(ticker: str, limit=4) -> list:
     except Exception:  # noqa: BLE001
         pass
     return items
+
+
+# --------------------------------------------------------------------------
+# MODE 1-3 HARI: data bertimestamp + freshness fail-closed
+# --------------------------------------------------------------------------
+
+def get_daily_bars(ticker: str, period: str = "1y") -> "Bars | None":
+    """Bars harian bertimestamp (interval "1d"), tanpa fallback Stooq."""
+    for attempt in range(RETRIES):
+        try:
+            bars = _yahoo_bars(ticker, period, "1d")
+            if bars:
+                return bars
+        except Exception:  # noqa: BLE001
+            pass
+        time.sleep(BACKOFF * (attempt + 1))
+    return None
+
+
+def get_h1_bars(ticker: str, period: str = "60d") -> "Bars | None":
+    """Bars H1 (interval "60m", 09:30-10:30 ET) untuk hari yang lalu.
+
+    Batasi sampai bar 10:30 kemarin: bar pertama hari ini belum selesai,
+    bar selanjutnya bukan bagian sesi pertama. Tidak pernah fallback ke
+    data harian; kegagalan apa pun -> None.
+    """
+    bars = None
+    for attempt in range(RETRIES):
+        try:
+            bars = _yahoo_bars(ticker, period, "60m")
+            if bars:
+                break
+        except Exception:  # noqa: BLE001
+            pass
+        time.sleep(BACKOFF * (attempt + 1))
+    if bars is None or len(bars) < 2 or len(bars.asofs) != len(bars.closes):
+        return None
+    now = _now_et()
+    cut = []
+    for i, stamp in enumerate(bars.asofs):
+        parsed = datetime.fromisoformat(stamp)
+        et = parsed.astimezone(ET)
+        if et.weekday() < 5 and et.hour == 9 and et.minute == 30:
+            cut.append(i)          # bar 09:30 ET = jam pertama sesi
+    while cut:                     # buang bar 09:30 yang sesinya belum tutup
+        ts = datetime.fromisoformat(bars.asofs[cut[-1]])
+        if now < datetime(ts.year, ts.month, ts.day, *SESSION_CLOSE, tzinfo=ET):
+            cut.pop()
+        else:
+            break
+    if not cut:
+        return None               # bar pertama hari ini = belum selesai
+    return Bars(
+        opens=[bars.opens[i] for i in cut],
+        highs=[bars.highs[i] for i in cut],
+        lows=[bars.lows[i] for i in cut],
+        closes=[bars.closes[i] for i in cut],
+        volumes=[bars.volumes[i] for i in cut],
+        asofs=[bars.asofs[i] for i in cut],
+        interval="60m",
+        source=bars.source,
+    )
+
+
+def is_session_complete(when):
+    """True bila `when` jatuh setelah close 15:50 ET pada hari bursa.
+
+    ponytail: weekday-only; real exchange holidays misclassified as
+    complete sessions. Swap in a holiday calendar before production.
+    """
+    if isinstance(when, str):
+        try:
+            when = datetime.fromisoformat(when)
+        except ValueError:
+            return False
+    try:
+        when = when.astimezone(ET)
+    except (AttributeError, ValueError, OverflowError):
+        return False
+    if when.weekday() >= 5:
+        return False
+    return (when.hour, when.minute) >= SESSION_CLOSE
+
+
+def _coerce_ts(value):
+    """ISO string/aware datetime/date -> aware datetime UTC; else None."""
+    if isinstance(value, str):
+        try:
+            value = datetime.fromisoformat(value)
+        except ValueError:
+            return None
+    if isinstance(value, datetime):
+        if value.tzinfo is None:
+            value = value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)
+    if isinstance(value, date):
+        return datetime(value.year, value.month, value.day, tzinfo=timezone.utc)
+    return None
+
+
+def is_fresh(last_asof, max_age, now=None):
+    """True bila data terakhir berumur <= max_age dari `now` (default UTC)."""
+    last = _coerce_ts(last_asof)
+    if last is None:
+        return False
+    if now is None:
+        now = datetime.now(timezone.utc)
+    elif isinstance(now, str):
+        now = _coerce_ts(now)
+    try:
+        age = now - last
+    except (TypeError, OverflowError):
+        return False
+    if isinstance(max_age, timedelta):
+        return timedelta(0) <= age <= max_age
+    try:
+        age <= timedelta(seconds=float(max_age))
+    except (TypeError, ValueError, OverflowError):
+        return False
+    return True
+
+
+def normalize_earnings_status(raw_date, source):
+    """Normalisasi tanggal earnings jadi kontrak {verified, date, source}.
+
+    Hanya tanggal kalender yang bisa diverifikasi; nilai None/naif/bukan
+    tanggal selalu menghasilkan verified=False (fail-closed).
+    """
+    if isinstance(raw_date, date) and not isinstance(raw_date, datetime):
+        return {
+            "verified": True,
+            "date": raw_date.isoformat(),
+            "source": source,
+        }
+    if isinstance(raw_date, str):
+        try:
+            parsed = datetime.strptime(raw_date, "%Y-%m-%d").date()
+        except ValueError:
+            parsed = None
+        if parsed is not None:
+            return {"verified": True, "date": parsed.isoformat(), "source": source}
+    return {"verified": False, "date": None, "source": None}
+
+
+def get_earnings_status(ticker: str) -> dict:
+    """Tanggal earnings terverifikasi dari kalender Yahoo.
+
+    Setiap kegagalan fetch/parse -> {"verified": False, ...}; tidak ada
+    fallback diam-diam ke sumber lain.
+    """
+    if yf is None:
+        return {"verified": False, "date": None, "source": None}
+    for attempt in range(RETRIES):
+        try:
+            cal = yf.Ticker(ticker).calendar or {}
+            dates = cal.get("Earnings Date") or []
+            for raw in dates:
+                parsed = _coerce_ts(raw)
+                if parsed is not None:
+                    return {
+                        "verified": True,
+                        "date": parsed.date().isoformat(),
+                        "source": "yahoo-calendar",
+                    }
+            return {"verified": False, "date": None, "source": None}
+        except Exception:  # noqa: BLE001
+            time.sleep(BACKOFF * (attempt + 1))
+    return {"verified": False, "date": None, "source": None}
