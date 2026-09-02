@@ -84,5 +84,81 @@ class TestPositionPlan(unittest.TestCase):
         self.assertEqual(p["asof"], "2026-09-02")
 
 
+class TestDailyRegime(unittest.TestCase):
+    def features(self, **overrides):
+        base = {"bars": 80, "price": 105, "ema10": 103, "ema20": 101,
+                "sma50": 98, "ema20_slope": 1.2, "sma50_slope": 0.8,
+                "rs_spy_5d": 2.0, "atr": 2.0, "atr_pct": 1.9,
+                "extension_atr": 1.0, "dollar_volume": 80_000_000,
+                "resistance": 112}
+        base.update(overrides)
+        return base
+
+    def test_daily_can_only_create_candidate(self):
+        d = s.evaluate_daily(self.features(), True, 8, True)
+        self.assertEqual(d["status"], "CANDIDATE")
+        self.assertEqual(d["phase"], "DAILY")
+
+    def test_unknown_earnings_never_candidate(self):
+        d = s.evaluate_daily(self.features(), False, None, True)
+        self.assertEqual(d["status"], "WAIT")
+        self.assertIn("EARNINGS_UNVERIFIED", d["blockers"])
+
+    def test_negative_relative_strength_rejects(self):
+        d = s.evaluate_daily(self.features(rs_spy_5d=-0.1), True, 8, True)
+        self.assertEqual(d["status"], "REJECT")
+
+    def test_stale_data_rejects(self):
+        d = s.evaluate_daily(self.features(), True, 8, False)
+        self.assertEqual(d["status"], "REJECT")
+
+    def test_insufficient_data_rejects(self):
+        d = s.evaluate_daily(self.features(bars=59), True, 8, True)
+        self.assertEqual(d["status"], "REJECT")
+        self.assertIn("INSUFFICIENT_DAILY_BARS", d["blockers"])
+
+    def test_daily_features_use_only_completed_supplied_bars(self):
+        closes = [100 + i for i in range(60)]
+        f = s.daily_features(
+            [price + 2 for price in closes],
+            [price - 2 for price in closes],
+            closes,
+            [1_000_000] * 60,
+            [100 + i / 2 for i in range(60)],
+        )
+        self.assertEqual(f["bars"], 60)
+        self.assertEqual(f["price"], 159)
+        self.assertGreater(f["ema10"], f["ema20"])
+        self.assertGreater(f["ema20_slope"], 0)
+        self.assertGreater(f["sma50_slope"], 0)
+        self.assertGreater(f["rs_spy_5d"], 0)
+        self.assertEqual(f["dollar_volume"], 159_000_000)
+        self.assertEqual(f["resistance"], 160)
+
+    def test_sector_relative_strength_included(self):
+        closes = [100 + i for i in range(60)]
+        f = s.daily_features(
+            [price + 2 for price in closes],
+            [price - 2 for price in closes],
+            closes,
+            [1_000_000] * 60,
+            [100 + i / 2 for i in range(60)],
+            [100 + i / 4 for i in range(60)],
+        )
+        self.assertIn("rs_sector_5d", f)
+        self.assertGreater(f["rs_sector_5d"], f["rs_spy_5d"])
+
+    def test_no_prior_high_above_price_gives_none_resistance(self):
+        closes = [100 + i for i in range(60)]
+        f = s.daily_features(
+            [price - 1 for price in closes],
+            [price - 3 for price in closes],
+            closes,
+            [1_000_000] * 60,
+            [100 + i / 2 for i in range(60)],
+        )
+        self.assertIsNone(f["resistance"])
+
+
 if __name__ == "__main__":
     unittest.main()
