@@ -7,3 +7,4 @@ __pycache__/
 .swing-install.zip
 .swing-src/
 _to_delete/
+.worktrees/
