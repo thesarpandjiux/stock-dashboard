@@ -300,3 +300,101 @@ def split_holdout(samples, holdout_fraction=0.20):
         k = n - 1
     cut = n - k
     return list(samples[:cut]), list(samples[cut:])
+
+
+# Production gate thresholds for the 1-3 day swing mode.  Conservative by
+# design: a report that cannot prove every rule fails closed.  A failed
+# gate means mode="PAPER"; it never triggers parameter hunting on the
+# holdout.
+GATE_MIN_HOLDOUT_TRADES = 30       # brief: holdout n >= 30
+GATE_MAX_TICKER_POSITIVE_R = 0.35  # brief: no ticker > 35% of positive R
+
+
+def _holdout_number(holdout, key):
+    """Finite float of a holdout metric, else None (fail closed)."""
+    try:
+        value = float(holdout.get(key))
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if not math.isfinite(value):
+        return None
+    return value
+
+
+def production_gate(report):
+    """Decide whether the researched 1-3 day swing mode may leave PAPER.
+
+    report must carry the aggregated walk-forward report produced by the
+    research runner (backtest_3d.metrics on the full-sample train span,
+    per-fold summaries, and the untouched chronological holdout metrics).
+    Only the holdout decides eligibility: the development sample is where
+    parameters were chosen and cannot vouch for itself.
+
+    Rules (all must hold):
+      * holdout metrics exist with finite numerics (HOLDOUT_METRICS_MISSING);
+      * holdout n >= 30 (HOLDOUT_SAMPLE_TOO_SMALL);
+      * holdout expectancy after costs > 0 (HOLDOUT_EXPECTANCY_NOT_POSITIVE);
+      * holdout profit factor after costs > 1 (HOLDOUT_PROFIT_FACTOR_NOT_ABOVE_ONE);
+      * no single ticker contributes over 35% of gross positive holdout R
+        (HOLDOUT_TICKER_CONCENTRATION);
+      * no walk-forward fold failed explicitly (HIDDEN_FAILED_FOLD).
+
+    Returns {"eligible": bool, "reasons": [str, ...]} with reasons empty on
+    a pass.
+    """
+    reasons = []
+    holdout = report.get("holdout")
+    if not isinstance(holdout, dict):
+        return {"eligible": False, "reasons": ["HOLDOUT_METRICS_MISSING"]}
+    n = _holdout_number(holdout, "n")
+    if n is None:
+        return {"eligible": False, "reasons": ["HOLDOUT_METRICS_MISSING"]}
+    if n < GATE_MIN_HOLDOUT_TRADES:
+        # Too few trades to judge anything; the profitability rules are
+        # not even consulted (no arithmetic on an empty/unrepresentative
+        # sample).
+        return {"eligible": False, "reasons": ["HOLDOUT_SAMPLE_TOO_SMALL"]}
+
+    expectancy = _holdout_number(holdout, "expectancy_r")
+    profit_factor = _holdout_number(holdout, "profit_factor")
+    if expectancy is None:
+        return {"eligible": False, "reasons": ["HOLDOUT_METRICS_MISSING"]}
+    if expectancy <= 0:
+        reasons.append("HOLDOUT_EXPECTANCY_NOT_POSITIVE")
+    if profit_factor is None or profit_factor <= 1:
+        # A report without a cost-adjusted profit factor cannot prove the
+        # >1 rule; fail closed under the rule's own reason code.
+        reasons.append("HOLDOUT_PROFIT_FACTOR_NOT_ABOVE_ONE")
+
+    trades = holdout.get("trades")
+    if not isinstance(trades, list):
+        # Without per-trade records the 35% concentration cap cannot be
+        # verified; a report that cannot prove the rule fails closed.
+        reasons.append("HOLDOUT_TICKER_CONCENTRATION")
+    else:
+        per_ticker = {}
+        total = 0.0
+        for trade in trades:
+            try:
+                r = float(trade.get("r_multiple"))
+            except (TypeError, ValueError, OverflowError):
+                continue
+            if not math.isfinite(r) or r <= 0:
+                continue
+            ticker = trade.get("ticker")
+            per_ticker[ticker] = per_ticker.get(ticker, 0.0) + r
+            total += r
+        if total > 0 and any(
+            share > GATE_MAX_TICKER_POSITIVE_R
+            for share in (per_ticker[t] / total for t in per_ticker)
+        ):
+            reasons.append("HOLDOUT_TICKER_CONCENTRATION")
+
+    folds = report.get("folds")
+    if not isinstance(folds, list):
+        reasons.append("HIDDEN_FAILED_FOLD")
+    elif any(fold.get("failed") for fold in folds
+             if isinstance(fold, dict)):
+        reasons.append("HIDDEN_FAILED_FOLD")
+
+    return {"eligible": not reasons, "reasons": reasons}
