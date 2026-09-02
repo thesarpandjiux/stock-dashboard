@@ -18,6 +18,7 @@ dan skor fundamental jatuh ke nilai netral.
 """
 
 import io
+import math
 import re
 import time
 import urllib.request
@@ -342,7 +343,12 @@ def _coerce_ts(value):
 
 
 def is_fresh(last_asof, max_age, now=None):
-    """True bila data terakhir berumur <= max_age dari `now` (default UTC)."""
+    """True bila data terakhir berumur <= max_age dari `now` (default UTC).
+
+    max_age: timedelta atau detik (float). last_asof/now: ISO string,
+    datetime aware/naif (naif dianggap UTC), atau date. Apa pun yang
+    tidak bisa diparse -> False (fail-closed).
+    """
     last = _coerce_ts(last_asof)
     if last is None:
         return False
@@ -357,10 +363,12 @@ def is_fresh(last_asof, max_age, now=None):
     if isinstance(max_age, timedelta):
         return timedelta(0) <= age <= max_age
     try:
-        age <= timedelta(seconds=float(max_age))
+        max_seconds = float(max_age)
     except (TypeError, ValueError, OverflowError):
         return False
-    return True
+    if not math.isfinite(max_seconds) or max_seconds < 0:
+        return False
+    return timedelta(0) <= age <= timedelta(seconds=max_seconds)
 
 
 def normalize_earnings_status(raw_date, source):

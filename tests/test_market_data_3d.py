@@ -18,6 +18,28 @@ class TestFreshness(unittest.TestCase):
         now = dt.datetime(2026, 9, 1, 15, 0)
         self.assertFalse(md.is_fresh("2026-09-01T10:00:00+00:00", dt.timedelta(hours=2), now))
 
+    def test_numeric_max_age_rejects_old_data(self):
+        now = dt.datetime(2026, 9, 1, 15, 0, tzinfo=dt.timezone.utc)
+        self.assertFalse(md.is_fresh("2026-08-01T00:00:00+00:00", 3600, now))
+
+    def test_numeric_max_age_rejects_future_asof(self):
+        now = dt.datetime(2026, 9, 1, 15, 0, tzinfo=dt.timezone.utc)
+        self.assertFalse(md.is_fresh("2026-09-02T00:00:00+00:00", 3600, now))
+
+    def test_numeric_max_age_rejects_negative_max_age(self):
+        now = dt.datetime(2026, 9, 1, 15, 0, tzinfo=dt.timezone.utc)
+        self.assertFalse(md.is_fresh("2026-09-01T14:30:00+00:00", -5, now))
+
+    def test_numeric_max_age_rejects_nan(self):
+        now = dt.datetime(2026, 9, 1, 15, 0, tzinfo=dt.timezone.utc)
+        self.assertFalse(md.is_fresh("2026-09-01T14:30:00+00:00", float("nan"), now))
+
+    def test_numeric_max_age_accepts_fresh_and_exact_limit(self):
+        now = dt.datetime(2026, 9, 1, 15, 0, tzinfo=dt.timezone.utc)
+        self.assertTrue(md.is_fresh("2026-09-01T14:30:00+00:00", 3600, now))
+        self.assertTrue(md.is_fresh("2026-09-01T14:00:00+00:00", 3600, now))
+
+
     def test_unverified_earnings_is_not_safe(self):
         status = md.normalize_earnings_status(None, None)
         self.assertEqual(status, {"verified": False, "date": None, "source": None})
