@@ -18,13 +18,13 @@ def position_plan(
 ):
     try:
         entry, stop = map(float, (entry, stop))
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return {"eligible": False, "reason": "INVALID_LEVELS"}
     try:
         capital, risk_budget, min_value, max_value = map(
             float, (capital, risk_budget, min_value, max_value)
         )
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return {"eligible": False, "reason": "INVALID_CONFIGURATION"}
 
     if (

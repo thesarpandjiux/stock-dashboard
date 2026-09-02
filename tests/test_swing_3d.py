@@ -49,6 +49,26 @@ class TestPositionPlan(unittest.TestCase):
                 self.assertEqual(p["reason"], "INVALID_LEVELS")
                 self.assertNotIn("shares", p)
 
+    def test_rejects_huge_integer_entry(self):
+        p = s.position_plan(entry=10**10000, stop=99)
+        self.assertFalse(p["eligible"])
+        self.assertEqual(p["reason"], "INVALID_LEVELS")
+        self.assertNotIn("shares", p)
+
+    def test_rejects_huge_integer_configuration(self):
+        huge = 10**10000
+        for overrides in (
+            {"capital": huge},
+            {"risk_budget": huge},
+            {"min_value": huge},
+            {"max_value": huge},
+        ):
+            with self.subTest(overrides=overrides):
+                p = s.position_plan(entry=100, stop=99, **overrides)
+                self.assertFalse(p["eligible"])
+                self.assertEqual(p["reason"], "INVALID_CONFIGURATION")
+                self.assertNotIn("shares", p)
+
     def test_reject_has_domain_contract(self):
         p = s.reject("NO_SETUP", "screen", "2026-09-02")
         self.assertEqual(
