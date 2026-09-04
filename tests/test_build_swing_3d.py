@@ -221,6 +221,18 @@ class TestDailyPhase(unittest.TestCase):
         self.assertEqual(records["AAA"]["status"], "REJECT")
         self.assertIn("STALE_DAILY_DATA", records["AAA"]["blockers"])
 
+    def test_stale_spy_rejects_even_when_ticker_fresh(self):
+        # ticker bars end 09-01 (fresh) but SPY ends 08-27: the alignment
+        # would otherwise price CANDIDATE off a mismatched session.
+        stale_spy = spy_bars(end=dt.date(2026, 8, 27))
+        p = make_provider(spy=stale_spy)
+        records, _ = b.run_daily_phase(
+            iso(dt.date(2026, 9, 2), 10, 31), ["AAA"], p)
+        rec = records["AAA"]
+        self.assertEqual(rec["status"], "REJECT")
+        self.assertIn("STALE_DAILY_DATA", rec["blockers"])
+        self.assertIs(rec["data_fresh"], False)
+
     def test_unverified_earnings_never_candidate(self):
         p = make_provider(earnings={"verified": False, "date": None,
                                     "source": None})
@@ -293,6 +305,19 @@ class TestH1Phase(unittest.TestCase):
         records, _ = b.run_h1_phase(self.now(), p2, prior)
         self.assertNotEqual(records["AAA"]["status"], "READY")
 
+    def test_early_h1_run_carries_candidate_and_later_run_readies(self):
+        # 09:00 ET: the entry session's first hour has not completed, so
+        # the run must NOT downgrade the candidate to WAIT H1_INCOMPLETE.
+        p, prior = self.daily_run()
+        early = iso(dt.date(2026, 9, 2), 9, 0)
+        records1, _ = b.run_h1_phase(early, p, prior)
+        self.assertEqual(records1["AAA"]["status"], "CANDIDATE")
+        # Same record re-run at 10:45 (after the window) can still confirm.
+        records2, h1_asofs = b.run_h1_phase(
+            iso(dt.date(2026, 9, 2), 10, 45), p, records1)
+        self.assertEqual(records2["AAA"]["status"], "READY")
+        self.assertTrue(h1_asofs)
+
     def test_all_readies_respect_risk_caps(self):
         p, prior = self.daily_run()
         records, _ = b.run_h1_phase(self.now(), p, prior)
@@ -358,6 +383,96 @@ class TestMergeAndCommit(unittest.TestCase):
             self.assertEqual(saved["items"][0]["swing_3d"]["status"], "READY")
             self.assertEqual(saved["swing_3d"]["validation_report"]["valid"],
                              True)
+
+    def test_commit_uses_unique_tmp_name_per_write(self):
+        with tempfile.TemporaryDirectory() as td:
+            out = os.path.join(td, "data.json")
+            payload = self.payload()
+            payload["swing_3d"] = self.meta()
+            payload["items"][0]["swing_3d"] = full_record()
+            self.assertEqual(b.commit(payload, out), [])
+            leftovers1 = {f for f in os.listdir(td)
+                          if f.endswith(".tmp") and f != "data.json"}
+            self.assertEqual(b.commit(payload, out), [])
+            leftovers2 = {f for f in os.listdir(td)
+                          if f.endswith(".tmp") and f != "data.json"}
+            # concurrent runs must never share a fixed tmp name
+            self.assertEqual(leftovers1 & leftovers2, set())
+            with open(out) as f:
+                self.assertEqual(json.load(f)["items"][0]["swing_3d"]
+                                 ["status"], "READY")
+
+
+class TestH1RejectContract(unittest.TestCase):
+    """REJECT/WAIT records from the H1 phase are validator-clean (C-1)."""
+
+    def meta(self, phase="h1"):
+        return b.build_meta("PAPER", phase, iso(dt.date(2026, 9, 1)),
+                            iso(dt.date(2026, 9, 2), 9, 30),
+                            "2026-09-02T03:00:00+00:00")
+
+    def payload(self, rec):
+        return {"updated": "x", "items": [
+            {"ticker": "AAA", "swing_3d": rec}],
+            "swing_3d": self.meta()}
+
+    def assert_validator_clean(self, rec):
+        self.assertEqual(v.validate_payload(self.payload(rec)), [])
+
+    def daily_run(self, provider):
+        records, _ = b.run_daily_phase(iso(dt.date(2026, 9, 2), 10, 31),
+                                       ["AAA"], provider)
+        return records
+
+    def test_insufficient_h1_history_record_is_validator_clean(self):
+        # F-3: h1 history holds only the entry session's own 09:30 bar
+        # (no prior sessions) -> explicit REJECT, never a crash.
+        p = make_provider()
+        prior = self.daily_run(p)
+        self.assertEqual(prior["AAA"]["status"], "CANDIDATE")
+        solo = h1_bars(today=dt.date(2026, 9, 2), prior_sessions=0)
+        p2 = make_provider(h1=solo)
+        records, _ = b.run_h1_phase(self.now(), p2, prior)
+        rec = records["AAA"]
+        self.assertEqual(rec["status"], "REJECT")
+        self.assertIn("INSUFFICIENT_H1_HISTORY", rec["blockers"])
+        self.assertIs(rec["data_fresh"], False)
+        self.assert_validator_clean(rec)
+
+    def now(self):
+        return iso(dt.date(2026, 9, 2), 10, 45)
+
+    def test_wait_records_from_h1_are_validator_clean(self):
+        # C-1: a WAIT (BELOW_SESSION_VWAP from confirm_h1's gate on the
+        # entry session's completed bar) lands validator-clean.
+        p = make_provider()
+        prior = self.daily_run(p)
+        base = h1_bars(today=dt.date(2026, 9, 2), prior_sessions=6)
+        # last close below its own vwap -> BELOW_SESSION_VWAP WAIT
+        closes = list(base.closes)
+        closes[-1] = 100.2
+        lows = list(base.lows)
+        lows[-1] = 99.9
+        below = md.Bars(
+            opens=list(base.opens), highs=list(base.highs), lows=lows,
+            closes=closes, volumes=list(base.volumes),
+            asofs=list(base.asofs), interval="60m", source="fake")
+        p2 = make_provider(h1=below)
+        records, _ = b.run_h1_phase(self.now(), p2, prior)
+        rec = records["AAA"]
+        self.assertEqual(rec["status"], "WAIT")
+        self.assertIn("BELOW_SESSION_VWAP", rec["blockers"])
+        self.assert_validator_clean(rec)
+
+    def test_daily_reject_record_is_validator_clean(self):
+        # C-1: daily-phase REJECT records (stale SPY etc.) are
+        # validator-clean too.
+        p = make_provider(spy=spy_bars(end=dt.date(2026, 8, 27)))
+        records, _ = b.run_daily_phase(iso(dt.date(2026, 9, 2), 10, 31),
+                                       ["AAA"], p)
+        rec = records["AAA"]
+        self.assertEqual(rec["status"], "REJECT")
+        self.assertEqual(v.validate_payload(self.payload(rec)), [])
 
 
 class TestValidator(unittest.TestCase):

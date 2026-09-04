@@ -46,6 +46,7 @@ import json
 import math
 import os
 import sys
+import tempfile
 from datetime import date, datetime, timedelta, timezone
 
 import market_data as md
@@ -160,6 +161,12 @@ def eval_daily_record(ticker, bars, spy_bars, session, earnings_status):
         return _pad_contract(out)
     if arrays["asofs"] and str(arrays["asofs"][-1])[:10] != session.isoformat():
         out = s.reject("STALE_DAILY_DATA", "DAILY", arrays["asofs"][-1])
+        out["data_fresh"] = False
+        return _pad_contract(out)
+    # The SPY benchmark must be equally fresh: a stale SPY series truncates
+    # the alignment below and would price CANDIDATE off misaligned sessions.
+    if spy_arrays["asofs"] and str(spy_arrays["asofs"][-1])[:10] != session.isoformat():
+        out = s.reject("STALE_DAILY_DATA", "DAILY", spy_arrays["asofs"][-1])
         out["data_fresh"] = False
         return _pad_contract(out)
     closes = arrays["closes"]
@@ -283,10 +290,14 @@ def eval_h1_record(candidate, bars, session):
     # runner's per-session expected-volume profile. The entry session
     # itself is excluded so the bar under test never sets its own bar.
     prior_volumes = volumes[:-1] if len(volumes) > 1 else []
-    if prior_volumes:
-        expected_first_hour = sum(prior_volumes) / len(prior_volumes)
-    else:
-        expected_first_hour = None
+    if not prior_volumes:
+        # Only the entry session's own first-hour bar exists: no prior
+        # session profile to build an expected-volume baseline from.
+        # h1_features would raise on expected_first_hour=None, so reject
+        # fail-closed instead of crashing the phase.
+        out = s.reject("INSUFFICIENT_H1_HISTORY", "H1", cand_asof)
+        return _preserve(out, candidate)
+    expected_first_hour = sum(prior_volumes) / len(prior_volumes)
     features = s.h1_features(opens, highs, lows, closes, volumes, vwaps,
                              expected_first_hour, h1_asofs)
     daily_ctx = {
@@ -449,10 +460,10 @@ def run_h1_phase(now_iso, provider, prior):
         entry_open = datetime(session.year, session.month, session.day,
                               10, 31, tzinfo=md.ET)
         if now < entry_open:
-            # The first hour of the entry session has not completed yet.
-            out = s._wait("H1_INCOMPLETE", "H1", cand_asof)
-            _preserve_levels(out, old)
-            records[ticker] = _pad_contract(out)
+            # The first hour of the entry session has not completed yet;
+            # the candidate is simply not processable. Carry it over
+            # untouched so a later run can still confirm it to READY.
+            records[ticker] = old
             continue
         bars = provider.h1_bars(ticker)
         if bars is None:
@@ -518,11 +529,15 @@ def commit(payload, out_path):
     errors = v.validate_payload(payload)
     if errors:
         return errors
-    tmp = out_path + ".swing3d.tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+            "w", encoding="utf-8",
+            dir=os.path.dirname(out_path) or ".",
+            prefix=os.path.basename(out_path) + ".", suffix=".tmp",
+            delete=False) as f:
+        tmp_name = f.name
         json.dump(payload, f, indent=1, ensure_ascii=False)
         f.write("\n")
-    os.replace(tmp, out_path)
+    os.replace(tmp_name, out_path)
     return []
 
 
