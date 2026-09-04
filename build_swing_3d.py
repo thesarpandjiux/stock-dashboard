@@ -157,15 +157,15 @@ def eval_daily_record(ticker, bars, spy_bars, session, earnings_status):
     if arrays is None or spy_arrays is None:
         out = s.reject("DATA_FETCH_FAILED", "DAILY")
         out["asof"] = session_iso
-        return out
+        return _pad_contract(out)
     if arrays["asofs"] and str(arrays["asofs"][-1])[:10] != session.isoformat():
         out = s.reject("STALE_DAILY_DATA", "DAILY", arrays["asofs"][-1])
         out["data_fresh"] = False
-        return out
+        return _pad_contract(out)
     closes = arrays["closes"]
     if len(closes) < MIN_DAILY_BARS:
         out = s.reject("INSUFFICIENT_DAILY_BARS", "DAILY", session_iso)
-        return out
+        return _pad_contract(out)
     # Align the ticker's bars to the SPY benchmark's trading days so
     # relative-strength compares the same sessions.
     spy_dates = [str(a)[:10] for a in spy_arrays["asofs"]]
@@ -179,7 +179,7 @@ def eval_daily_record(ticker, bars, spy_bars, session, earnings_status):
             own.append(i)
     if len(own) < MIN_DAILY_BARS:
         out = s.reject("INSUFFICIENT_DAILY_BARS", "DAILY", session_iso)
-        return out
+        return _pad_contract(out)
     features = s.daily_features(
         [arrays["highs"][i] for i in own],
         [arrays["lows"][i] for i in own],
@@ -376,7 +376,7 @@ def run_daily_phase(now_iso, tickers, provider, prior=None, session=None):
                            "%sT15:50:00-04:00" % session.isoformat())
             _preserve_levels(rec, old)
             rec["data_fresh"] = False
-            records[ticker] = rec
+            records[ticker] = _pad_contract(rec)
             continue
         rec = eval_daily_record(ticker, bars, spy_bars, session, earnings)
         if rec["status"] == "CANDIDATE":
@@ -401,6 +401,20 @@ def _trigger_low(bars, session):
     return arrays["lows"][-1]
 
 
+def _pad_contract(rec):
+    """Guarantee the full decision-contract keys on any record.
+
+    Raw reject/_wait dicts from swing_3d carry only status/phase/blockers;
+    every record that lands in data.json must expose the complete contract
+    so validate_swing_data passes on REJECT/WAIT paths too.
+    """
+    for key in ("trigger", "reward_risk", "exit_deadline"):
+        rec.setdefault(key, None)
+    rec.setdefault("earnings_verified", False)
+    rec.setdefault("data_fresh", True)
+    return rec
+
+
 def run_h1_phase(now_iso, provider, prior):
     """Confirm the daily CANDIDATE records on their completed H1 bar.
 
@@ -423,14 +437,14 @@ def run_h1_phase(now_iso, provider, prior):
         except (TypeError, ValueError):
             cand_day = None
         if cand_day is None:
-            records[ticker] = _stale(old, cand_asof)
+            records[ticker] = _pad_contract(_stale(old, cand_asof))
             continue
         session = next_session_date(cand_day)
         if now.date() > session:
             # The candidate's confirmation session (the first trading day
             # after its signal) is already behind us: the entry window
             # passed unconfirmed, so the candidate is stale.
-            records[ticker] = _stale(old, cand_asof)
+            records[ticker] = _pad_contract(_stale(old, cand_asof))
             continue
         entry_open = datetime(session.year, session.month, session.day,
                               10, 31, tzinfo=md.ET)
@@ -438,17 +452,17 @@ def run_h1_phase(now_iso, provider, prior):
             # The first hour of the entry session has not completed yet.
             out = s._wait("H1_INCOMPLETE", "H1", cand_asof)
             _preserve_levels(out, old)
-            records[ticker] = out
+            records[ticker] = _pad_contract(out)
             continue
         bars = provider.h1_bars(ticker)
         if bars is None:
             rec = s.reject("DATA_FETCH_FAILED", "H1", cand_asof)
             _preserve_levels(rec, old)
             rec["data_fresh"] = False
-            records[ticker] = rec
+            records[ticker] = _pad_contract(rec)
             continue
         rec = eval_h1_record(old, bars, session)
-        records[ticker] = rec
+        records[ticker] = _pad_contract(rec)
         if rec.get("asof"):
             h1_asofs[ticker] = rec["asof"]
     return records, h1_asofs
