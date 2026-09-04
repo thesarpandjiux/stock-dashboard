@@ -5,12 +5,13 @@ name: Cari emiten baru (5 hari)
 # disentuh — hanya slot auto yang dirotasi. Sesudah itu seluruh angka dihitung
 # ulang sekalian.
 #
-# Refresh harga sehari-hari ditangani workflow "Refresh harga harian".
+# Refresh harga sehari-hari ditangani workflow "Swing 3D — refresh harian
+# (phase daily)" (swing-3d-daily.yml) — konsolidasi dari daily.yml.
 #
 # Cron GitHub memakai UTC. `*/5` pada kolom tanggal = tanggal 1, 6, 11, 16,
 # 21, 26, 31 — jaraknya 5 hari, kecuali di pergantian bulan. 23:00 UTC =
-# 06:00 WIB, sengaja satu jam setelah job harian supaya keduanya tidak
-# berebut menulis di menit yang sama.
+# 06:00 WIB, sengaja satu jam setelah job harian (22:15 UTC) supaya keduanya
+# tidak berebut menulis di menit yang sama.
 on:
   schedule:
     - cron: "0 23 */5 * *"

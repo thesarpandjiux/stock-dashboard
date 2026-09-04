@@ -20,9 +20,11 @@ Kandidat yang lolos harus:
 Emiten pinned TIDAK PERNAH disentuh screener. Yang dirotasi hanya slot auto.
 """
 
+import json
+import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 import swing
 import market_data as md
@@ -31,6 +33,12 @@ import watchlist as wl
 MIN_SCORE = 60
 DEEP_DIVE = 15          # berapa kandidat teratas yang diambil fundamentalnya
 CHUNK = 40              # ticker per request batch
+ROTATION_STATE_FILE = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "rotation_state.json")
+ROTATION_SESSIONS = 5   # lima tanggal bursa BERBEDA, bukan kalender */5
+# File yang boleh ditulis mesin rotasi: watchlist_auto.json (output screener)
+# dan rotation_state.json. watchlist_core.txt (pinned) TIDAK PERNAH di sini.
+ROTATION_WRITES = ("watchlist_auto.json", "rotation_state.json")
 
 # Universe: saham & ETF US paling likuid lintas sektor.
 # Sengaja statis supaya screener tidak bergantung pada satu sumber daftar
@@ -60,6 +68,156 @@ UNIVERSE = [
     # ETF sebagai pembanding regime
     "SPY", "QQQ", "VOO", "IWM", "XLK", "XLF", "XLE", "XLV", "SMH", "IBIT",
 ]
+
+
+def _session_dates_of(bars):
+    """Tanggal bursa (hari kalender, UTC) dari bar harian terbaru.
+
+    Kembalikan list `date` naik; sesi diambil dari timestamp bar yang
+    SUDAH TERJADI di data pasar (exchange-verified), bukan disimpulkan
+    dari kalender. Bar intraday/hari ini dibuang: hanya sesi lengkap.
+    Tidak ada data -> [] (fail closed: rotasi dilewati).
+    """
+    if not bars or not bars.asofs:
+        return []
+    out = []
+    seen = set()
+    for stamp in bars.asofs:
+        try:
+            parsed = datetime.fromisoformat(str(stamp))
+        except ValueError:
+            continue
+        day = parsed.date()
+        if day.weekday() >= 5:
+            continue
+        if day not in seen:
+            seen.add(day)
+            out.append(day)
+    return out
+
+
+def _only_completed(dates):
+    """Sesi lengkap saja: 09:30-15:50 ET = hari ini belum tutup -> buang."""
+    if not dates:
+        return []
+    out = []
+    for d in dates:
+        if d.weekday() >= 5:
+            continue
+        out.append(d)
+    # bar terakhir jam 09:30 ET = sesi hari ini yang belum selesai
+    return out[:-1] if out and len(out) > 1 else out
+
+
+def _new_sessions(anchor, observed):
+    """Sesi unik naik yang terjadi SETELAH anchor (anchor tidak dihitung)."""
+    if not observed:
+        return []
+    uniq = []
+    seen = set()
+    for d in sorted(observed):
+        if d.weekday() >= 5 or d in seen:
+            continue
+        seen.add(d)
+        if anchor is None or d > anchor:
+            uniq.append(d)
+    return uniq
+
+
+def new_sessions(anchor, observed):
+    """Public helper: sesi bursa baru sejak rotasi terakhir (test-friendly)."""
+    return _new_sessions(anchor, observed)
+
+
+def rotation_due(anchor, observed, min_gap=ROTATION_SESSIONS):
+    """True bila >= min_gap sesi bursa BERBEDA telah lewat sejak anchor.
+
+    Fail closed: observed None/kosong (kalender pasar tak bisa diverifikasi)
+    -> False. Hari libur tidak pernah diasumsikan: sesi datang dari daftar
+    tanggal yang diamati, anchor selalu sesi lengkap.
+    """
+    if not observed:
+        return False
+    return len(_new_sessions(anchor, observed)) >= min_gap
+
+
+def due_on(anchor, observed, min_gap=ROTATION_SESSIONS):
+    """Sesi ke-min_gap sejak anchor (tanggal rotasi berikutnya), atau None."""
+    if not observed:
+        return None
+    new = _new_sessions(anchor, observed)
+    if len(new) < min_gap:
+        return None
+    return new[min_gap - 1]
+
+
+def auto_candidates(candidates, pinned):
+    """Kandidat auto bersih: pinned TIDAK PERNAH masuk slot auto."""
+    pinned = set(pinned or ())
+    return [c for c in (candidates or []) if c.get("ticker") not in pinned]
+
+
+class RotationState:
+    """rotation_state.json: anchor (rotasi terakhir) + sesi sejak anchor.
+
+    Sesi = tanggal bursa lengkap yang sudah diamati (exchange-verified).
+    File korup/absent -> state kosong (anchor None); rotasi berikutnya
+    butuh data sesi nyata, jadi aman fail-closed.
+    """
+
+    def __init__(self, path=ROTATION_STATE_FILE):
+        self.path = path
+        self.last_rotation = None
+        self.sessions = []
+        self._load()
+
+    # Task 9 review: test API memakai `anchor`; implementasi menyimpan
+    # `last_rotation`. Alias ini menyatukan keduanya.
+    @property
+    def anchor(self):
+        return self.last_rotation
+
+    @anchor.setter
+    def anchor(self, value):
+        self.last_rotation = value
+
+
+    def _load(self):
+        try:
+            with open(self.path, encoding="utf-8") as f:
+                raw = json.load(f)
+        except (OSError, ValueError):
+            return
+        if not isinstance(raw, dict):
+            return
+        try:
+            self.last_rotation = (date.fromisoformat(raw["last_rotation"])
+                                  if raw.get("last_rotation") else None)
+        except (TypeError, ValueError):
+            self.last_rotation = None
+        self.sessions = []
+        for s in raw.get("sessions") or []:
+            try:
+                d = date.fromisoformat(str(s))
+            except ValueError:
+                continue
+            if d.weekday() < 5:
+                self.sessions.append(d)
+        self.sessions = sorted(set(self.sessions))
+
+    def save(self):
+        payload = {
+            "last_rotation": (self.last_rotation.isoformat()
+                              if self.last_rotation else None),
+            "sessions": [d.isoformat() for d in self.sessions],
+        }
+        with open(self.path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=1)
+            f.write("\n")
+
+    def reset(self, rotated_on):
+        self.last_rotation = rotated_on
+        self.sessions = []
 
 
 def _batch_history(tickers):
@@ -108,6 +266,33 @@ def _batch_history(tickers):
                 continue
         time.sleep(1.5)
     return out
+
+
+def rotate_if_due(observed_sessions, pinned, state=None, now=None,
+                  max_slots=None):
+    """Jalankan rotasi hanya setelah 5 sesi bursa BERBEDA sejak rotasi lalu.
+
+    observed_sessions: tanggal bursa lengkap dari data pasar (naik, unik).
+    pinned: ticker inti — TIDAK PERNAH disentuh. Fail closed: kalender tak
+    bisa diverifikasi (tidak ada sesi yang diamati) -> dilewati, tidak ada
+    yang ditulis. Return (ok, pesan).
+    """
+    state = state or RotationState()
+    if not observed_sessions:
+        return False, "SKIP kalender pasar tak bisa diverifikasi " \
+                      "(tidak ada sesi lengkap yang diamati)."
+    if not rotation_due(state.last_rotation, observed_sessions):
+        return False, "SKIP belum 5 sesi bursa sejak rotasi terakhir " \
+                      "(%s)." % (state.last_rotation or "belum pernah")
+    due = due_on(state.last_rotation, observed_sessions)
+    if due is None:  # tidak mungkin setelah rotation_due True, jaga-jaga
+        return False, "SKIP sesi rotasi tidak bisa ditentukan."
+    pinned = pinned or wl.read_pinned()
+    chosen = auto_candidates(run(max_slots=max_slots), pinned)
+    state.reset(due)
+    state.save()
+    return True, "ROTASI selesai pada sesi bursa %s — %d kandidat auto " \
+                 "baru (pinned utuh)." % (due.isoformat(), len(chosen))
 
 
 def run(max_slots=None) -> list:
@@ -179,5 +364,19 @@ def run(max_slots=None) -> list:
     return chosen
 
 
+def main(argv=None):
+    """CLI: `python screener.py [--rotation]` (--rotation tambahan untuk task 9)."""
+    args = list(argv) if argv is not None else sys.argv[1:]
+    if "--rotation" not in args:
+        run()
+        return 0
+    # Rotasi berbasis state: sesi bursa diamati dari data harian SPY yang
+    # sudah lengkap; kalender tidak bisa diverifikasi -> fail closed.
+    bars = md.get_daily_bars("SPY")
+    _, msg = rotate_if_due(_only_completed(_session_dates_of(bars)),
+                           wl.read_pinned())
+    print(msg)
+    return 0  # skip bukan error: workflow sukses tanpa rotasi
+
 if __name__ == "__main__":
-    run()
+    sys.exit(main())

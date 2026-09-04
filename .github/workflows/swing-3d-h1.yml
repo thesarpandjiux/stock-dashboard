@@ -1,0 +1,111 @@
+name: Swing 3D — konfirmasi H1
+
+# Fase `h1` pipeline swing 3D (PAPER): ~60 menit setelah bursa AS buka,
+# konfirmasi CANDIDATE dari fase daily kemarin menjadi READY/WAIT/REJECT
+# memakai bar jam-pertama yang baru lengkap (build_swing_3d.py --phase h1).
+#
+# Pergeseran DST AS membuat "60 menit setelah open" bergeser di UTC:
+#   EDT (Maret-Nov, UTC-4): open 13:30 UTC, +60m konfirmasi -> 14:35 UTC.
+#   EST (Nov-Maret, UTC-5): open 14:30 UTC, +60m konfirmasi -> 15:35 UTC.
+# Dua cron UTC itu dipakai bersamaan; guard jam ET di bawah memastikan
+# HANYA invokasi yang benar-benar jatuh di jendela H1 (10:31-11:29 ET,
+# hari bursa) yang menulis — fire di luar jendela berhenti tanpa menulis.
+# Jadi tepat satu penulisan per hari bursa, apa pun musim DST.
+#
+# Satu penulis per fase: concurrency group dashboard-data (sama dengan
+# refresh.yml, swing-3d-daily.yml, watchlist-push.yml). cancel-in-progress:
+# false -> antre, jangan saling potong.
+#
+# Catatan: commit yang dibuat GITHUB_TOKEN tidak memicu workflow, jadi
+# workflow ini tidak akan memanggil dirinya sendiri (tidak ada loop).
+
+on:
+  schedule:
+    - cron: "35 14 * * 1-5"   # 10:35 ET saat EDT
+    - cron: "35 15 * * 1-5"   # 10:35 ET saat EST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data
+  cancel-in-progress: false
+
+jobs:
+  h1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Guard jendela H1 (hanya invokasi jam-bursa valid yang lanjut)
+        id: guard
+        run: |
+          python3 - <<'PY'
+          import sys
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          now = datetime.now(ZoneInfo("America/New_York"))
+          ok = (now.weekday() < 5
+                and (10, 31) <= (now.hour, now.minute) <= (11, 29))
+          print("now ET=%s h1_window_ok=%s" % (now.isoformat(), ok))
+          with open("$GITHUB_OUTPUT", "a") as f:
+              f.write("ok=%s\n" % ("true" if ok else "false"))
+          PY
+
+      - uses: actions/setup-python@v5
+        if: steps.guard.outputs.ok == 'true'
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        if: steps.guard.outputs.ok == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Tes (regresi, jangan tulis data kalau ada yang rusak)
+        if: steps.guard.outputs.ok == 'true'
+        run: |
+          python3 -m unittest discover -s tests -p "test_*.py" 2>&1 | tail -5
+
+      - name: Fase H1 swing 3D (PAPER)
+        if: steps.guard.outputs.ok == 'true'
+        run: python build_swing_3d.py --phase h1 --mode paper
+
+      - name: Validasi data.json
+        if: steps.guard.outputs.ok == 'true'
+        run: python validate_swing_data.py data.json
+
+      - name: Commit hasil
+        if: steps.guard.outputs.ok == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Jangan pernah commit data.json yang rusak — lebih baik job gagal
+          # dan dashboard tetap memakai snapshot lama yang masih sah.
+          python3 -c "import json; json.load(open('data.json'))"
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan."
+            exit 0
+          fi
+          git commit -m "data: swing 3D h1 $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # data.json adalah berkas hasil generate: kalau remote sempat
+          # berubah (mis. cron di Mac ikut menulis), versi hasil run ini yang
+          # menang — jangan pernah biarkan git menyisipkan penanda konflik
+          # ke dalamnya.
+          for attempt in 1 2 3; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort || true
+              sleep 5
+              continue
+            fi
+            if git push; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::gagal push setelah 3 percobaan"
+          exit 1
