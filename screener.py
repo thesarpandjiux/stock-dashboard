@@ -96,17 +96,28 @@ def _session_dates_of(bars):
     return out
 
 
-def _only_completed(dates):
-    """Sesi lengkap saja: 09:30-15:50 ET = hari ini belum tutup -> buang."""
+def _only_completed(dates, now=None):
+    """Sesi lengkap saja; sesi HARI INI dibuang hanya bila bursa belum tutup.
+
+    Caller CI jalan 23:00 UTC (18:00-19:00 ET), yaitu setelah close 15:50 ET,
+    jadi bar harian hari ini SUDAH sesi lengkap dan harus ikut dihitung —
+    membuangnya tanpa syarat memperlambat kadens jadi 6 sesi (C-1). Bar
+    intraday (dipanggil saat bursa masih buka) tetap dibuang.
+    """
     if not dates:
         return []
-    out = []
-    for d in dates:
-        if d.weekday() >= 5:
-            continue
-        out.append(d)
-    # bar terakhir jam 09:30 ET = sesi hari ini yang belum selesai
-    return out[:-1] if out and len(out) > 1 else out
+    out = [d for d in dates if d.weekday() < 5]
+    if not out:
+        return []
+    now = now or md._now_et()
+    try:
+        today = now.astimezone(md.ET)
+    except (AttributeError, ValueError, OverflowError):
+        return out[:-1] if len(out) > 1 else out    # fail closed
+    if (out[-1] == today.date()
+            and (today.hour, today.minute) < md.SESSION_CLOSE):
+        return out[:-1] if len(out) > 1 else out
+    return out
 
 
 def _new_sessions(anchor, observed):
@@ -160,7 +171,8 @@ def auto_candidates(candidates, pinned):
 class RotationState:
     """rotation_state.json: anchor (rotasi terakhir) + sesi sejak anchor.
 
-    Sesi = tanggal bursa lengkap yang sudah diamati (exchange-verified).
+    `sessions` = lima tanggal bursa (exchange-verified) yang memicu rotasi
+    terakhir; jejak audit anchor, diisi ulang tiap rotasi.
     File korup/absent -> state kosong (anchor None); rotasi berikutnya
     butuh data sesi nyata, jadi aman fail-closed.
     """
@@ -268,8 +280,7 @@ def _batch_history(tickers):
     return out
 
 
-def rotate_if_due(observed_sessions, pinned, state=None, now=None,
-                  max_slots=None):
+def rotate_if_due(observed_sessions, pinned, state=None, max_slots=None):
     """Jalankan rotasi hanya setelah 5 sesi bursa BERBEDA sejak rotasi lalu.
 
     observed_sessions: tanggal bursa lengkap dari data pasar (naik, unik).
@@ -281,15 +292,29 @@ def rotate_if_due(observed_sessions, pinned, state=None, now=None,
     if not observed_sessions:
         return False, "SKIP kalender pasar tak bisa diverifikasi " \
                       "(tidak ada sesi lengkap yang diamati)."
+    if state.last_rotation is None:
+        # Fire pertama (state kosong): tanpa anchor SELURUH riwayat ~1 tahun
+        # akan terhitung sebagai sesi baru dan gerbang terbuka bertahun-tahun
+        # (F-2). Tetapkan anchor ke sesi terakhir yang diamati, jangan rotasi.
+        anchor = max(observed_sessions)
+        state.reset(anchor)
+        state.save()
+        return False, "SKIP bootstrap: anchor ditetapkan ke sesi terakhir " \
+                      "(%s); rotasi pertama setelah 5 sesi berikutnya." % (
+                          anchor.isoformat())
     if not rotation_due(state.last_rotation, observed_sessions):
         return False, "SKIP belum 5 sesi bursa sejak rotasi terakhir " \
                       "(%s)." % (state.last_rotation or "belum pernah")
+    window = _new_sessions(state.last_rotation, observed_sessions)
     due = due_on(state.last_rotation, observed_sessions)
     if due is None:  # tidak mungkin setelah rotation_due True, jaga-jaga
         return False, "SKIP sesi rotasi tidak bisa ditentukan."
     pinned = pinned or wl.read_pinned()
     chosen = auto_candidates(run(max_slots=max_slots), pinned)
     state.reset(due)
+    # C-3: `sessions` = lima tanggal bursa yang memicu rotasi ini (jejak audit
+    # anchor); tanpa ini field selalu [] dan tak punya arti.
+    state.sessions = window[:ROTATION_SESSIONS]
     state.save()
     return True, "ROTASI selesai pada sesi bursa %s — %d kandidat auto " \
                  "baru (pinned utuh)." % (due.isoformat(), len(chosen))

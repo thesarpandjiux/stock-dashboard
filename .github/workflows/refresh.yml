@@ -12,6 +12,11 @@ name: Cari emiten baru (5 hari)
 # 21, 26, 31 — jaraknya 5 hari, kecuali di pergantian bulan. 23:00 UTC =
 # 06:00 WIB, sengaja satu jam setelah job harian (22:15 UTC) supaya keduanya
 # tidak berebut menulis di menit yang sama.
+#
+# Cron kalender di sini HANYA pemicu. Yang menentukan rotasi benar-benar
+# jalan adalah gerbang 5 sesi bursa BERBEDA di `screener.py --rotation`
+# (state: rotation_state.json). Kalender pasar tak bisa diverifikasi ->
+# fail closed: dilewati, tidak ada yang ditulis (skip bukan error).
 on:
   schedule:
     - cron: "0 23 */5 * *"
@@ -40,7 +45,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Cari kandidat swing baru
-        run: python screener.py
+        run: python screener.py --rotation
         continue-on-error: true
 
       - name: Bangun ulang data.json
@@ -53,7 +58,9 @@ jobs:
           # Jangan pernah commit data.json yang rusak — lebih baik job gagal
           # dan dashboard tetap memakai snapshot lama yang masih sah.
           python3 -c "import json; json.load(open('data.json'))"
-          git add data.json watchlist_auto.json watchlist_core.txt watchlist_exclude.txt
+          # rotation_state.json wajib ikut: anchor rotasi harus bertahan
+          # antar-run, kalau tidak gerbang 5 sesi ter-bootstrap ulang terus.
+          git add data.json watchlist_auto.json watchlist_core.txt watchlist_exclude.txt rotation_state.json
           if git diff --staged --quiet; then
             echo "Tidak ada perubahan."
             exit 0

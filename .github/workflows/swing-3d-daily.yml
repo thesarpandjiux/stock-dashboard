@@ -5,8 +5,8 @@ name: Swing 3D — refresh harian (phase daily)
 # pipeline swing 3D (PAPER) — build_swing_3d.py menyegarkan SPY + seluruh
 # watchlist sekali, mengganti data.json. Dijalankan SETELAH bursa AS tutup.
 #
-# Cron GitHub memakai UTC. 22:15 UTC = 17:15 ET saat EDT (musim panas) dan
-# 16:15 ET saat EST — keduanya setelah tutup 16:00 ET, jadi satu cron UTC
+# Cron GitHub memakai UTC. 22:15 UTC = 18:15 ET saat EDT (musim panas) dan
+# 17:15 ET saat EST — keduanya setelah tutup 16:00 ET, jadi satu cron UTC
 # cukup untuk fase daily. Senin-Jumat mencakup seluruh hari bursa AS; akhir
 # pekan dilewati karena harganya tidak berubah. 22:15 sengaja 15 menit
 # setelah legacy 22:00 dan sebelum rotasi 5-harian 23:00 (refresh.yml),
@@ -48,6 +48,9 @@ jobs:
 
       - name: Tes (regresi, jangan tulis data kalau ada yang rusak)
         run: |
+          # pipefail: tanpa ini exit code pipeline = tail (0), suite merah
+          # lolos ke fase tulis + commit.
+          set -o pipefail
           python3 -m unittest discover -s tests -p "test_*.py" 2>&1 | tail -5
 
       - name: Fase daily swing 3D (PAPER)

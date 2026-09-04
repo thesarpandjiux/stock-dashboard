@@ -43,7 +43,6 @@ jobs:
         id: guard
         run: |
           python3 - <<'PY'
-          import sys
           from datetime import datetime
           from zoneinfo import ZoneInfo
           now = datetime.now(ZoneInfo("America/New_York"))
@@ -67,6 +66,9 @@ jobs:
       - name: Tes (regresi, jangan tulis data kalau ada yang rusak)
         if: steps.guard.outputs.ok == 'true'
         run: |
+          # pipefail: tanpa ini exit code pipeline = tail (0), suite merah
+          # lolos ke fase tulis + commit.
+          set -o pipefail
           python3 -m unittest discover -s tests -p "test_*.py" 2>&1 | tail -5
 
       - name: Fase H1 swing 3D (PAPER)
