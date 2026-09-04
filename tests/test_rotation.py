@@ -12,7 +12,10 @@ import datetime as dt
 import json
 import os
 import re
+import subprocess
+import sys
 import tempfile
+import textwrap
 import unittest
 
 import market_data as md
@@ -38,6 +41,13 @@ def _workflow(name):
     path = os.path.join(REPO, ".github", "workflows", name)
     with open(path, encoding="utf-8") as f:
         return f.read()
+
+
+def _h1_guard_source():
+    """Runnable python from the `python3 - <<'PY' ... PY` guard heredoc."""
+    body = re.search(r"<<'PY'\n(.*?)\n\s*PY\n", _workflow("swing-3d-h1.yml"),
+                     re.S).group(1)
+    return textwrap.dedent(body)
 
 
 class TestFiveSessionGate(unittest.TestCase):
@@ -214,6 +224,28 @@ class TestWorkflowWiring(unittest.TestCase):
 
     def test_h1_guard_has_no_dead_import(self):
         self.assertNotIn("import sys", _workflow("swing-3d-h1.yml"))
+
+    def test_h1_guard_writes_real_github_output(self):
+        # Heredoc is quoted ('PY'), so "$GITHUB_OUTPUT" stays literal: the
+        # guard would write a file named `$GITHUB_OUTPUT`, leaving
+        # steps.guard.outputs.ok unset and every later step skipped forever.
+        guard = _h1_guard_source()
+        self.assertNotIn('open("$GITHUB_OUTPUT"', guard)
+        self.assertIn('os.environ["GITHUB_OUTPUT"]', guard)
+
+    def test_h1_guard_writes_ok_flag_to_github_output(self):
+        guard = _h1_guard_source()
+        with tempfile.TemporaryDirectory() as td:
+            out = os.path.join(td, "gh_output")
+            open(out, "w").close()
+            env = dict(os.environ, GITHUB_OUTPUT=out, TZ="America/New_York")
+            proc = subprocess.run([sys.executable, "-c", guard], env=env,
+                                  capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            with open(out) as f:
+                written = f.read()
+        self.assertRegex(written, r"^ok=(true|false)\n$")
+        self.assertFalse(os.path.exists("$GITHUB_OUTPUT"))
 
     def test_rotate_if_due_has_no_dead_now_param(self):
         import inspect

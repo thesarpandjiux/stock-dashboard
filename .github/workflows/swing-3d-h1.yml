@@ -43,13 +43,17 @@ jobs:
         id: guard
         run: |
           python3 - <<'PY'
+          import os
           from datetime import datetime
           from zoneinfo import ZoneInfo
           now = datetime.now(ZoneInfo("America/New_York"))
           ok = (now.weekday() < 5
                 and (10, 31) <= (now.hour, now.minute) <= (11, 29))
           print("now ET=%s h1_window_ok=%s" % (now.isoformat(), ok))
-          with open("$GITHUB_OUTPUT", "a") as f:
+          # Heredoc dikutip ('PY') -> shell TIDAK mengganti $GITHUB_OUTPUT;
+          # baca dari environment, kalau tidak output guard tidak pernah
+          # terpasang dan SEMUA step berikutnya ikut mati.
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write("ok=%s\n" % ("true" if ok else "false"))
           PY
 
