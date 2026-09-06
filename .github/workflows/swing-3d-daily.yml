@@ -1,0 +1,92 @@
+name: Swing 3D — refresh harian (phase daily)
+
+# Konsolidasi legacy "Refresh harga harian" (daily.yml): alih-alih
+# build_dashboard.py, refresh harian sekarang menjalankan fase `daily`
+# pipeline swing 3D (PAPER) — build_swing_3d.py menyegarkan SPY + seluruh
+# watchlist sekali, mengganti data.json. Dijalankan SETELAH bursa AS tutup.
+#
+# Cron GitHub memakai UTC. 22:15 UTC = 18:15 ET saat EDT (musim panas) dan
+# 17:15 ET saat EST — keduanya setelah tutup 16:00 ET, jadi satu cron UTC
+# cukup untuk fase daily. Senin-Jumat mencakup seluruh hari bursa AS; akhir
+# pekan dilewati karena harganya tidak berubah. 22:15 sengaja 15 menit
+# setelah legacy 22:00 dan sebelum rotasi 5-harian 23:00 (refresh.yml),
+# supaya penulis data.json tidak berebut di menit yang sama.
+#
+# Rotation screener (5 hari bursa) tetap tinggal di refresh.yml — workflow
+# ini tidak memindai emiten baru.
+#
+# Satu penulis per fase: concurrency group dashboard-data dipakai SEMUA
+# workflow penulis data (refresh.yml, swing-3d-h1.yml, watchlist-push.yml).
+# cancel-in-progress: false -> antre, jangan saling potong.
+
+on:
+  schedule:
+    - cron: "15 22 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-data
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Tes (regresi, jangan tulis data kalau ada yang rusak)
+        run: |
+          # pipefail: tanpa ini exit code pipeline = tail (0), suite merah
+          # lolos ke fase tulis + commit.
+          set -o pipefail
+          python3 -m unittest discover -s tests -p "test_*.py" 2>&1 | tail -5
+
+      - name: Fase daily swing 3D (PAPER)
+        run: python build_swing_3d.py --phase daily --mode paper
+
+      - name: Validasi data.json
+        run: python validate_swing_data.py data.json
+
+      - name: Commit hasil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Jangan pernah commit data.json yang rusak — lebih baik job gagal
+          # dan dashboard tetap memakai snapshot lama yang masih sah.
+          python3 -c "import json; json.load(open('data.json'))"
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan."
+            exit 0
+          fi
+          git commit -m "data: swing 3D daily $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # data.json adalah berkas hasil generate: kalau remote sempat
+          # berubah (mis. cron di Mac ikut menulis), versi hasil run ini yang
+          # menang — jangan pernah biarkan git menyisipkan penanda konflik
+          # ke dalamnya.
+          for attempt in 1 2 3; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort || true
+              sleep 5
+              continue
+            fi
+            if git push; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::gagal push setelah 3 percobaan"
+          exit 1

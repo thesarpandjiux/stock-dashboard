@@ -78,7 +78,7 @@
 <body>
   <header class="top"><div class="wrap top-inner"><div class="brand"><span class="mark">↗</span><div><div class="eyebrow">US market / swing cockpit</div><h1>Make the call visible.</h1></div></div><div class="top-actions"><div class="status"><span class="status-dot"></span><span id="marketStatus">Snapshot ready</span><span>·</span><span id="updatedAt">Loading data…</span></div></div></div></header>
   <main class="wrap">
-    <div class="toolbar"><label class="search" for="search"><span>⌕</span><span class="sr">Search ticker</span><input id="search" type="search" placeholder="Search ticker or company…" autocomplete="off"></label><div class="swing-mode"><span class="mode-dot"></span><b>Swing lens</b><span>teknikal 65% · fundamental 35% · horizon 1–4 minggu</span></div></div><p class="snapshot-note" id="snapshotNote"><b>Daily snapshot.</b> Sinyal menggunakan data pasar terakhir yang sudah dipublikasikan.</p><div class="pending" id="pending" hidden></div>
+    <div class="toolbar"><label class="search" for="search"><span>⌕</span><span class="sr">Search ticker</span><input id="search" type="search" placeholder="Search ticker or company…" autocomplete="off"></label><div class="swing-mode"><span class="mode-dot"></span><b>Swing lens</b><span id="lensMeta">teknikal 65% · fundamental 35% · horizon 1–4 minggu</span></div></div><p class="snapshot-note" id="snapshotNote"><b>Daily snapshot.</b> Sinyal menggunakan data pasar terakhir yang sudah dipublikasikan.</p><div class="pending" id="pending" hidden></div>
     <div class="freshness" aria-live="polite"><span>Data last updated: <b id="dataUpdated">—</b></span></div>
     <section class="panel signals focus-wrap"><div class="section-head"><h3>Focus list</h3><span id="focusMeta">up to 5 setups · max 2 semiconductors</span></div><div class="focus-grid" id="focusList"></div></section>
     <section class="hero-grid" aria-live="polite"><article class="panel decision" id="decision"></article><article class="panel chart" id="chart"></article></section>
@@ -134,86 +134,131 @@
   </main>
   <script>
     (function(){
-      var state={raw:[],all:[],items:[],benchmarks:[],focus:[],selected:null,names:{},meta:{},snapshot:null};
-      var decision=document.getElementById('decision'),chart=document.getElementById('chart'),signals=document.getElementById('signals'),why=document.getElementById('why'),fixedWatchlist=document.getElementById('fixedWatchlist'),focusList=document.getElementById('focusList'),benchmarks=document.getElementById('benchmarks'),empty=document.getElementById('empty'),search=document.getElementById('search'),dataUpdated=document.getElementById('dataUpdated');
-      var swingWeights={trend:.4,quality:.1,valuation:.05,relative:.25,risk:.2};
+      var state={raw:[],benchmarks:[],focus:[],items:[],selected:null,names:{},meta:{},snapshot:null,mode:'PAPER'};
+      var decision=document.getElementById('decision'),chart=document.getElementById('chart'),signals=document.getElementById('signals'),why=document.getElementById('why'),fixedWatchlist=document.getElementById('fixedWatchlist'),focusList=document.getElementById('focusList'),benchmarks=document.getElementById('benchmarks'),empty=document.getElementById('empty'),search=document.getElementById('search'),dataUpdated=document.getElementById('dataUpdated'),lensMeta=document.getElementById('lensMeta'),snapshotNote=document.getElementById('snapshotNote');
       var semiconductorTickers=['NVDA','AVGO','AMD','MU'];
       var money=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2});
       var pct=function(v){return (v>=0?'+':'')+Number(v).toFixed(1)+'%'};
-      var clamp=function(v,min,max){return Math.max(min,Math.min(max,v))};
-      function label(t){return t==='BUY'?'BUY':t==='AVOID'?'AVOID':'WAIT'}
+      function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
       function companyName(t){if(state.names&&state.names[t])return state.names[t];return ({NVDA:'NVIDIA',AVGO:'Broadcom',AMD:'AMD',MU:'Micron',AMZN:'Amazon',GOOGL:'Alphabet',MELI:'MercadoLibre',LLY:'Eli Lilly',VOO:'Vanguard S&P 500 ETF',QQQ:'Invesco QQQ'})[t]||t}
       function earningsLabel(x){return (x.earnings_in_days!=null)?('EARNINGS '+x.earnings_in_days+'D'):'CHECK EARNINGS'}
-      function fromServer(x){
-        var s=x.swing,p=s.parts||{},pick=function(k,f){return typeof p[k]==='number'?p[k]:f};
-        var entry=Number(s.entry||x.price||0),target=Number(s.target||0),riskLine=Number(s.stop||0),rr=Number(s.rr||0);
-        var reasons=(s.reasons&&s.reasons.length?s.reasons:['Tidak ada faktor pendukung yang menonjol.']).slice(0,3);
-        var invalidation=(s.risks&&s.risks.length)?s.risks[0]:('Penutupan di bawah '+money.format(riskLine)+' membatalkan setup ini.');
-        return {item:x,server:true,score:s.score,verdict:s.verdict,hardRisk:!!(s.blockers&&s.blockers.length),
-          confidence:Math.round(clamp(50+Math.abs(s.score-50)*.8+(s.verdict==='BUY'?8:0),52,91)),
-          trend:pick('trend',50),quality:Math.round((pick('quality',50)+pick('growth',50))/2),
-          valuation:pick('valuation',50),relative:pick('momentum',50),
-          risk:Math.round((pick('volatility',50)+pick('liquidity',50))/2),
-          entry:entry,target:target,riskLine:riskLine,rr:rr,reasons:reasons,invalidation:invalidation,
-          headline:s.headline||'',checks:s.checks||[],risks:s.risks||[],
-          techScore:s.tech_score,fundScore:s.fund_score};
+      /* =====================================================================
+         RENDER-ONLY CORE — Python adalah satu-satunya mesin keputusan.
+         Browser tidak menghitung skor/verdict; ia hanya memetakan status dari
+         data.json (swing_3d bila ada, swing legacy bila tidak) ke tampilan.
+         ===================================================================== */
+      function planOf(x){
+        var s3=x&&x.swing_3d,sw=x&&x.swing;
+        if(s3&&s3.status){
+          var st=s3.status==='READY'?'READY':s3.status==='REJECT'?'REJECT':'WAIT';
+          return {x3:true,status:st,verdict:st==='READY'?'BUY':st==='REJECT'?'AVOID':'WAIT',
+            score:null,rr:s3.reward_risk,entry:s3.entry,target:s3.target,riskLine:s3.stop,
+            shares:s3.shares,pos:s3.position_value,riskD:s3.risk_dollars,riskPct:s3.risk_pct_account,
+            deadline:s3.exit_deadline,earn:s3.earnings_verified,fresh:s3.data_fresh,phase:s3.phase,asof:s3.asof,
+            reasons:(s3.reasons||[]).slice(0,3),risks:(s3.blockers||[]).slice(1),
+            invalidation:(s3.blockers&&s3.blockers.length)?s3.blockers[0]:(st==='READY'?'Break di bawah stop atau earnings tak terverifikasi membatalkan setup.':'—')};
+        }
+        if(sw&&sw.verdict){
+          var sl=Number(sw.stop||0);
+          var reasons=(sw.reasons&&sw.reasons.length?sw.reasons:['Tidak ada faktor pendukung yang menonjol.']).slice(0,3);
+          var inv=(sw.risks&&sw.risks.length)?sw.risks[0]:('Penutupan di bawah '+money.format(sl)+' membatalkan setup ini.');
+          return {x3:false,status:sw.verdict==='BUY'?'READY':sw.verdict==='AVOID'?'REJECT':'WAIT',verdict:sw.verdict,
+            score:(typeof sw.score==='number')?sw.score:null,rr:sw.rr,entry:Number(sw.entry||x.price||0),target:Number(sw.target||0),riskLine:sl,
+            shares:null,pos:null,riskD:null,riskPct:null,deadline:null,earn:null,fresh:null,phase:null,asof:null,
+            reasons:reasons,risks:(sw.risks||[]).slice(1,3),invalidation:inv};
+        }
+        return {x3:false,status:'WAIT',verdict:'WAIT',score:null,rr:null,entry:Number(x.price||0),target:null,riskLine:null,
+          shares:null,pos:null,riskD:null,riskPct:null,deadline:null,earn:null,fresh:null,phase:null,asof:null,
+          reasons:[],risks:[],invalidation:null};
       }
-      function scoreItem(x){
-        if(x&&x.swing&&typeof x.swing.score==='number')return fromServer(x);
-        var trend=clamp(50+(x.chg_1w||0)*2+(x.vs_ma50||0)*1.5+(x.vs_ma200||0)*.6-(x.rsi>70?(x.rsi-70)*1.3:0),0,100);
-        var quality=x.is_etf?60:clamp(50+(x.rev_growth||0)*28+(x.roe||0)*18-(x.d2e>120?18:x.d2e>70?8:0)+((x.fcf||0)>0?8:-18),0,100);
-        var valuation=x.is_etf?56:clamp(92-(x.peg||2)*24-(x.fwd_pe>35?12:0)+(x.upside>20?8:0),0,100);
-        var relative=clamp(50+(x.from_52w_high||0)*.8+(x.vs_ma200||0)*.8+(x.vs_ma50||0)*.6,0,100);
-        var risk=clamp(90-(x.beta||1)*15+(x.from_52w_high<-20?10:0)-(x.beta>2?18:0),0,100);
-        var score=Math.round(trend*swingWeights.trend+quality*swingWeights.quality+valuation*swingWeights.valuation+relative*swingWeights.relative+risk*swingWeights.risk);
-        var downside=Math.max(7,Math.abs(x.from_52w_high||8)*.55+(x.beta||1)*3); var upside=Math.max(0,Number(x.upside||0)); var rr=upside/downside;
-        var hardRisk=(x.d2e||0)>220||(x.beta||0)>3;
-        var verdict=hardRisk||score<50?'AVOID':score>=70&&rr>=2?'BUY':'WAIT';
-        if(verdict==='BUY'&&x.rsi>72) verdict='WAIT';
-        var entry=x.price*(x.rsi>68?.97:.985); var target=x.target||x.price*(1+Math.max(.08,upside/100)); var riskLine=x.price*(1-downside/100);
-        var reasons=[];
-        if((x.vs_ma50||0)>2) reasons.push('Harga di atas MA50, momentum masih mendukung.'); else if((x.vs_ma50||0)<-4) reasons.push('Harga di bawah MA50; momentum belum pulih.');
-        if(!x.is_etf&&(x.rev_growth||0)>.3) reasons.push('Revenue tumbuh '+pct(x.rev_growth*100)+' YoY.');
-        if(!x.is_etf&&(x.peg||9)<1) reasons.push('PEG '+x.peg.toFixed(2)+' relatif murah terhadap pertumbuhan.');
-        if((x.from_52w_high||0)<-20) reasons.push('Drawdown memberi ruang, tetapi perlu konfirmasi tren.');
-        if(reasons.length<3) reasons.push(x.is_etf?'Technical trend is the main input for this ETF.':'Balance sheet and earnings quality keep the thesis intact.');
-        var invalidation=(x.vs_ma50||0)<-4?'Close back below MA50 would weaken the setup.':(x.beta||1)>2?'A volatility spike or failed breakout would cancel the setup.':'A break below the risk line or a deteriorating earnings trend changes the call.';
-        return {item:x,score:score,verdict:verdict,hardRisk:hardRisk,confidence:Math.round(clamp(50+Math.abs(score-50)*.8+(verdict==='BUY'?8:0),52,91)),trend:trend,quality:quality,valuation:valuation,relative:relative,risk:risk,entry:entry,target:target,riskLine:riskLine,rr:rr,reasons:reasons.slice(0,3),invalidation:invalidation};
-      }
-      function executionStatus(d){if(d.server)return d.verdict==='BUY'?'READY':(d.verdict==='AVOID'?'REJECT':'WAIT');if(d.hardRisk||d.score<50||(d.item.vs_ma200||0)<0)return 'REJECT';if(d.score>=70&&d.rr>=2&&(d.item.rsi||0)<70)return 'READY';return 'WAIT'}
-      function buildFocusList(items){var priority={READY:0,WAIT:1,REJECT:2},focus=[],semis=0;items.slice().sort(function(a,b){var pa=priority[executionStatus(a)],pb=priority[executionStatus(b)];return pa-pb||b.score-a.score||b.rr-a.rr}).forEach(function(d){var status=executionStatus(d),isSemi=semiconductorTickers.indexOf(d.item.ticker)>-1;if(status==='REJECT'||focus.length >= 5||isSemi&&!(semis < 2))return;focus.push(d);if(isSemi)semis++});return focus}
+      function executionStatus(x){var p=planOf(x);return p?p.status:'WAIT'}
+      function buildFocusList(items){var priority={READY:0,WAIT:1,REJECT:2},focus=[],semis=0;items.slice().sort(function(a,b){var pa=priority[executionStatus(a)],pb=priority[executionStatus(b)],sa=planOf(a),sb=planOf(b),ra=sa.score!=null?sa.score:(sa.rr!=null?sa.rr*50:0),rb=sb.score!=null?sb.score:(sb.rr!=null?sb.rr*50:0);return pa-pb||rb-ra}).forEach(function(x){var status=executionStatus(x),isSemi=semiconductorTickers.indexOf(x.ticker)>-1;if(x.is_etf||status==='REJECT'||focus.length>=5||isSemi&&!(semis<2))return;focus.push(x);if(isSemi)semis++});return focus}
       function spark(points,color){if(!points||!points.length)return '';var min=Math.min.apply(null,points),max=Math.max.apply(null,points),range=max-min||1,pts=points.map(function(v,i){return (i/(points.length-1)*100).toFixed(1)+','+(100-(v-min)/range*88-6).toFixed(1)}).join(' ');return '<polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>'}
-      function renderDecision(d){var x=d.item,status=executionStatus(d),v=status==='READY'?'buy':status==='REJECT'?'avoid':'wait',verdict=status==='READY'?'BUY':status==='REJECT'?'AVOID':'WAIT',action=status==='READY'?'Setup meets the swing rules':status==='REJECT'?'Setup fails the risk gates':'Wait for a cleaner setup';decision.innerHTML='<div class="eyebrow">Selected ticker · Swing · next 1–4 weeks</div><div class="decision-head"><div><div class="ticker"><h3>'+x.ticker+'</h3><span class="company">'+companyName(x.ticker)+'</span></div><div class="label">US equity / common stock</div></div><div class="price">'+money.format(x.price)+'<div class="change '+(x.chg_1d>=0?'positive':'negative')+'">'+pct(x.chg_1d)+' today</div></div></div><div class="execution-row"><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span><span class="earnings-badge">'+earningsLabel(x)+'</span></div><div class="verdict-line"><div class="verdict verdict-'+v+'">'+verdict+'</div><div class="verdict-copy"><strong>'+action+'</strong><span>Confidence '+d.confidence+'/100 · score '+d.score+'/100</span></div></div><div class="metrics"><div class="metric"><small>Entry zone</small><b>≤ '+money.format(d.entry)+'</b></div><div class="metric"><small>Target</small><b class="positive">'+money.format(d.target)+'</b></div><div class="metric"><small>Risk line</small><b class="negative">'+money.format(d.riskLine)+'</b></div><div class="metric"><small>Upside / risk</small><b>'+d.rr.toFixed(1)+'×</b></div></div><div class="callout"><b>Bottom line</b> — '+(status==='READY'?'Rules pass, but verify earnings are more than five trading days away before entry.':status==='REJECT'?'Do not buy. Trend or risk rules are not satisfied.':'Do not force the trade. Wait until entry, trend, and risk/reward align.')+'</div>'}
-      function renderChart(d){var x=d.item;var color=d.verdict==='BUY'?'#55d685':d.verdict==='AVOID'?'#f0776d':'#e5b45c';chart.innerHTML='<div class="chart-head"><div><div class="eyebrow">Price structure</div><h3>'+x.ticker+' · 3-month snapshot</h3></div><span class="range">'+pct(x.chg_1w)+' / week</span></div><div class="chart-plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Price trend for '+x.ticker+'" role="img">'+spark(x.spark,color)+'</svg><div class="guide guide-target"><span>target</span><span>'+money.format(d.target)+'</span></div><div class="guide guide-entry"><span>entry</span><span>'+money.format(d.entry)+'</span></div><div class="guide guide-risk"><span>risk line</span><span>'+money.format(d.riskLine)+'</span></div></div><div class="chart-foot"><span>52-week position <b>'+clamp(Math.round(100+(x.from_52w_high||0)),0,100)+'%</b></span><span>RSI <b>'+Number(x.rsi||0).toFixed(1)+'</b></span></div>'}
-      function signal(name,value,copy,kind){return '<div class="signal"><div class="signal-top"><strong>'+name+'</strong><span class="signal-icon '+kind+'"></span></div><b>'+value+'</b><p>'+copy+'</p></div>'}
-      function renderSignals(d){var x=d.item;signals.innerHTML=signal('Trend',d.trend>=65?'Bullish':d.trend<=42?'Weak':'Mixed',((x.vs_ma50||0)>=0?'MA50 +':'MA50 ')+(x.vs_ma50||0).toFixed(1)+'%',d.trend>=65?'buy':d.trend<=42?'avoid':'wait')+signal('Earnings',x.is_etf?'n/a':d.quality>=65?'Strong':d.quality<45?'Weak':'Mixed',x.is_etf?'ETF — technical only':'Revenue '+pct((x.rev_growth||0)*100),d.quality>=65?'buy':d.quality<45?'avoid':'wait')+signal('Valuation',x.is_etf?'n/a':d.valuation>=65?'Favorable':d.valuation<45?'Stretched':'Fair',x.is_etf?'No fundamental score':'PEG '+(x.peg||0).toFixed(2),d.valuation>=65?'buy':d.valuation<45?'avoid':'wait')+signal('Relative strength',d.relative>=65?'Leading':d.relative<42?'Lagging':'Mixed','vs 52-week high '+pct(x.from_52w_high||0),d.relative>=65?'buy':d.relative<42?'avoid':'wait')+signal('Risk',d.risk>=65?'Contained':d.risk<45?'High':'Elevated','Beta '+Number(x.beta||0).toFixed(2),d.risk>=65?'buy':d.risk<45?'avoid':'wait')}
-      function renderWhy(d){
-        var x=d.item;
-        var earn=(x.earnings_in_days!=null)
-          ? ('Earnings sekitar '+x.earnings_in_days+' hari lagi. '+(x.earnings_in_days<=5?'Hindari entry baru sampai laporan lewat — gap bisa melompati stop.':'Masih cukup jauh untuk swing pendek.'))
-          : 'Snapshot ini tidak memuat tanggal earnings. Verifikasi manual dan jangan entry jika earnings ≤ 5 hari bursa.';
-        var extra=(d.risks&&d.risks.length>1)?d.risks.slice(1,3):[];
-        why.innerHTML=d.reasons.map(function(r){return '<div class="why-item"><i>+</i><div><b>Supports the thesis</b><span>'+r+'</span></div></div>'}).join('')
-          +'<div class="why-item risk"><i>!</i><div><b>What changes my mind</b><span>'+d.invalidation+'</span></div></div>'
-          +extra.map(function(r){return '<div class="why-item risk"><i>!</i><div><b>Risiko lain</b><span>'+r+'</span></div></div>'}).join('')
-          +'<div class="why-item risk"><i>!</i><div><b>Earnings check</b><span>'+earn+'</span></div></div>';
+      function metric(label,value,cls){return '<div class="metric"><small>'+label+'</small><b class="'+(cls||'')+'">'+value+'</b></div>'}
+      function renderDecision(x,p){
+        var three=p.x3,meta=state.mode==='PRODUCTION'?'PRODUCTION':'PAPER MODE';
+        var h='<div class="eyebrow">Selected ticker · '+(three?'3-day swing · '+meta:'Swing · next 1–4 weeks')+'</div>';
+        h+='<div class="decision-head"><div><div class="ticker"><h3>'+x.ticker+'</h3><span class="company">'+esc(companyName(x.ticker))+'</span></div><div class="label">US equity / common stock</div></div><div class="price">'+money.format(x.price)+'<div class="change '+(x.chg_1d>=0?'positive':'negative')+'">'+pct(x.chg_1d)+' today</div></div></div>';
+        var earnBadge=(three?(p.earn===true?'EARNINGS VERIFIED':'EARNINGS UNVERIFIED'):earningsLabel(x));
+        h+='<div class="execution-row"><span class="execution-badge execution-'+p.status.toLowerCase()+'">'+p.status+'</span><span class="earnings-badge">'+earnBadge+'</span>'+(three&&p.fresh===false?'<span class="execution-badge execution-reject">DATA LAMA</span>':'')+'</div>';
+        var sub=p.status==='READY'?(three?'Setup READY — rencana eksekusi dihitung Python':'Setup meets the swing rules'):p.status==='REJECT'?(three?'Setup ditolak gate Python':'Setup fails the risk gates'):(three?'Belum lolos semua gate — tunggu keputusan Python berikutnya':'Wait for a cleaner setup');
+        var letter=three?p.status:p.verdict;
+        h+='<div class="verdict-line"><div class="verdict verdict-'+(p.status==='READY'?'buy':p.status==='REJECT'?'avoid':'wait')+'">'+letter+'</div><div class="verdict-copy"><strong>'+sub+'</strong><span>'+(three?'Risk maksimal $0.50 · exit maksimal 3 hari bursa · diputuskan Python':(p.score!=null?'Skor server '+p.score+'/100 · diputuskan server':'Verdict dari server'))+'</span></div></div>';
+        h+='<div class="metrics">'+metric('Entry zone',p.entry!=null?'≤ '+money.format(p.entry):'—')+metric('Target',p.target!=null?money.format(p.target):'—','positive')+metric('Risk line',p.riskLine!=null?money.format(p.riskLine):'—','negative')+metric('Upside / risk',p.rr!=null?Number(p.rr).toFixed(1)+'×':'—');
+        if(three){
+          h+=metric('Fase',esc(p.phase||'—'))+metric('Shares',p.shares!=null?num4(p.shares):'—')+metric('Posisi',p.pos!=null?money.format(p.pos):'—')+metric('Risiko akun',p.riskPct!=null?Number(p.riskPct).toFixed(3)+'%':'—');
+        }
+        h+='</div>';
+        var call=p.status==='READY'?(three?'Rules pass: entry, stop, target, ukuran posisi, dan batas risiko sudah diverifikasi Python.':'Rules pass, but verify earnings are more than five trading days away before entry.'):p.status==='REJECT'?'Do not buy. Python menolak setup ini — lihat blocker di bawah.':'Do not force the trade. Wait until Python meloloskan entry, trend, dan risk/reward.';
+        h+='<div class="callout"><b>Bottom line</b> — '+call+'</div>';
+        if(three&&p.fresh===true)h+='<div class="method">Data asof '+esc(p.asof||'—')+(p.deadline?(' · exit deadline '+esc(p.deadline)):'')+' — semua dihitung Python.</div>';
+        decision.innerHTML=h;
       }
-      function benchmarkRegime(d){var x=d.item;if((x.vs_ma200||0)>2&&(x.chg_1w||0)>=0)return ['RISK ON','on'];if((x.vs_ma200||0)<0)return ['RISK OFF','off'];return ['MIXED','mixed']}
-      function renderBenchmarks(){benchmarks.innerHTML=state.benchmarks.map(function(d){var x=d.item,regime=benchmarkRegime(d);return '<article class="benchmark-card"><strong>'+x.ticker+'</strong><span class="benchmark-price">'+money.format(x.price)+'</span><span class="benchmark-meta">'+pct(x.chg_1w)+' week · MA200 '+pct(x.vs_ma200||0)+'</span><span class="regime regime-'+regime[1]+'">'+regime[0]+'</span></article>'}).join('')}
-      function renderFocus(){if(!state.focus.length){focusList.innerHTML='<div class="no-trade"><b>NO TRADE</b><span>No setup meets the swing rules.</span></div>';return}focusList.innerHTML=state.focus.map(function(d){var x=d.item,status=executionStatus(d);return '<button class="focus-card" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'"><span class="focus-top"><strong>'+x.ticker+'</strong><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span></span><span class="focus-stats"><span>'+d.score+'/100</span><span>'+d.rr.toFixed(1)+'× R/R</span><span class="'+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span></span><p class="focus-reason">'+d.reasons[0]+'</p><span class="focus-warning">'+earningsLabel(x)+'</span></button>'}).join('');document.getElementById('focusMeta').textContent=state.focus.length+' candidates · max 2 semiconductors'}
+      function num4(v){return Number(v).toLocaleString('en-US',{maximumFractionDigits:4})}
+      function renderChart(x,p){
+        var color=p.status==='READY'?'#55d685':p.status==='REJECT'?'#f0776d':'#e5b45c';
+        var guides='';
+        if(p.entry!=null&&p.target!=null&&p.riskLine!=null){
+          guides='<div class="guide guide-target"><span>target</span><span>'+money.format(p.target)+'</span></div><div class="guide guide-entry"><span>entry</span><span>'+money.format(p.entry)+'</span></div><div class="guide guide-risk"><span>risk line</span><span>'+money.format(p.riskLine)+'</span></div>';
+        }
+        chart.innerHTML='<div class="chart-head"><div><div class="eyebrow">Price structure</div><h3>'+x.ticker+' · 3-month snapshot</h3></div><span class="range">'+pct(x.chg_1w)+' / week</span></div><div class="chart-plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Price trend for '+x.ticker+'" role="img">'+spark(x.spark,color)+'</svg>'+guides+'</div><div class="chart-foot"><span>52-week position <b>'+Math.round(Math.max(0,Math.min(100,100+(x.from_52w_high||0))))+'%</b></span><span>RSI <b>'+Number(x.rsi||0).toFixed(1)+'</b></span></div>';
+      }
+      function tile(name,value,copy,kind){return '<div class="signal"><div class="signal-top"><strong>'+name+'</strong><span class="signal-icon '+kind+'"></span></div><b>'+value+'</b><p>'+copy+'</p></div>'}
+      function renderSignals(x,p){
+        if(p.x3){
+          var fresh=p.fresh===true?'YA':(p.fresh===false?'TIDAK':'—');
+          signals.innerHTML=tile('Fase',esc(p.phase||'—'),'swing_3d.phase dari data.json',p.status==='READY'?'buy':'wait')
+            +tile('Shares',p.shares!=null?num4(p.shares):'—','ukuran posisi dari Python',p.status==='READY'?'buy':'wait')
+            +tile('Posisi',p.pos!=null?money.format(p.pos):'—','nilai posisi ≤ $50',p.status==='READY'?'buy':'wait')
+            +tile('Risiko akun',p.riskPct!=null?Number(p.riskPct).toFixed(3)+'%':'—','risk_dollars ≤ $0.50',p.status==='READY'?'buy':'wait')
+            +tile('Exit',p.deadline?esc(p.deadline):'—','deadline maksimal 3 hari bursa',p.fresh===false?'avoid':'wait');
+          return;
+        }
+        var parts=(x.swing&&x.swing.parts)||{},part=function(k,f){return typeof parts[k]==='number'?parts[k]:f};
+        var trend=part('trend',50),quality=Math.round((part('quality',50)+part('growth',50))/2),valuation=part('valuation',50),relative=part('momentum',50),risk=Math.round((part('volatility',50)+part('liquidity',50))/2);
+        var grad=function(v,hi,lo){return v>=hi?'buy':v<=lo?'avoid':'wait'};
+        signals.innerHTML=tile('Trend',trend>=65?'Bullish':trend<=42?'Weak':'Mixed',((x.vs_ma50||0)>=0?'MA50 +':'MA50 ')+(x.vs_ma50||0).toFixed(1)+'%',grad(trend,65,42))
+          +tile('Earnings',x.is_etf?'n/a':quality>=65?'Strong':quality<45?'Weak':'Mixed',x.is_etf?'ETF — technical only':'Revenue '+pct((x.rev_growth||0)*100),grad(quality,65,45))
+          +tile('Valuation',x.is_etf?'n/a':valuation>=65?'Favorable':valuation<45?'Stretched':'Fair',x.is_etf?'No fundamental score':'PEG '+(x.peg||0).toFixed(2),grad(valuation,65,45))
+          +tile('Relative strength',relative>=65?'Leading':relative<42?'Lagging':'Mixed','vs 52-week high '+pct(x.from_52w_high||0),grad(relative,65,42))
+          +tile('Risk',risk>=65?'Contained':risk<45?'High':'Elevated','Beta '+Number(x.beta||0).toFixed(2),grad(risk,65,45));
+      }
+      function whyRow(kind,title,text){return '<div class="why-item'+(kind==='risk'?' risk':'')+'"><i>'+(kind==='risk'?'!':'+')+'</i><div><b>'+title+'</b><span>'+text+'</span></div></div>'}
+      function renderWhy(x,p){
+        var rows='';
+        var pros=p.reasons&&p.reasons.length?p.reasons:(p.status==='REJECT'?[]:['Tidak ada faktor pendukung yang menonjol.']);
+        if(p.x3&&(p.status==='REJECT'||p.status==='WAIT')&&p.invalidation&&p.invalidation!=='—'){
+          rows+=whyRow('risk','Blocker Python',esc(p.invalidation));
+        }
+        pros.forEach(function(r){rows+=whyRow('pro','Supports the thesis',esc(r))});
+        if(p.invalidation&&!(p.x3&&p.status!=='READY'))rows+=whyRow('risk','What changes my mind',esc(p.invalidation));
+        (p.risks||[]).forEach(function(r){rows+=whyRow('risk','Risiko lain',esc(r))});
+        if(p.x3){
+          rows+=whyRow('risk','Earnings check',p.earn===true?'Earnings diverifikasi Python — aman untuk entry.':'Belum diverifikasi Python — jangan entry sebelum earnings lewat.');
+          rows+=whyRow('risk','Data freshness',p.fresh===true?'Data segar (data_fresh=true dari Python).':(p.fresh===false?'Data LAMA — data_fresh=false, keputusan tidak valid.':'Status kesegaran belum ditulis pipeline 3-hari.'));
+        }else{
+          var earn=(x.earnings_in_days!=null)?('Earnings sekitar '+x.earnings_in_days+' hari lagi. '+(x.earnings_in_days<=5?'Hindari entry baru sampai laporan lewat — gap bisa melompati stop.':'Masih cukup jauh untuk swing pendek.')):'Snapshot ini tidak memuat tanggal earnings. Verifikasi manual dan jangan entry jika earnings ≤ 5 hari bursa.';
+          rows+=whyRow('risk','Earnings check',earn);
+        }
+        why.innerHTML=rows;
+      }
+      function benchmarkRegime(x){if((x.vs_ma200||0)>2&&(x.chg_1w||0)>=0)return ['RISK ON','on'];if((x.vs_ma200||0)<0)return ['RISK OFF','off'];return ['MIXED','mixed']}
+      function renderBenchmarks(){benchmarks.innerHTML=state.benchmarks.map(function(x){var regime=benchmarkRegime(x);return '<article class="benchmark-card"><strong>'+x.ticker+'</strong><span class="benchmark-price">'+money.format(x.price)+'</span><span class="benchmark-meta">'+pct(x.chg_1w)+' week · MA200 '+pct(x.vs_ma200||0)+'</span><span class="regime regime-'+regime[1]+'">'+regime[0]+'</span></article>'}).join('')}
+      function renderFocus(){if(!state.focus.length){focusList.innerHTML='<div class="no-trade"><b>NO TRADE</b><span>No setup meets the swing rules.</span></div>';return}focusList.innerHTML=state.focus.map(function(x){var p=planOf(x),status=p.status;return '<button class="focus-card" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'"><span class="focus-top"><strong>'+x.ticker+'</strong><span class="execution-badge execution-'+status.toLowerCase()+'">'+status+'</span></span><span class="focus-stats"><span>'+(p.score!=null?p.score+'/100':(p.x3?(p.rr!=null?p.rr.toFixed(1)+'× R/R':'3-day'):'—'))+'</span><span>'+(p.rr!=null?p.rr.toFixed(1)+'× R/R':'')+'</span><span class="'+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span></span><p class="focus-reason">'+esc((p.reasons&&p.reasons[0])||p.invalidation||'—')+'</p><span class="focus-warning">'+(p.x3?(p.earn===true?'EARNINGS VERIFIED':'CHECK EARNINGS'):earningsLabel(x))+'</span></button>'}).join('');document.getElementById('focusMeta').textContent=state.focus.length+' candidates · max 2 semiconductors'}
       function renderFixedWatchlist(){
         var term=search.value.trim().toUpperCase();
-        var rows=state.items.filter(function(d){return !term||d.item.ticker.indexOf(term)>-1||companyName(d.item.ticker).toUpperCase().indexOf(term)>-1});
-        fixedWatchlist.innerHTML=rows.map(function(d){
-          var x=d.item,status=executionStatus(d);
+        var rows=state.items.filter(function(x){return !term||x.ticker.indexOf(term)>-1||companyName(x.ticker).toUpperCase().indexOf(term)>-1});
+        fixedWatchlist.innerHTML=rows.map(function(x){
+          var p=planOf(x),status=p.status;
           var tag=(x.source==='auto')?'<span class="row-tag">auto</span>':'';
           if(x.refresh_failed)tag+='<span class="row-tag stale">data lama</span>';
+          var scoreCell=p.x3?(p.status==='READY'?'READY plan':(p.status==='REJECT'?'REJECT':'WAIT')):(p.score!=null?p.score+'/100':'—');
           return '<div class="watch-row" role="button" tabindex="0" data-ticker="'+x.ticker+'" aria-current="'+(state.selected===x.ticker)+'">'
-            +'<span class="row-ticker">'+x.ticker+tag+'<span class="row-company">'+companyName(x.ticker)+'</span></span>'
+            +'<span class="row-ticker">'+x.ticker+tag+'<span class="row-company">'+esc(companyName(x.ticker))+'</span></span>'
             +'<span class="row-verdict execution-'+status.toLowerCase()+'">'+status+'</span>'
-            +'<span class="row-score">'+d.score+'/100</span>'
+            +'<span class="row-score">'+scoreCell+'</span>'
             +'<span class="row-move '+(x.chg_1w>=0?'positive':'negative')+'">'+pct(x.chg_1w)+'</span>'
-            +'<span class="row-reason">'+d.reasons[0]+'</span>'
+            +'<span class="row-reason">'+esc((p.reasons&&p.reasons[0])||p.invalidation||'—')+'</span>'
             +'<button class="row-del" type="button" data-del="'+x.ticker+'" title="Hapus '+x.ticker+'" aria-label="Hapus '+x.ticker+' dari watchlist">×</button>'
             +'</div>';
         }).join('');
@@ -221,9 +266,13 @@
         var pinned=(state.meta.pinned||[]).length,auto=(state.meta.auto||[]).length;
         document.getElementById('watchMeta').textContent=pinned+' pilihanmu · '+auto+' kandidat auto · harga harian · kandidat tiap 5 hari';
       }
-      function buildScores(){state.all=state.raw.map(scoreItem);state.benchmarks=state.all.filter(function(d){return d.item.is_etf});state.items=state.all.slice().sort(function(a,b){return b.score-a.score});state.focus=buildFocusList(state.all.filter(function(d){return !d.item.is_etf}))}
-      function loadSnapshot(){return fetch('data.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('snapshot unavailable');return r.json()}).then(function(data){state.raw=data.items.filter(function(x){return x.ok!==false});state.names={};data.items.forEach(function(x){if(x.name)state.names[x.ticker]=x.name});state.meta=data.watchlist||{};state.snapshot=data;buildScores();if(!state.items.length){renderEmptyWatchlist(data);return data}var selectedStillExists=state.items.some(function(d){return d.item.ticker===state.selected});state.selected=selectedStillExists?state.selected:(state.focus[0]||state.items[0]).item.ticker;dataUpdated.textContent=data.updated||'snapshot loaded';document.getElementById('updatedAt').textContent='Data snapshot · '+(data.updated||'loaded');document.getElementById('sourceTime').textContent=data.updated||'snapshot loaded';document.getElementById('marketStatus').textContent='Snapshot ready';renderBenchmarks();selectTicker(state.selected)}).catch(function(err){var broken=err&&/JSON|token|Unexpected/i.test(String(err.message||err));document.getElementById('marketStatus').textContent='Snapshot unavailable';document.getElementById('snapshotNote').innerHTML=broken?'<b>data.json rusak.</b> Biasanya karena dua proses menulis berkas itu bersamaan. Jalankan ulang workflow <i>Refresh harga harian</i> di GitHub Actions — build berikutnya menulis ulang berkasnya.':'<b>Snapshot tidak bisa diambil.</b> Muat ulang halaman untuk mencoba lagi.';throw err})}
-      function selectTicker(t){var d=state.items.find(function(x){return x.item.ticker===t});if(!d)return;state.selected=t;renderDecision(d);renderChart(d);renderSignals(d);renderWhy(d);renderFocus();renderFixedWatchlist()}
+      function buildScores(){
+        state.benchmarks=state.raw.filter(function(x){return x.is_etf});
+        state.items=state.raw.filter(function(x){return !x.is_etf}).slice().sort(function(a,b){var pb=planOf(b),pa=planOf(a),ra=pa.score!=null?pa.score:(pa.rr!=null?pa.rr*50:0),rb=pb.score!=null?pb.score:(pb.rr!=null?pb.rr*50:0);return rb-ra});
+        state.focus=buildFocusList(state.items);
+      }
+      function loadSnapshot(){return fetch('data.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('snapshot unavailable');return r.json()}).then(function(data){state.raw=data.items.filter(function(x){return x.ok!==false});state.names={};data.items.forEach(function(x){if(x.name)state.names[x.ticker]=x.name});state.meta=data.watchlist||{};state.snapshot=data;var top3=data.swing_3d;state.mode=(top3&&top3.mode==='PRODUCTION')?'PRODUCTION':'PAPER';if(top3&&top3.phase){lensMeta.textContent='PAPER MODE'+(state.mode==='PRODUCTION'?' → PRODUCTION':'')+' · 3-day swing · fase '+(top3.phase==='h1'?'H1':'daily')+' · exit maksimal 3 hari bursa';snapshotNote.innerHTML='<b>3-day swing.</b> Keputusan dihitung Python (swing_3d); halaman ini hanya menampilkan hasil dari data.json.';snapshotNote.style.display='block'}buildScores();if(!state.items.length){renderEmptyWatchlist(data);return data}var selectedStillExists=state.items.some(function(x){return x.ticker===state.selected});state.selected=selectedStillExists?state.selected:(state.focus[0]||state.items[0]).ticker;dataUpdated.textContent=data.updated||'snapshot loaded';document.getElementById('updatedAt').textContent='Data snapshot · '+(data.updated||'loaded');document.getElementById('sourceTime').textContent=data.updated||'snapshot loaded';document.getElementById('marketStatus').textContent='Snapshot ready';renderBenchmarks();selectTicker(state.selected)}).catch(function(err){var broken=err&&/JSON|token|Unexpected/i.test(String(err.message||err));document.getElementById('marketStatus').textContent='Snapshot unavailable';document.getElementById('snapshotNote').innerHTML=broken?'<b>data.json rusak.</b> Biasanya karena dua proses menulis berkas itu bersamaan. Jalankan ulang workflow <i>Refresh harga harian</i> di GitHub Actions — build berikutnya menulis ulang berkasnya.':'<b>Snapshot tidak bisa diambil.</b> Muat ulang halaman untuk mencoba lagi.';throw err})}
+      function selectTicker(t){var x=state.items.find(function(i){return i.ticker===t});if(!x)return;state.selected=t;var p=planOf(x);renderDecision(x,p);renderChart(x,p);renderSignals(x,p);renderWhy(x,p);renderFocus();renderFixedWatchlist()}
       document.addEventListener('click',function(e){
         var del=e.target.closest('[data-del]');
         if(del){e.preventDefault();e.stopPropagation();askRemove(del.getAttribute('data-del'));return}
@@ -235,8 +284,7 @@
         var row=e.target.closest&&e.target.closest('.watch-row');
         if(row&&!e.target.closest('[data-del]')){e.preventDefault();selectTicker(row.dataset.ticker)}
       });
-      search.addEventListener('input',function(){renderFixedWatchlist();var exact=state.items.find(function(d){return d.item.ticker===search.value.trim().toUpperCase()});if(exact)selectTicker(exact.item.ticker)});
-      /* =====================================================================
+      search.addEventListener('input',function(){renderFixedWatchlist();var exact=state.items.find(function(x){return x.ticker===search.value.trim().toUpperCase()});if(exact)selectTicker(exact.ticker)});      /* =====================================================================
          MANAJEMEN WATCHLIST
          ---------------------------------------------------------------------
          Halaman ini statis, jadi perubahan watchlist dikirim ke GitHub dan
@@ -392,11 +440,12 @@
               setPending(null);
               return loadSnapshot().then(function(){
                 if(p.action === 'add'){
-                  var d = state.items.find(function(x){ return x.item.ticker === p.ticker });
+                  var d = state.items.find(function(x){ return x.ticker === p.ticker });
                   if(d){
                     selectTicker(p.ticker);
-                    banner('<b>' + p.ticker + ' selesai dianalisa — status ' + d.verdict + '</b> ('
-                      + d.score + '/100). ' + (d.headline || ''), 'done');
+                    var plan = planOf(d);
+                    banner('<b>' + p.ticker + ' selesai dianalisa — status ' + (plan ? plan.status : '—') + '</b>'
+                      + (plan && plan.score != null ? ' (' + plan.score + '/100)' : '') + '. ' + ((d.swing && d.swing.headline) || ''), 'done');
                     return;
                   }
                 }
@@ -473,7 +522,7 @@
         var raw = document.getElementById('tickerInput').value.trim().toUpperCase().replace(/\s/g, '');
         if(!raw){ say('addMsg', 'Isi kode emitennya dulu.', 'error'); return }
         if(!TICKER_RE.test(raw)){ say('addMsg', '"' + raw + '" bukan format ticker yang valid. Contoh: NVDA, BRK-B, ASML.', 'error'); return }
-        if(state.items.some(function(d){ return d.item.ticker === raw })){
+        if(state.items.some(function(d){ return d.ticker === raw })){
           say('addMsg', raw + ' sudah ada di watchlist.', 'error'); return;
         }
         var btn = document.getElementById('addConfirm');

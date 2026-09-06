@@ -23,8 +23,8 @@ assert.match(html, /function pollTick\(/, 'halaman menunggu data.json terbarui s
 assert.match(html, /POLL_LIMIT/, 'polling punya batas, tidak berjalan selamanya');
 
 /* ---- verdict dihitung server, bukan hanya di browser ---- */
-assert.match(html, /function fromServer\(/, 'skor dari data.json dipakai apa adanya bila tersedia');
-assert.match(html, /d\.server\)return d\.verdict==='BUY'/, 'verdict server memetakan langsung ke status eksekusi');
+assert.match(html, /function planOf\(/, 'server decision contract dipetakan ke tampilan');
+assert.doesNotMatch(html, /scoreItem/, 'mesin skor browser sudah dihapus — Python satu-satunya mesin keputusan');
 
 /* ---- data.json membawa kontrak baru ----
    Snapshot lama (sebelum build_dashboard.py) belum punya blok ini. Halaman

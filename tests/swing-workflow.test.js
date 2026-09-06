@@ -10,7 +10,16 @@ assert.match(html, /id="benchmarks"/, 'QQQ and VOO have a dedicated benchmark su
 assert.match(html, /id="focusList"/, 'the page exposes a swing focus list');
 assert.match(html, /id="fixedWatchlist"/, 'the stable equity universe has its own surface');
 assert.match(html, /CHECK EARNINGS/, 'missing earnings data is disclosed on every candidate');
-assert.match(html, /function executionStatus\(/, 'execution status is derived explicitly');
+
+// Python is the single decision engine: no scoring/verdict derivation in the
+// browser, only a status vocabulary mapping over server fields (swing_3d or
+// legacy swing from data.json).
+assert.doesNotMatch(html, /function scoreItem\(/, 'browser must not calculate verdict');
+assert.doesNotMatch(html, /scoreItem/, 'scoring engine is fully removed');
+assert.doesNotMatch(html, /swingWeights/, 'factor weights live in Python only');
+assert.doesNotMatch(html, /confidence\s*:/, 'synthetic confidence is removed');
+assert.match(html, /function executionStatus\(/, 'execution status is a pure mapping of server status');
+assert.match(html, /function planOf\(/, 'server decision contract is mapped, never derived');
 assert.match(html, /function buildFocusList\(/, 'focus-list ranking is explicit');
 assert.match(html, /NVDA.*AVGO.*AMD.*MU/, 'semiconductor membership is declared for concentration limits');
 assert.match(html, /semis\s*<\s*2/, 'focus list caps semiconductor candidates at two');
@@ -33,6 +42,12 @@ assert.match(html, /closest\(['"]\.watch-row,\s*\.focus-card['"]\)/, 'focus card
 assert.match(html, /dataUpdated\.textContent/, 'page load displays the published data timestamp');
 assert.doesNotMatch(html, /lastChecked\.textContent/, 'page load does not manufacture a manual-check timestamp');
 
+// 3-day swing contract copy surfaces (Task 8 brief).
+assert.match(html, /maksimal 3 hari bursa/i, '3-day horizon copy is present');
+assert.match(html, /Risk maksimal[^<]*\$0\.50/i, '$0.50 risk cap copy is present');
+assert.match(html, /PAPER MODE/, 'paper-mode disclosure is present');
+assert.match(html, /swing_3d/, 'page reads the swing_3d contract from data.json');
+
 function extractFunction(source, name) {
   const start = source.indexOf(`function ${name}(`);
   assert.notEqual(start, -1, `${name} exists`);
@@ -48,29 +63,43 @@ function extractFunction(source, name) {
 
 const inlineScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const context = {
-  swingWeights: { trend: 0.4, quality: 0.1, valuation: 0.05, relative: 0.25, risk: 0.2 },
   semiconductorTickers: ['NVDA', 'AVGO', 'AMD', 'MU'],
-  clamp: (value, min, max) => Math.max(min, Math.min(max, value)),
-  pct: (value) => `${value >= 0 ? '+' : ''}${Number(value).toFixed(1)}%`,
   money: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }),
 };
 vm.createContext(context);
 vm.runInContext([
-  // fromServer dipakai scoreItem saat snapshot sudah memuat blok `swing`
-  // hasil hitungan GitHub Actions.
-  extractFunction(inlineScript, 'fromServer'),
-  extractFunction(inlineScript, 'scoreItem'),
+  // planOf is a pure status→view mapping over the server decision contract.
+  // executionStatus and buildFocusList only rank the server statuses; no
+  // score, confidence, or verdict is computed in the browser.
+  extractFunction(inlineScript, 'planOf'),
   extractFunction(inlineScript, 'executionStatus'),
   extractFunction(inlineScript, 'buildFocusList'),
 ].join('\n'), context);
 
-const scored = data.items.filter((item) => item.ok !== false).map(context.scoreItem);
-const focus = context.buildFocusList(scored.filter((decision) => !decision.item.is_etf));
+const live = data.items.filter((item) => item.ok !== false);
+const stocks = live.filter((item) => !item.is_etf);
+assert.ok(stocks.length > 0, 'snapshot has tradeable candidates');
+const focus = context.buildFocusList(stocks);
 assert.ok(focus.length <= 5, 'current snapshot produces at most five focus candidates');
-assert.ok(focus.every((decision) => !decision.item.is_etf), 'focus candidates exclude ETFs');
+assert.ok(focus.every((decision) => !decision.is_etf), 'focus candidates exclude ETFs');
 assert.ok(
-  focus.filter((decision) => context.semiconductorTickers.includes(decision.item.ticker)).length <= 2,
+  focus.filter((decision) => context.semiconductorTickers.includes(decision.ticker)).length <= 2,
   'current snapshot produces at most two semiconductor candidates',
 );
+for (const item of live) {
+  const plan = context.planOf(item);
+  assert.ok(plan, `${item.ticker} maps to a display plan`);
+  assert.ok(['READY', 'WAIT', 'REJECT'].includes(plan.status), `${item.ticker} status is server vocabulary`);
+  if (item.swing) {
+    assert.equal(plan.status === 'READY', item.swing.verdict === 'BUY', `${item.ticker} server BUY maps to READY`);
+    assert.equal(plan.status === 'REJECT', item.swing.verdict === 'AVOID', `${item.ticker} server AVOID maps to REJECT`);
+    assert.equal(plan.verdict, item.swing.verdict, `${item.ticker} verdict letters come from the server`);
+  }
+  // Browser never manufactures scores for the 3-day contract.
+  if (item.swing_3d && typeof item.swing_3d === 'object' && item.swing_3d.status) {
+    assert.equal(plan.x3, true, `${item.ticker} is rendered via the swing_3d contract`);
+    assert.equal(plan.score, null, `${item.ticker} 3-day plan carries no synthetic score`);
+  }
+}
 
 console.log('PASS: beginner swing workflow contract');
