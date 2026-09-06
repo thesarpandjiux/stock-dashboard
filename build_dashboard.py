@@ -348,7 +348,6 @@ def main():
             stale["source"] = source
             items.append(stale)
             continue
-
         print(f"  → {t} ...", flush=True)
         item = build_item(t, source)
         if not item.get("ok"):
@@ -366,6 +365,11 @@ def main():
             items.append(item)
             continue
         item["refresh_failed"] = False
+        # Pertahankan status swing 1-3 hari (swing_3d) milik engine baru —
+        # build_swing_3d.py yang menulisnya, bukan mesin legacy ini.
+        prev_swing_3d = (prev_items.get(t) or {}).get("swing_3d")
+        if prev_swing_3d is not None:
+            item["swing_3d"] = prev_swing_3d
         items.append(item)
         time.sleep(md.PAUSE_BETWEEN)
 
@@ -383,6 +387,9 @@ def main():
         "updated": wib_stamp(now),
         "updated_iso": datetime.datetime.utcnow().isoformat(timespec="seconds"),
         "stale_after_hours": STALE_AFTER_HOURS,
+        # Mesin swing 1-3 hari (swing_3d.py) menulis section sendiri lewat
+        # build_swing_3d.py — jangan pernah hapus saat rebuild legacy.
+        "swing_3d": prev.get("swing_3d"),
         "macro": macro,
         "macro_read": macro_read(macro),
         "insights": build_insights(items, macro),
