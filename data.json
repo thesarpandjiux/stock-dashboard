@@ -5,14 +5,14 @@
  "swing_3d": {
   "mode": "PAPER",
   "phase": "daily",
-  "daily_asof": "2026-09-04T15:50:00-04:00",
+  "daily_asof": "2026-09-07T15:50:00-04:00",
   "h1_asof": null,
   "validation_report": {
    "valid": true,
    "errors": []
   },
   "disclaimer": "PAPER MODE - bukan rekomendasi; untuk monitoring/belajar. Belum ada order nyata; backtest/holdout belum lolos gate produksi.",
-  "generated_at": "2026-09-06T07:06:57+00:00"
+  "generated_at": "2026-09-08T00:25:05+00:00"
  },
  "macro": [
   {
@@ -276,29 +276,8 @@
    "has_todo": true,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "CANDIDATE",
+    "status": "REJECT",
     "phase": "DAILY",
-    "features": {
-     "bars": 252,
-     "price": 230.36000061035156,
-     "ema10": 222.44844178538006,
-     "ema20": 219.29936354594346,
-     "sma50": 210.56639953613282,
-     "ema20_slope": 0.7269461240445366,
-     "sma50_slope": 0.42928002929687636,
-     "rs_spy_5d": 5.779113764290211,
-     "atr": 7.619283403669085,
-     "atr_pct": 3.3075548634664753,
-     "extension_atr": 1.4516636904570082,
-     "dollar_volume": 31086344930.36499,
-     "resistance": 230.39999389648438
-    },
-    "reasons": [
-     "DAILY_REGIME_UP",
-     "RS_OUTPERFORMS_SPY"
-    ],
-    "blockers": [],
-    "asof": "2026-09-04T15:50:00-04:00",
     "entry": null,
     "stop": null,
     "target": null,
@@ -306,12 +285,16 @@
     "position_value": null,
     "risk_dollars": null,
     "risk_pct_account": null,
+    "reasons": [],
+    "blockers": [
+     "STALE_DAILY_DATA"
+    ],
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "trigger_low": 229.6300048828125,
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -528,29 +511,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 357.8999938964844,
-     "ema10": 366.10353525522964,
-     "ema20": 373.5482133614661,
-     "sma50": 383.66159973144534,
-     "ema20_slope": -1.2772482005588586,
-     "sma50_slope": -0.48656018066405976,
-     "rs_spy_5d": -3.0620904987695208,
-     "atr": 11.54571533203125,
-     "atr_pct": 3.2259613101224653,
-     "extension_atr": -1.3553269775817953,
-     "dollar_volume": 11729671239.96582,
-     "resistance": 359.3999938964844
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -765,29 +733,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 477.57000732421875,
-     "ema10": 468.8199372374817,
-     "ema20": 474.90626065644733,
-     "sma50": 499.2746008300781,
-     "ema20_slope": -1.3522052494313244,
-     "sma50_slope": -1.3601599121093841,
-     "rs_spy_5d": 2.4661004041456547,
-     "atr": 18.478572300502233,
-     "atr_pct": 3.8692907881790966,
-     "extension_atr": 0.14415327247435786,
-     "dollar_volume": 9385158026.934814,
-     "resistance": 478.75
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -1004,29 +957,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "NEGATIVE_RELATIVE_STRENGTH"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 258.510009765625,
-     "ema10": 259.1371657432462,
-     "ema20": 259.5985616259508,
-     "sma50": 253.9493994140625,
-     "ema20_slope": -0.27809183013097255,
-     "sma50_slope": 0.45803997802734103,
-     "rs_spy_5d": -3.0818184545090666,
-     "atr": 5.864285060337612,
-     "atr_pct": 2.268494386602049,
-     "extension_atr": -0.18562396764920447,
-     "dollar_volume": 7935740279.785156,
-     "resistance": 259.5
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -1241,29 +1179,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 338.4599914550781,
-     "ema10": 340.8503528027676,
-     "ema20": 343.1840727366855,
-     "sma50": 348.34984008789064,
-     "ema20_slope": -0.6164917724826751,
-     "sma50_slope": -0.24061511230468113,
-     "rs_spy_5d": -2.3921323160710273,
-     "atr": 6.596775305004546,
-     "atr_pct": 1.949056157758634,
-     "extension_atr": -0.716119780224061,
-     "dollar_volume": 7837954944.119263,
-     "resistance": 344.4585782378343
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -1476,29 +1399,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 1149.3599853515625,
-     "ema10": 1174.89551731384,
-     "ema20": 1185.3968950944623,
-     "sma50": 1190.3464331054688,
-     "ema20_slope": -3.711034295321679,
-     "sma50_slope": 0.9641425781250291,
-     "rs_spy_5d": -2.2588362685205365,
-     "atr": 35.172842843191965,
-     "atr_pct": 3.0602111863528476,
-     "extension_atr": -1.024566308261177,
-     "dollar_volume": 2550314871.496582,
-     "resistance": 1171.6600341796875
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -1703,7 +1611,7 @@
    "has_todo": true,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "WAIT",
+    "status": "REJECT",
     "phase": "DAILY",
     "entry": null,
     "stop": null,
@@ -1714,29 +1622,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "EARNINGS_UNVERIFIED"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
     "earnings_verified": false,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 708.010009765625,
-     "ema10": 705.9872628551385,
-     "ema20": 704.3301182399323,
-     "sma50": 695.7068041992187,
-     "ema20_slope": 0.1911278204353266,
-     "sma50_slope": 0.5409523925781059,
-     "rs_spy_5d": -0.0003098751690355783,
-     "atr": 5.027138846261161,
-     "atr_pct": 0.7100378210648903,
-     "extension_atr": 0.732005150092395,
-     "dollar_volume": 4819140932.470703,
-     "resistance": 711.52001953125
-    },
     "mode": "PAPER"
    }
   },
@@ -1941,7 +1834,7 @@
    "has_todo": true,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "WAIT",
+    "status": "REJECT",
     "phase": "DAILY",
     "entry": null,
     "stop": null,
@@ -1952,29 +1845,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "EARNINGS_UNVERIFIED"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
     "earnings_verified": false,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 718.9600219726562,
-     "ema10": 714.9760159630714,
-     "ema20": 714.2441676899632,
-     "sma50": 711.085,
-     "ema20_slope": 0.016136427044193623,
-     "sma50_slope": -0.1925480957031141,
-     "rs_spy_5d": 0.24395739623681578,
-     "atr": 8.257145472935267,
-     "atr_pct": 1.1484846473493218,
-     "extension_atr": 0.5711240401601696,
-     "dollar_volume": 23570816736.364746,
-     "resistance": 724.1300048828125
-    },
     "mode": "PAPER"
    }
   },
@@ -2191,29 +2069,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 1016.5900268554688,
-     "ema10": 957.946386063336,
-     "ema20": 944.3782950020806,
-     "sma50": 938.2628747558593,
-     "ema20_slope": 3.0090123641252378,
-     "sma50_slope": -3.341358886718763,
-     "rs_spy_5d": 8.86644137113004,
-     "atr": 46.677865164620535,
-     "atr_pct": 4.591611557414663,
-     "extension_atr": 1.5470230182703608,
-     "dollar_volume": 35699185337.072754,
-     "resistance": 1036.1300048828125
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -2430,29 +2293,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 107.13999938964844,
-     "ema10": 106.62110649809037,
-     "ema20": 107.8580452559475,
-     "sma50": 110.6732942199707,
-     "ema20_slope": -0.16005819049026115,
-     "sma50_slope": -0.2188573608398457,
-     "rs_spy_5d": 3.8194226014487187,
-     "atr": 2.8179321694248074,
-     "atr_pct": 2.6301401768507646,
-     "extension_atr": -0.25481304131093796,
-     "dollar_volume": 2199284195.4711914,
-     "resistance": 109.3499984741211
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -2669,29 +2517,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "DAILY_TREND_DOWN"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 428.9100036621094,
-     "ema10": 419.2240631314054,
-     "ema20": 418.438418261912,
-     "sma50": 420.40720031738283,
-     "ema20_slope": 0.04388906648147213,
-     "sma50_slope": -0.6050399169921888,
-     "rs_spy_5d": 2.618830038780917,
-     "atr": 10.617854527064733,
-     "atr_pct": 2.475543688980815,
-     "extension_atr": 0.9862242295282444,
-     "dollar_volume": 5265427877.957153,
-     "resistance": 429.1199951171875
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -2908,29 +2741,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "NEGATIVE_RELATIVE_STRENGTH"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 181.94000244140625,
-     "ema10": 184.05064529722443,
-     "ema20": 180.35220754368893,
-     "sma50": 162.96260009765626,
-     "ema20_slope": 0.3752855282921132,
-     "sma50_slope": 0.8379399414062505,
-     "rs_spy_5d": -4.063148733019306,
-     "atr": 4.857857840401786,
-     "atr_pct": 2.6700328543560716,
-     "extension_atr": 0.3268508362908356,
-     "dollar_volume": 619578484.3139648,
-     "resistance": 187.36000061035156
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -3147,29 +2965,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "NEGATIVE_RELATIVE_STRENGTH"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 499.70001220703125,
-     "ema10": 499.80297292992793,
-     "ema20": 489.8622415280798,
-     "sma50": 443.56208435058596,
-     "ema20_slope": 1.6903737098054763,
-     "sma50_slope": 2.7177416992187546,
-     "rs_spy_5d": -2.8023138078894116,
-     "atr": 10.081289268850266,
-     "atr_pct": 2.0174682854867485,
-     "extension_atr": 0.975844499309108,
-     "dollar_volume": 9031777900.634766,
-     "resistance": 515.6500244140625
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -3375,29 +3178,8 @@
    "has_todo": true,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "CANDIDATE",
+    "status": "REJECT",
     "phase": "DAILY",
-    "features": {
-     "bars": 252,
-     "price": 546.1199951171875,
-     "ema10": 546.7743239777673,
-     "ema20": 536.111666125497,
-     "sma50": 508.7641998291016,
-     "ema20_slope": 1.9117566271810347,
-     "sma50_slope": 1.6431201171875045,
-     "rs_spy_5d": 0.7086229985188819,
-     "atr": 12.465005057198661,
-     "atr_pct": 2.2824663386521666,
-     "extension_atr": 0.8029141541270864,
-     "dollar_volume": 438698192.0776367,
-     "resistance": 560.25
-    },
-    "reasons": [
-     "DAILY_REGIME_UP",
-     "RS_OUTPERFORMS_SPY"
-    ],
-    "blockers": [],
-    "asof": "2026-09-04T15:50:00-04:00",
     "entry": null,
     "stop": null,
     "target": null,
@@ -3405,12 +3187,16 @@
     "position_value": null,
     "risk_dollars": null,
     "risk_pct_account": null,
+    "reasons": [],
+    "blockers": [
+     "STALE_DAILY_DATA"
+    ],
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "trigger_low": 544.47998046875,
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -3613,7 +3399,7 @@
    "has_todo": false,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "WAIT",
+    "status": "REJECT",
     "phase": "DAILY",
     "entry": null,
     "stop": null,
@@ -3624,29 +3410,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "EXTENDED_FROM_EMA20"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 370.7200012207031,
-     "ema10": 358.4932707660185,
-     "ema20": 346.74910943310465,
-     "sma50": 314.4696929931641,
-     "ema20_slope": 2.5419004238423097,
-     "sma50_slope": 2.447446105957033,
-     "rs_spy_5d": 5.101398238076804,
-     "atr": 9.907860892159599,
-     "atr_pct": 2.672599498148223,
-     "extension_atr": 2.419381140743245,
-     "dollar_volume": 1056181283.4777832,
-     "resistance": 375.1099853515625
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -3849,7 +3620,7 @@
    "has_todo": false,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "WAIT",
+    "status": "REJECT",
     "phase": "DAILY",
     "entry": null,
     "stop": null,
@@ -3860,29 +3631,14 @@
     "risk_pct_account": null,
     "reasons": [],
     "blockers": [
-     "EXTENDED_FROM_EMA20"
+     "STALE_DAILY_DATA"
     ],
-    "asof": "2026-09-04T15:50:00-04:00",
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "features": {
-     "bars": 252,
-     "price": 388.8999938964844,
-     "ema10": 375.3872648573165,
-     "ema20": 361.03329767162336,
-     "sma50": 321.3609677124023,
-     "ema20_slope": 3.0714039160215862,
-     "sma50_slope": 2.738090820312493,
-     "rs_spy_5d": 5.332346941942667,
-     "atr": 10.438699939513015,
-     "atr_pct": 2.6841604791311826,
-     "extension_atr": 2.669556207797372,
-     "dollar_volume": 729070818.5577393,
-     "resistance": 398.5199890136719
-    },
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   },
@@ -4088,29 +3844,8 @@
    "has_todo": true,
    "refresh_failed": false,
    "swing_3d": {
-    "status": "CANDIDATE",
+    "status": "REJECT",
     "phase": "DAILY",
-    "features": {
-     "bars": 252,
-     "price": 256.4599914550781,
-     "ema10": 258.9902516248886,
-     "ema20": 257.5954955489184,
-     "sma50": 254.05090393066405,
-     "ema20_slope": 0.1756870230819004,
-     "sma50_slope": 0.5748134155273419,
-     "rs_spy_5d": 0.27440343391091915,
-     "atr": 5.771421160016741,
-     "atr_pct": 2.2504177463593464,
-     "extension_atr": -0.19674601148618553,
-     "dollar_volume": 1212748007.5927734,
-     "resistance": 264.25
-    },
-    "reasons": [
-     "DAILY_REGIME_UP",
-     "RS_OUTPERFORMS_SPY"
-    ],
-    "blockers": [],
-    "asof": "2026-09-04T15:50:00-04:00",
     "entry": null,
     "stop": null,
     "target": null,
@@ -4118,12 +3853,16 @@
     "position_value": null,
     "risk_dollars": null,
     "risk_pct_account": null,
+    "reasons": [],
+    "blockers": [
+     "STALE_DAILY_DATA"
+    ],
+    "asof": "2026-09-04T00:00:00-04:00",
+    "data_fresh": false,
     "trigger": null,
     "reward_risk": null,
     "exit_deadline": null,
-    "earnings_verified": true,
-    "data_fresh": true,
-    "trigger_low": 255.5800018310547,
+    "earnings_verified": false,
     "mode": "PAPER"
    }
   }
