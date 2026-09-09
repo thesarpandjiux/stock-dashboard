@@ -15,7 +15,7 @@ import validate_swing_data as v
 EDT = dt.timezone(dt.timedelta(hours=-4))
 
 
-def iso(d, hh=15, mm=50):
+def iso(d, hh=16, mm=0):
     return "%sT%02d:%02d:00-04:00" % (d.isoformat(), hh, mm)
 
 

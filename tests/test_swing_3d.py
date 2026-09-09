@@ -234,7 +234,7 @@ class TestH1Confirmation(unittest.TestCase):
         self.assertEqual(r["status"], "READY")
         self.assertEqual(r["trigger"], "BREAKOUT_5D")
         self.assertAlmostEqual(r["reward_risk"], 2.0)
-        self.assertEqual(r["exit_deadline"], "2026-09-03T15:50:00-04:00")
+        self.assertEqual(r["exit_deadline"], "2026-09-03T16:00:00-04:00")
         self.assertIs(r["earnings_verified"], True)
         self.assertIs(r["data_fresh"], True)
 
@@ -246,7 +246,7 @@ class TestH1Confirmation(unittest.TestCase):
             "2026-09-04T14:31:00-04:00",
         )
         self.assertEqual(r["status"], "READY")
-        self.assertEqual(r["exit_deadline"], "2026-09-08T15:50:00-04:00")
+        self.assertEqual(r["exit_deadline"], "2026-09-09T16:00:00-04:00")
 
     def test_non_candidate_is_not_confirmed(self):
         c = self.candidate()

@@ -90,13 +90,14 @@ for (const item of live) {
   const plan = context.planOf(item);
   assert.ok(plan, `${item.ticker} maps to a display plan`);
   assert.ok(['READY', 'WAIT', 'REJECT'].includes(plan.status), `${item.ticker} status is server vocabulary`);
-  if (item.swing) {
+  const has3d = item.swing_3d && typeof item.swing_3d === 'object' && item.swing_3d.status;
+  if (item.swing && !has3d) {
     assert.equal(plan.status === 'READY', item.swing.verdict === 'BUY', `${item.ticker} server BUY maps to READY`);
     assert.equal(plan.status === 'REJECT', item.swing.verdict === 'AVOID', `${item.ticker} server AVOID maps to REJECT`);
     assert.equal(plan.verdict, item.swing.verdict, `${item.ticker} verdict letters come from the server`);
   }
   // Browser never manufactures scores for the 3-day contract.
-  if (item.swing_3d && typeof item.swing_3d === 'object' && item.swing_3d.status) {
+  if (has3d) {
     assert.equal(plan.x3, true, `${item.ticker} is rendered via the swing_3d contract`);
     assert.equal(plan.score, null, `${item.ticker} 3-day plan carries no synthetic score`);
   }

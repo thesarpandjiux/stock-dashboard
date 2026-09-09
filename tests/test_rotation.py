@@ -159,13 +159,15 @@ class TestBootstrapAnchor(unittest.TestCase):
         observed = self._year()
         s.rotate_if_due(observed, ["NVDA"], state=s.RotationState(self.path))
         anchor = s.RotationState(self.path).anchor
+        # anchor+3 (Sep 7) is Labor Day: a real exchange holiday, so it must
+        # not advance the gate. Five new sessions = Sep 8,9,10,11,14.
         five = observed + [anchor + dt.timedelta(days=i)
-                           for i in (3, 4, 5, 6, 7)]
+                           for i in (3, 4, 5, 6, 7, 10)]
         s.run = lambda *a, **kw: [{"ticker": "ABNB", "score": 80}]
         ok, msg = s.rotate_if_due(five, ["NVDA"], state=s.RotationState(self.path))
         self.assertTrue(ok, msg)
         self.assertEqual(s.RotationState(self.path).anchor,
-                         anchor + dt.timedelta(days=7))
+                         anchor + dt.timedelta(days=10))
 
 
 class TestOnlyCompleted(unittest.TestCase):

@@ -1,4 +1,5 @@
 import math
+import exchange_sessions as xs
 from datetime import datetime, timedelta
 
 
@@ -203,26 +204,8 @@ def _parse_iso(value):
 
 
 def _nth_trading_day_close(start_iso, session_number):
-    """Close time (15:50) of the `session_number`-th trading session, where
-    the session containing start_iso counts as session 1; weekdays only.
-
-    A position entered during session 1 on its H1 close may be held through
-    the close of session 3, so the deadline is the close of the session
-    `session_number - 1` sessions later.
-
-    ponytail: weekday-only calendar; real exchange holidays (and early
-    closes) shift the true third-day deadline. Replace with a holiday
-    calendar before production.
-    """
-    start = _parse_iso(start_iso)
-    day = start.date()
-    remaining = session_number - 1
-    while remaining > 0:
-        day += timedelta(days=1)
-        if day.weekday() < 5:
-            remaining -= 1
-    return datetime.combine(day, start.timetz().replace(hour=15, minute=50)).isoformat()
-
+    """Actual close of session N, entry session counts as session one."""
+    return xs.nth_close(start_iso, session_number)
 
 def h1_features(opens, highs, lows, closes, volumes, vwaps,
                 expected_first_hour_volume, asofs):

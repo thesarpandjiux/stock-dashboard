@@ -28,6 +28,7 @@ from datetime import date, datetime, timezone
 
 import swing
 import market_data as md
+import exchange_sessions as xs
 import watchlist as wl
 
 MIN_SCORE = 60
@@ -88,7 +89,7 @@ def _session_dates_of(bars):
         except ValueError:
             continue
         day = parsed.date()
-        if day.weekday() >= 5:
+        if not xs.is_session(day):
             continue
         if day not in seen:
             seen.add(day)
@@ -97,28 +98,12 @@ def _session_dates_of(bars):
 
 
 def _only_completed(dates, now=None):
-    """Sesi lengkap saja; sesi HARI INI dibuang hanya bila bursa belum tutup.
-
-    Caller CI jalan 23:00 UTC (18:00-19:00 ET), yaitu setelah close 15:50 ET,
-    jadi bar harian hari ini SUDAH sesi lengkap dan harus ikut dihitung —
-    membuangnya tanpa syarat memperlambat kadens jadi 6 sesi (C-1). Bar
-    intraday (dipanggil saat bursa masih buka) tetap dibuang.
-    """
-    if not dates:
-        return []
-    out = [d for d in dates if d.weekday() < 5]
-    if not out:
-        return []
-    now = now or md._now_et()
+    """Only observed, verified sessions whose actual close has passed."""
     try:
-        today = now.astimezone(md.ET)
-    except (AttributeError, ValueError, OverflowError):
-        return out[:-1] if len(out) > 1 else out    # fail closed
-    if (out[-1] == today.date()
-            and (today.hour, today.minute) < md.SESSION_CLOSE):
-        return out[:-1] if len(out) > 1 else out
-    return out
-
+        now = xs.aware(now or md._now_et())
+        return [d for d in dates if xs.is_session(d) and xs.session_close(d) <= now]
+    except (ValueError, TypeError, xs.CalendarUnavailable):
+        return []
 
 def _new_sessions(anchor, observed):
     """Sesi unik naik yang terjadi SETELAH anchor (anchor tidak dihitung)."""
@@ -127,7 +112,7 @@ def _new_sessions(anchor, observed):
     uniq = []
     seen = set()
     for d in sorted(observed):
-        if d.weekday() >= 5 or d in seen:
+        if not xs.is_session(d) or d in seen:
             continue
         seen.add(d)
         if anchor is None or d > anchor:
@@ -213,7 +198,7 @@ class RotationState:
                 d = date.fromisoformat(str(s))
             except ValueError:
                 continue
-            if d.weekday() < 5:
+            if xs.is_session(d):
                 self.sessions.append(d)
         self.sessions = sorted(set(self.sessions))
 

@@ -49,6 +49,7 @@ import sys
 import tempfile
 from datetime import date, datetime, timedelta, timezone
 
+import exchange_sessions as xs
 import market_data as md
 import swing_3d as s
 import validate_swing_data as v
@@ -67,7 +68,7 @@ DISCLAIMER = (
     "Belum ada order nyata; backtest/holdout belum lolos gate produksi."
 )
 
-_CLOSE = (15, 50)  # US session close, ET — matches market_data.SESSION_CLOSE
+
 
 
 # --------------------------------------------------------------------------
@@ -85,26 +86,13 @@ def et_now(iso_now=None):
 
 
 def latest_session_date(now):
-    """Date of the latest completed US session as of `now`.
-
-    A session counts as completed once ET time passes 15:50 on a weekday.
-    Before that (or on weekends) the latest completed session is the most
-    recent prior weekday. ponytail: weekday-only, matching market_data /
-    swing_3d; exchange holidays need a real calendar before production.
-    """
-    d = now.date()
-    if (now.hour, now.minute) < _CLOSE:
-        d -= timedelta(days=1)
-    while d.weekday() >= 5:
-        d -= timedelta(days=1)
-    return d
-
+    """Latest completed XNYS session, including holidays and early closes."""
+    return xs.latest_completed(now)
 
 def earnings_in_trading_days(earnings_date_iso, session_date):
-    """Weekday sessions from session_date (exclusive) to earnings (inclusive).
+    """Exchange sessions from session_date (exclusive) to earnings (inclusive).
 
     None when the earnings date is missing or falls before the session.
-    ponytail: weekday-only, consistent with swing_3d._nth_trading_day_close.
     """
     if not earnings_date_iso:
         return None
@@ -114,13 +102,7 @@ def earnings_in_trading_days(earnings_date_iso, session_date):
         return None
     if target <= session_date:
         return None
-    days = 0
-    cursor = session_date
-    while cursor < target:
-        cursor += timedelta(days=1)
-        if cursor.weekday() < 5:
-            days += 1
-    return days
+    return xs.sessions_between(session_date, target)
 
 
 # --------------------------------------------------------------------------
@@ -152,7 +134,7 @@ def eval_daily_record(ticker, bars, spy_bars, session, earnings_status):
     decision contract. A READY from an earlier run is never produced here
     — the caller preserves or clears it.
     """
-    session_iso = "%sT15:50:00-04:00" % session.isoformat()
+    session_iso = xs.session_close(session).isoformat()
     arrays = bars_arrays(bars)
     spy_arrays = bars_arrays(spy_bars)
     if arrays is None or spy_arrays is None:
@@ -226,12 +208,8 @@ def _contract_from(decision, features, earnings_verified=False):
 
 
 def next_session_date(day):
-    """Next weekday strictly after `day` (the session a signal can enter)."""
-    d = day + timedelta(days=1)
-    while d.weekday() >= 5:
-        d += timedelta(days=1)
-    return d
-
+    """Next exchange session strictly after day."""
+    return xs.next_session(day)
 
 def eval_h1_record(candidate, bars, session):
     """H1 confirmation record for one daily CANDIDATE (pure).
@@ -257,10 +235,10 @@ def eval_h1_record(candidate, bars, session):
     indices = []
     for i, a in enumerate(asofs):
         try:
-            parsed = datetime.fromisoformat(str(a))
-        except ValueError:
+            parsed = xs.aware(str(a))
+        except (ValueError, TypeError):
             continue
-        if parsed.hour != 9 or parsed.minute != 30:
+        if not xs.is_session(parsed.date()) or parsed != xs.session_open(parsed.date()):
             continue
         if parsed.date().isoformat() > session.isoformat():
             continue
@@ -268,7 +246,7 @@ def eval_h1_record(candidate, bars, session):
     if not indices:
         out = s.reject("DATA_FETCH_FAILED", "H1", cand_asof)
         return _preserve(out, candidate)
-    h1_close_day = str(asofs[indices[-1]])[:10]
+    h1_close_day = xs.aware(asofs[indices[-1]]).date().isoformat()
     if h1_close_day != session.isoformat():
         # The newest completed first-hour bar is not from the session the
         # candidate enters; today's H1 is incomplete or missing.
@@ -311,7 +289,7 @@ def eval_h1_record(candidate, bars, session):
     h1_ctx["data_fresh"] = True
     h1_ctx["earnings_verified"] = candidate.get("earnings_verified", False)
     decision = s.confirm_h1(candidate, h1_ctx, daily_ctx,
-                            "%sT10:31:00-04:00" % session.isoformat())
+                            (xs.session_open(session) + timedelta(minutes=61)).isoformat())
     rec = dict(decision)
     for key in ("entry", "stop", "target", "shares", "position_value",
                 "risk_dollars", "risk_pct_account"):
@@ -324,16 +302,11 @@ def eval_h1_record(candidate, bars, session):
 
 def _now_for(session):
     """A safe decision clock: 10:31 ET on the candidate's entry session."""
-    return "%sT10:31:00-04:00" % session.isoformat()
+    return (xs.session_open(session) + timedelta(minutes=61)).isoformat()
 
 
 def _prev_trading_day_iso(session):
-    """ISO date of the immediately previous trading session of `session`."""
-    cursor = session - timedelta(days=1)
-    while cursor.weekday() >= 5:
-        cursor -= timedelta(days=1)
-    return cursor.isoformat()
-
+    return xs.previous_session(session).isoformat()
 
 def _preserve(out, candidate):
     """Keep the candidate's execution values but force status off READY."""
@@ -384,7 +357,7 @@ def run_daily_phase(now_iso, tickers, provider, prior=None, session=None):
         old = prior.get(ticker) or {}
         if bars is None:
             rec = s.reject("DATA_FETCH_FAILED", "DAILY",
-                           "%sT15:50:00-04:00" % session.isoformat())
+                           xs.session_close(session).isoformat())
             _preserve_levels(rec, old)
             rec["data_fresh"] = False
             records[ticker] = _pad_contract(rec)
@@ -457,8 +430,7 @@ def run_h1_phase(now_iso, provider, prior):
             # passed unconfirmed, so the candidate is stale.
             records[ticker] = _pad_contract(_stale(old, cand_asof))
             continue
-        entry_open = datetime(session.year, session.month, session.day,
-                              10, 31, tzinfo=md.ET)
+        entry_open = xs.session_open(session) + timedelta(minutes=61)
         if now < entry_open:
             # The first hour of the entry session has not completed yet;
             # the candidate is simply not processable. Carry it over
@@ -594,10 +566,18 @@ def parse_args(argv=None):
 
 def main(argv=None):
     args = parse_args(argv)
+    now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    try:
+        reason = xs.phase_skip_reason(args.phase, now_iso)
+    except (xs.CalendarUnavailable, ValueError) as exc:
+        print("ERROR CALENDAR_UNAVAILABLE: %s" % exc, file=sys.stderr)
+        return 2
+    if reason:
+        print("SKIP %s phase=%s now=%s" % (reason, args.phase, now_iso))
+        return 0
     payload = load_payload(args.out)
     tickers = watchlist.resolve()
     mode = resolve_mode(args.mode, read_validation_gate())
-    now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
     provider = LiveProvider()
 
     old_records = {
@@ -610,7 +590,7 @@ def main(argv=None):
     if args.phase == "daily":
         records, session = run_daily_phase(now_iso, tickers, provider,
                                            prior=old_records)
-        daily_asof = "%sT15:50:00-04:00" % session.isoformat()
+        daily_asof = xs.session_close(session).isoformat()
         meta = build_meta(mode, "daily", daily_asof, None, now_iso)
         for item in payload.get("items", []):
             if isinstance(item, dict) and item.get("ticker"):
