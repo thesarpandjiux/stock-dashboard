@@ -2,3 +2,4 @@ yfinance
 requests
 pandas
 lxml
+exchange-calendars==4.13.2

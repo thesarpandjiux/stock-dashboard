@@ -17,6 +17,8 @@ Fundamental hanya tersedia dari Yahoo; kalau gagal, dict kosong yang dikembalika
 dan skor fundamental jatuh ke nilai netral.
 """
 
+import exchange_sessions as xs
+
 import io
 import math
 import re
@@ -33,25 +35,10 @@ RETRIES = 3
 BACKOFF = 2.5           # detik, dikalikan percobaan ke-n
 PAUSE_BETWEEN = 0.6     # jeda sopan antar ticker
 
-# 1-3 day swing mode. Sesinya dianggap "lengkap" bila sekarang sudah lewat
-# 15:50 ET (data harian tersedia) pada hari bursa; sebaliknya kemarin.
-# ponytail: weekday-only calendar; real exchange holidays shift the true
-# last-completed session. Replace with a holiday calendar before production.
-ET = timezone.utc  # fallback bila tzdata absen; _now_et memperbaiki di bawah
-try:
-    import zoneinfo
-    ET = zoneinfo.ZoneInfo("America/New_York")
-except Exception:  # noqa: BLE001 -- pragma: no cover
-    pass
-SESSION_CLOSE = (15, 50)
+ET = xs.ET
 
 
 def _now_et():
-    """Current time in America/New_York, timezone-aware.
-
-    ponytail: weekday-only mapping, no holiday calendar; flags full-session
-    absence for freshness gating until a real exchange calendar lands.
-    """
     return datetime.now(ET)
 
 
@@ -262,11 +249,9 @@ def get_daily_bars(ticker: str, period: str = "1y") -> "Bars | None":
 
 
 def get_h1_bars(ticker: str, period: str = "60d") -> "Bars | None":
-    """Bars H1 (interval "60m", 09:30-10:30 ET) untuk hari yang lalu.
+    """Completed exchange first-hour bars, including today's after 10:30 ET.
 
-    Batasi sampai bar 10:30 kemarin: bar pertama hari ini belum selesai,
-    bar selanjutnya bukan bagian sesi pertama. Tidak pernah fallback ke
-    data harian; kegagalan apa pun -> None.
+    No daily fallback. Calendar failures propagate before any snapshot write.
     """
     bars = None
     for attempt in range(RETRIES):
@@ -282,16 +267,15 @@ def get_h1_bars(ticker: str, period: str = "60d") -> "Bars | None":
     now = _now_et()
     cut = []
     for i, stamp in enumerate(bars.asofs):
-        parsed = datetime.fromisoformat(stamp)
-        et = parsed.astimezone(ET)
-        if et.weekday() < 5 and et.hour == 9 and et.minute == 30:
-            cut.append(i)          # bar 09:30 ET = jam pertama sesi
-    while cut:                     # buang bar 09:30 yang sesinya belum tutup
-        ts = datetime.fromisoformat(bars.asofs[cut[-1]])
-        if now < datetime(ts.year, ts.month, ts.day, *SESSION_CLOSE, tzinfo=ET):
-            cut.pop()
-        else:
-            break
+        try:
+            et = xs.aware(stamp)
+        except (ValueError, TypeError):
+            continue
+        if not xs.is_session(et.date()):
+            continue
+        opening = xs.session_open(et.date())
+        if et == opening and opening + timedelta(hours=1) <= now:
+            cut.append(i)
     if not cut:
         return None               # bar pertama hari ini = belum selesai
     return Bars(
@@ -307,24 +291,12 @@ def get_h1_bars(ticker: str, period: str = "60d") -> "Bars | None":
 
 
 def is_session_complete(when):
-    """True bila `when` jatuh setelah close 15:50 ET pada hari bursa.
-
-    ponytail: weekday-only; real exchange holidays misclassified as
-    complete sessions. Swap in a holiday calendar before production.
-    """
-    if isinstance(when, str):
-        try:
-            when = datetime.fromisoformat(when)
-        except ValueError:
-            return False
+    """True only at/after the actual exchange close on a session date."""
     try:
-        when = when.astimezone(ET)
-    except (AttributeError, ValueError, OverflowError):
+        when = xs.aware(when)
+        return xs.is_session(when.date()) and when >= xs.session_close(when.date())
+    except (ValueError, TypeError, xs.CalendarUnavailable):
         return False
-    if when.weekday() >= 5:
-        return False
-    return (when.hour, when.minute) >= SESSION_CLOSE
-
 
 def _coerce_ts(value):
     """ISO string/aware datetime/date -> aware datetime UTC; else None."""

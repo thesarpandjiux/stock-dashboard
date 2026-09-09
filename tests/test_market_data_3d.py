@@ -72,7 +72,7 @@ class TestFreshness(unittest.TestCase):
         self.assertIs(md.is_session_complete("2026-09-02T09:30:00-04:00"), False)
 
     def test_weekday_afternoon_has_completed_session(self):
-        self.assertIs(md.is_session_complete("2026-09-02T15:50:00-04:00"), True)
+        self.assertIs(md.is_session_complete("2026-09-02T16:00:00-04:00"), True)
 
     def test_weekend_daytime_has_no_completed_session(self):
         self.assertIs(md.is_session_complete("2026-09-05T12:00:00-04:00"), False)
